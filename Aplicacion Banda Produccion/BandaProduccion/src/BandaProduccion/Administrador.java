@@ -6,6 +6,7 @@ public class Administrador extends javax.swing.JFrame {
 
     public Administrador() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
 
@@ -46,8 +47,8 @@ public class Administrador extends javax.swing.JFrame {
             AdminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AdminPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(UsuarioID, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
-                .addContainerGap(1697, Short.MAX_VALUE))
+                .addComponent(UsuarioID, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                .addContainerGap(1646, Short.MAX_VALUE))
         );
         AdminPanelLayout.setVerticalGroup(
             AdminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -61,7 +62,7 @@ public class Administrador extends javax.swing.JFrame {
         kGradientPanel1.setLayout(kGradientPanel1Layout);
         kGradientPanel1Layout.setHorizontalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(AdminPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1920, Short.MAX_VALUE)
+            .addComponent(AdminPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1818, Short.MAX_VALUE)
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

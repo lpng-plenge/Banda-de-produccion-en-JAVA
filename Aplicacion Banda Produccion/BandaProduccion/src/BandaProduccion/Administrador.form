@@ -60,7 +60,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="AdminPanel" alignment="0" pref="1920" max="32767" attributes="0"/>
+              <Component id="AdminPanel" alignment="0" pref="1818" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -88,8 +88,8 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="UsuarioID" pref="211" max="32767" attributes="0"/>
-                      <EmptySpace pref="1697" max="32767" attributes="0"/>
+                      <Component id="UsuarioID" pref="160" max="32767" attributes="0"/>
+                      <EmptySpace pref="1646" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

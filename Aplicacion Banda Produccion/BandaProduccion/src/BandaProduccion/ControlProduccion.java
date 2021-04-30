@@ -5,6 +5,7 @@ public class ControlProduccion extends javax.swing.JFrame {
 
     public ControlProduccion() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
 
@@ -17,6 +18,7 @@ public class ControlProduccion extends javax.swing.JFrame {
         txtUsuarioID = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(1024, 640));
         setName("Empleado"); // NOI18N
         setPreferredSize(new java.awt.Dimension(1024, 640));
         setSize(new java.awt.Dimension(1024, 640));
@@ -45,8 +47,8 @@ public class ControlProduccion extends javax.swing.JFrame {
             ControlProduccionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ControlProduccionPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtUsuarioID, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
-                .addContainerGap(1697, Short.MAX_VALUE))
+                .addComponent(txtUsuarioID, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                .addContainerGap(1646, Short.MAX_VALUE))
         );
         ControlProduccionPanelLayout.setVerticalGroup(
             ControlProduccionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -60,7 +62,7 @@ public class ControlProduccion extends javax.swing.JFrame {
         kGradientPanel1.setLayout(kGradientPanel1Layout);
         kGradientPanel1Layout.setHorizontalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ControlProduccionPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1920, Short.MAX_VALUE)
+            .addComponent(ControlProduccionPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1818, Short.MAX_VALUE)
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -73,7 +75,7 @@ public class ControlProduccion extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1920, Short.MAX_VALUE)
+            .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1818, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

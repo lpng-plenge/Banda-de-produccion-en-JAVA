@@ -7,6 +7,7 @@ public class IniciarSesion extends javax.swing.JFrame {
 
     public IniciarSesion() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
 
@@ -18,6 +19,7 @@ public class IniciarSesion extends javax.swing.JFrame {
         PanelPrincipalPanel = new javax.swing.JPanel();
         PanelPrincipal = new javax.swing.JLabel();
         PanelDatosGral = new javax.swing.JPanel();
+        jLabelError = new javax.swing.JLabel();
         jLabelUsuario = new javax.swing.JLabel();
         txtUsuario = new javax.swing.JTextField();
         jLabelPassword = new javax.swing.JLabel();
@@ -72,13 +74,23 @@ public class IniciarSesion extends javax.swing.JFrame {
         PanelDatosGral.setMinimumSize(new java.awt.Dimension(400, 230));
         PanelDatosGral.setPreferredSize(new java.awt.Dimension(400, 300));
 
+        jLabelError.setBackground(new java.awt.Color(209, 49, 53));
+        jLabelError.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        jLabelError.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelError.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelError.setAutoscrolls(true);
+        jLabelError.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabelError.setMaximumSize(new java.awt.Dimension(0, 30));
+
         jLabelUsuario.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         jLabelUsuario.setForeground(new java.awt.Color(255, 255, 255));
         jLabelUsuario.setText("Usuario:");
 
         txtUsuario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtUsuario.setForeground(new java.awt.Color(112, 112, 112));
+        txtUsuario.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         txtUsuario.setToolTipText("");
+        txtUsuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(21, 127, 251)));
         txtUsuario.setMaximumSize(new java.awt.Dimension(352, 30));
         txtUsuario.setMinimumSize(new java.awt.Dimension(352, 30));
         txtUsuario.setName(""); // NOI18N
@@ -90,10 +102,11 @@ public class IniciarSesion extends javax.swing.JFrame {
 
         txtPassword.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtPassword.setForeground(new java.awt.Color(112, 112, 112));
+        txtPassword.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         txtPassword.setToolTipText("");
         txtPassword.setAlignmentX(1.0F);
         txtPassword.setAlignmentY(1.0F);
-        txtPassword.setBorder(null);
+        txtPassword.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(21, 127, 251)));
         txtPassword.setMaximumSize(new java.awt.Dimension(352, 30));
         txtPassword.setMinimumSize(new java.awt.Dimension(352, 30));
         txtPassword.setName(""); // NOI18N
@@ -113,23 +126,26 @@ public class IniciarSesion extends javax.swing.JFrame {
         PanelDatosGral.setLayout(PanelDatosGralLayout);
         PanelDatosGralLayout.setHorizontalGroup(
             PanelDatosGralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelDatosGralLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(PanelDatosGralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(20, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelDatosGralLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(95, 95, 95))
+            .addGroup(PanelDatosGralLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(PanelDatosGralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabelPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         PanelDatosGralLayout.setVerticalGroup(
             PanelDatosGralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelDatosGralLayout.createSequentialGroup()
-                .addGap(60, 60, 60)
+                .addGap(24, 24, 24)
+                .addComponent(jLabelError, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+                .addGap(24, 24, 24)
                 .addComponent(jLabelUsuario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -137,7 +153,7 @@ public class IniciarSesion extends javax.swing.JFrame {
                 .addComponent(jLabelPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
                 .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addGap(39, 39, 39)
                 .addComponent(btnIniciarSesion)
                 .addGap(24, 24, 24))
         );
@@ -177,10 +193,78 @@ public class IniciarSesion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
-        // TODO add your handling code here:
+        if(!verificarCampos()){
+            jLabelError.setText("Datos incompletos");
+        }else{
+            if(!dbTipoUsuario()){
+                jLabelError.setText("No se encontro el usuario");
+            }else{
+               limpiarCampos();
+            }
+        }
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
+    public boolean dbTipoUsuario(){
+        String usuario = txtUsuario.getText(), password = txtPassword.getText(), tipo1="administrador", tipo2 = "empleado";
+        boolean estatus = false;
+        //buscar el usuario y la contraseña si se encuentran retorname el tipo de usuario
+        
+        
+        if(usuario.equals("admin") && password.equals("root")){
+            estatus=true;
+            txtBorderColors(estatus);
+            //pasar los datos a una clase para seguir trabajando en la siguiente ventana
 
-
+            //ir a la ventana
+            Administrador admin = new Administrador();
+            admin.setVisible(true);
+            this.setVisible(false);
+            return estatus;
+        }else if(usuario.equals("lpng") && password.equals("123")){
+            estatus=true;
+            txtBorderColors(estatus);
+            //pasar los datos a una clase para seguir trabajando en la siguiente ventana
+            
+            //ir a la ventana
+            ControlProduccion cp= new ControlProduccion();
+            cp.setVisible(true);
+            this.setVisible(false);
+            return estatus;
+        }else{
+            txtBorderColors(estatus);
+            return estatus;
+        }
+    }
+    public boolean verificarCampos(){
+        String usuario = txtUsuario.getText(),password=txtPassword.getText();
+        boolean estatus;
+        if(usuario.equals("")||password.equals("")){
+            estatus=false;
+            txtBorderColors(estatus);
+            return estatus;
+        }
+        else{
+            estatus=true;
+            jLabelError.setText("");
+            txtBorderColors(estatus);
+            return true;   
+        }
+    }
+    public void limpiarCampos(){
+        txtPassword.setText("");
+        txtUsuario.setText("");
+    }
+    public void txtBorderColors(boolean obj){
+        if(!obj){
+            jLabelError.setOpaque(true);
+            txtUsuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(209,49,53)));
+            txtPassword.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(209,49,53)));
+        }else{
+            jLabelError.setOpaque(false);
+            txtUsuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(21,127,251)));
+            txtPassword.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(21, 127, 251)));
+        }
+    }
+    
     public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -205,12 +289,12 @@ public class IniciarSesion extends javax.swing.JFrame {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelDatosGral;
     private javax.swing.JLabel PanelPrincipal;
     private javax.swing.JPanel PanelPrincipalPanel;
     private javax.swing.JButton btnIniciarSesion;
+    private javax.swing.JLabel jLabelError;
     private javax.swing.JLabel jLabelPassword;
     private javax.swing.JLabel jLabelUsuario;
     private keeptoo.KGradientPanel kGradientPanel1;
