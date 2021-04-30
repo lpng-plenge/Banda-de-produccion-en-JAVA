@@ -24,7 +24,8 @@ public class ControlProduccion extends javax.swing.JFrame {
         kGradientPanel1.setkEndColor(new java.awt.Color(250, 250, 250));
         kGradientPanel1.setkGradientFocus(180);
         kGradientPanel1.setkStartColor(new java.awt.Color(191, 191, 191));
-        kGradientPanel1.setMinimumSize(new java.awt.Dimension(1920, 720));
+        kGradientPanel1.setMinimumSize(new java.awt.Dimension(1024, 640));
+        kGradientPanel1.setPreferredSize(new java.awt.Dimension(1024, 640));
 
         ControlProduccionPanel.setBackground(new java.awt.Color(34, 34, 34));
         ControlProduccionPanel.setPreferredSize(new java.awt.Dimension(1024, 64));
@@ -72,11 +73,11 @@ public class ControlProduccion extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1920, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(kGradientPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(kGradientPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 720, Short.MAX_VALUE)
         );
 
         pack();

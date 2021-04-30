@@ -17,9 +17,16 @@ public class IniciarSesion extends javax.swing.JFrame {
         kGradientPanel1 = new keeptoo.KGradientPanel();
         PanelPrincipalPanel = new javax.swing.JPanel();
         PanelPrincipal = new javax.swing.JLabel();
+        PanelDatosGral = new javax.swing.JPanel();
+        jLabelUsuario = new javax.swing.JLabel();
+        txtUsuario = new javax.swing.JTextField();
+        jLabelPassword = new javax.swing.JLabel();
+        txtPassword = new javax.swing.JPasswordField();
+        btnIniciarSesion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setMinimumSize(new java.awt.Dimension(1024, 640));
         setName("IniciarSesion"); // NOI18N
         setPreferredSize(new java.awt.Dimension(1024, 640));
         setSize(new java.awt.Dimension(1024, 640));
@@ -27,7 +34,7 @@ public class IniciarSesion extends javax.swing.JFrame {
         kGradientPanel1.setkEndColor(new java.awt.Color(250, 250, 250));
         kGradientPanel1.setkGradientFocus(180);
         kGradientPanel1.setkStartColor(new java.awt.Color(191, 191, 191));
-        kGradientPanel1.setMinimumSize(new java.awt.Dimension(1920, 720));
+        kGradientPanel1.setMinimumSize(new java.awt.Dimension(1024, 640));
 
         PanelPrincipalPanel.setBackground(new java.awt.Color(34, 34, 34));
         PanelPrincipalPanel.setPreferredSize(new java.awt.Dimension(1024, 64));
@@ -47,8 +54,8 @@ public class IniciarSesion extends javax.swing.JFrame {
             PanelPrincipalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelPrincipalPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(PanelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
-                .addContainerGap(1697, Short.MAX_VALUE))
+                .addComponent(PanelPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         PanelPrincipalPanelLayout.setVerticalGroup(
             PanelPrincipalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -58,17 +65,100 @@ public class IniciarSesion extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        PanelDatosGral.setBackground(new java.awt.Color(13, 13, 13));
+        PanelDatosGral.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, java.awt.Color.white, null, java.awt.Color.white));
+        PanelDatosGral.setForeground(new java.awt.Color(250, 250, 250));
+        PanelDatosGral.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        PanelDatosGral.setMinimumSize(new java.awt.Dimension(400, 230));
+        PanelDatosGral.setPreferredSize(new java.awt.Dimension(400, 300));
+
+        jLabelUsuario.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        jLabelUsuario.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelUsuario.setText("Usuario:");
+
+        txtUsuario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtUsuario.setForeground(new java.awt.Color(112, 112, 112));
+        txtUsuario.setToolTipText("");
+        txtUsuario.setMaximumSize(new java.awt.Dimension(352, 30));
+        txtUsuario.setMinimumSize(new java.awt.Dimension(352, 30));
+        txtUsuario.setName(""); // NOI18N
+        txtUsuario.setPreferredSize(new java.awt.Dimension(352, 30));
+
+        jLabelPassword.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        jLabelPassword.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelPassword.setText("Contraseña:");
+
+        txtPassword.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtPassword.setForeground(new java.awt.Color(112, 112, 112));
+        txtPassword.setToolTipText("");
+        txtPassword.setAlignmentX(1.0F);
+        txtPassword.setAlignmentY(1.0F);
+        txtPassword.setBorder(null);
+        txtPassword.setMaximumSize(new java.awt.Dimension(352, 30));
+        txtPassword.setMinimumSize(new java.awt.Dimension(352, 30));
+        txtPassword.setName(""); // NOI18N
+        txtPassword.setPreferredSize(new java.awt.Dimension(352, 30));
+
+        btnIniciarSesion.setBackground(new java.awt.Color(255, 255, 255));
+        btnIniciarSesion.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnIniciarSesion.setForeground(new java.awt.Color(13, 13, 13));
+        btnIniciarSesion.setText("Iniciar Sesión");
+        btnIniciarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIniciarSesionActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout PanelDatosGralLayout = new javax.swing.GroupLayout(PanelDatosGral);
+        PanelDatosGral.setLayout(PanelDatosGralLayout);
+        PanelDatosGralLayout.setHorizontalGroup(
+            PanelDatosGralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelDatosGralLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(PanelDatosGralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(20, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelDatosGralLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(95, 95, 95))
+        );
+        PanelDatosGralLayout.setVerticalGroup(
+            PanelDatosGralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelDatosGralLayout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addComponent(jLabelUsuario)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabelPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addComponent(btnIniciarSesion)
+                .addGap(24, 24, 24))
+        );
+
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
         kGradientPanel1Layout.setHorizontalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PanelPrincipalPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1920, Short.MAX_VALUE)
+            .addComponent(PanelPrincipalPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1818, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
+                .addContainerGap(708, Short.MAX_VALUE)
+                .addComponent(PanelDatosGral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(710, Short.MAX_VALUE))
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
                 .addComponent(PanelPrincipalPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(647, 647, 647))
+                .addGap(178, 178, 178)
+                .addComponent(PanelDatosGral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(170, 170, 170))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -82,8 +172,13 @@ public class IniciarSesion extends javax.swing.JFrame {
             .addComponent(kGradientPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        pack();
+        setSize(new java.awt.Dimension(1836, 767));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
 
     public static void main(String args[]) {
@@ -112,8 +207,14 @@ public class IniciarSesion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel PanelDatosGral;
     private javax.swing.JLabel PanelPrincipal;
     private javax.swing.JPanel PanelPrincipalPanel;
+    private javax.swing.JButton btnIniciarSesion;
+    private javax.swing.JLabel jLabelPassword;
+    private javax.swing.JLabel jLabelUsuario;
     private keeptoo.KGradientPanel kGradientPanel1;
+    private javax.swing.JTextField txtPassword;
+    private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }

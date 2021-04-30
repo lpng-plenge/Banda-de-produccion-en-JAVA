@@ -18,6 +18,7 @@ public class Administrador extends javax.swing.JFrame {
         UsuarioID = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(1024, 640));
         setName("Administrador"); // NOI18N
         setPreferredSize(new java.awt.Dimension(1024, 640));
         setSize(new java.awt.Dimension(1024, 640));
@@ -25,7 +26,7 @@ public class Administrador extends javax.swing.JFrame {
         kGradientPanel1.setkEndColor(new java.awt.Color(250, 250, 250));
         kGradientPanel1.setkGradientFocus(180);
         kGradientPanel1.setkStartColor(new java.awt.Color(191, 191, 191));
-        kGradientPanel1.setMinimumSize(new java.awt.Dimension(1920, 720));
+        kGradientPanel1.setMinimumSize(new java.awt.Dimension(1024, 640));
 
         AdminPanel.setBackground(new java.awt.Color(34, 34, 34));
         AdminPanel.setPreferredSize(new java.awt.Dimension(1024, 64));
