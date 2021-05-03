@@ -1,15 +1,14 @@
-
 package BandaProduccion;
 
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class IniciarSesion extends javax.swing.JFrame {
-
 
     public IniciarSesion() {
         initComponents();
         setLocationRelativeTo(null);
     }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -143,8 +142,8 @@ public class IniciarSesion extends javax.swing.JFrame {
         PanelDatosGralLayout.setVerticalGroup(
             PanelDatosGralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelDatosGralLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(jLabelError, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jLabelError, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
                 .addGap(24, 24, 24)
                 .addComponent(jLabelUsuario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -190,26 +189,37 @@ public class IniciarSesion extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    public void TimerTime() {
+        Timer timer = new Timer();
+        TimerTask tare = new TimerTask() {
+            @Override
+            public void run() {
+                jLabelError.setText("");
+                jLabelError.setOpaque(false);
+            }
+        };
+        timer.scheduleAtFixedRate(tare, 1000, 2000);
+    }
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
-        if(!verificarCampos()){
+        if (!verificarCampos()) {
             jLabelError.setText("Datos incompletos");
-        }else{
-            if(!dbTipoUsuario()){
+            TimerTime();
+        } else {
+            if (!dbTipoUsuario()) {
                 jLabelError.setText("No se encontro el usuario");
-            }else{
-               limpiarCampos();
+                TimerTime();
+            } else {
+                limpiarCampos();
             }
         }
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
-    public boolean dbTipoUsuario(){
-        String usuario = txtUsuario.getText(), password = txtPassword.getText(), tipo1="administrador", tipo2 = "empleado";
+    public boolean dbTipoUsuario() {
+        String usuario = txtUsuario.getText(), password = txtPassword.getText(), tipo1 = "administrador", tipo2 = "empleado";
         boolean estatus = false;
         //buscar el usuario y la contraseña si se encuentran retorname el tipo de usuario
-        
-        
-        if(usuario.equals("admin") && password.equals("root")){
-            estatus=true;
+        if (usuario.equals("admin") && password.equals("root")) {
+            estatus = true;
             txtBorderColors(estatus);
             //pasar los datos a una clase para seguir trabajando en la siguiente ventana
 
@@ -218,52 +228,54 @@ public class IniciarSesion extends javax.swing.JFrame {
             admin.setVisible(true);
             this.setVisible(false);
             return estatus;
-        }else if(usuario.equals("lpng") && password.equals("123")){
-            estatus=true;
+        } else if (usuario.equals("lpng") && password.equals("123")) {
+            estatus = true;
             txtBorderColors(estatus);
             //pasar los datos a una clase para seguir trabajando en la siguiente ventana
-            
+
             //ir a la ventana
-            ControlProduccion cp= new ControlProduccion();
+            ControlProduccion cp = new ControlProduccion();
             cp.setVisible(true);
             this.setVisible(false);
             return estatus;
-        }else{
+        } else {
             txtBorderColors(estatus);
             return estatus;
         }
     }
-    public boolean verificarCampos(){
-        String usuario = txtUsuario.getText(),password=txtPassword.getText();
+
+    public boolean verificarCampos() {
+        String usuario = txtUsuario.getText(), password = txtPassword.getText();
         boolean estatus;
-        if(usuario.equals("")||password.equals("")){
-            estatus=false;
+        if (usuario.equals("") || password.equals("")) {
+            estatus = false;
             txtBorderColors(estatus);
             return estatus;
-        }
-        else{
-            estatus=true;
+        } else {
+            estatus = true;
             jLabelError.setText("");
             txtBorderColors(estatus);
-            return true;   
+            return true;
         }
     }
-    public void limpiarCampos(){
+
+    public void limpiarCampos() {
         txtPassword.setText("");
         txtUsuario.setText("");
     }
-    public void txtBorderColors(boolean obj){
-        if(!obj){
+
+    public void txtBorderColors(boolean obj) {
+        if (!obj) {
             jLabelError.setOpaque(true);
-            txtUsuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(209,49,53)));
-            txtPassword.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(209,49,53)));
-        }else{
+            txtUsuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(209, 49, 53)));
+            txtPassword.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(209, 49, 53)));
+        } else {
             jLabelError.setOpaque(false);
-            txtUsuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(21,127,251)));
+            txtUsuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(21, 127, 251)));
             txtPassword.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(21, 127, 251)));
         }
     }
-    
+
     public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
