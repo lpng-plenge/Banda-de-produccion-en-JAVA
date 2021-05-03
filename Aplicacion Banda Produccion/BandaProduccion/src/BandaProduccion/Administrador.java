@@ -673,8 +673,15 @@ public class Administrador extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnBuscarIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarIdActionPerformed
-
-        if (txtId.getText().equals("")) {
+        boolean estatus; 
+        //colocar validacion de caracteres no validos a-zA-Z y caracteres especiales 
+        try {
+            Integer.parseInt(txtId.getText());
+            estatus=true;
+        } catch (NumberFormatException e) {
+            estatus=false;
+        }
+        if (txtId.getText().equals("")||!estatus){
             jLabelError.setText("Usuario no encontrado");
             jLabelError.setOpaque(true);
             TimerTime();
