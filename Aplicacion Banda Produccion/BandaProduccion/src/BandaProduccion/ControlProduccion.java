@@ -1,13 +1,27 @@
-
 package BandaProduccion;
+
+import Clases.GraphicsX;
+import ConexionUNO.InterfaceSerial;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.Timer;
 
 public class ControlProduccion extends javax.swing.JFrame {
 
+    InterfaceSerial res;
+    GraphicsX ObGraphicsX;
+    Timer timer;
+
     public ControlProduccion() {
         initComponents();
+        res = new InterfaceSerial();
+        res.initialize();
+        this.jPanelChartVelocidad.setLayout(null);
+        this.jPanelChartPiston.setLayout(null);
         setLocationRelativeTo(null);
+        MostrarDatos();
     }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -262,6 +276,42 @@ public class ControlProduccion extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnSalirActionPerformed
 
+    public void Chart(float data1, float data2, float data3) {
+        try {
+            float[][] Array = {{data1, data2, data3}};
+            ObGraphicsX = new GraphicsX();
+            float[] Canal = new float[256];
+            //copiar a la matriz
+            System.arraycopy(Array[0], 0, Canal, 0, Array[0].length);
+
+            ObGraphicsX.createHistogramm(Canal, jPanelChartVelocidad, Color.blue);
+
+        } catch (Exception e) {
+            System.err.println("No se puedo graficar");
+        }
+    }
+    String[] tempDatos;
+    public void MostrarDatos() {
+        try {
+            timer = new Timer(100, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent ae) {
+                    try {
+                        res.initialize();
+                        tempDatos = res.getDataInput();
+                        txtIngresados.setText(String.valueOf(tempDatos[0]));
+                        txtDefectuosos.setText(String.valueOf(tempDatos[1]));
+                        txtSalida.setText(String.valueOf(tempDatos[2]));
+                        Chart(Float.parseFloat(tempDatos[0]), Float.parseFloat(tempDatos[1]), Float.parseFloat(tempDatos[2]));
+                    } catch (NumberFormatException e) {
+                    }
+                }
+            });
+            timer.start();
+        } catch (Exception e) {
+
+        }
+    }
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
