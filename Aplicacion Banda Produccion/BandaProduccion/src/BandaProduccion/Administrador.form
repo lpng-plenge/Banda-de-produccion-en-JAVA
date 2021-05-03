@@ -237,7 +237,8 @@
                   <Color blue="f2" green="f2" red="f2" type="rgb"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="Administrador ID"/>
+                <Property name="text" type="java.lang.String" value="Administrador"/>
+                <Property name="toolTipText" type="java.lang.String" value=""/>
                 <Property name="focusable" type="boolean" value="false"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
                 <Property name="inheritsPopupMenu" type="boolean" value="false"/>

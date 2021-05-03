@@ -1,6 +1,7 @@
 package ConexionDB;
 
 import Clases.Usuario;
+import Clases.LogIn;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,7 +14,8 @@ public class DataBase {
     public DataBase() {
 
     }
-
+    
+    
     public int getID(Connection conn) throws SQLException {
         int id = 0;
         PreparedStatement stmt = conn.prepareStatement("select max(id) from usuarios");
@@ -76,6 +78,19 @@ public class DataBase {
         PreparedStatement stmt = conn.prepareStatement("delete from usuarios where id=?");
         stmt.setInt(1, us.getId());
         stmt.executeUpdate();
+    }
+    
+    public String IniciarSesion(Connection conn, LogIn li) throws SQLException{
+        String tipo ="";
+        PreparedStatement stmt = conn.prepareStatement("select tipo from usuarios where usuario=? and password=?");
+        stmt.setString(1, li.getUsuario());
+        stmt.setString(2, li.getPassword());
+        
+        rs = stmt.executeQuery();
+        if (rs.next()) {
+            tipo = rs.getString(String.valueOf("tipo"));
+        }
+        return tipo;
     }
     
 }

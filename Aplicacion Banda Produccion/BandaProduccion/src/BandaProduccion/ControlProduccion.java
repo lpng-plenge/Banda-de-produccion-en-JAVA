@@ -35,7 +35,7 @@ public class ControlProduccion extends javax.swing.JFrame {
         txtUsuarioID.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         txtUsuarioID.setForeground(new java.awt.Color(242, 242, 242));
         txtUsuarioID.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        txtUsuarioID.setText("Usuario ID");
+        txtUsuarioID.setText("Usuario");
         txtUsuarioID.setFocusable(false);
         txtUsuarioID.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         txtUsuarioID.setInheritsPopupMenu(false);

@@ -1,13 +1,30 @@
 package BandaProduccion;
 
+import Clases.LogIn;
+import ConexionDB.Conexion;
+import ConexionDB.DataBase;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class IniciarSesion extends javax.swing.JFrame {
+
+    //clases
+    Conexion con;//clase
+    DataBase db;
+    Connection conn;//libreria 
+    LogIn log;
 
     public IniciarSesion() {
         initComponents();
         setLocationRelativeTo(null);
+        //instanciar
+        con = new Conexion();
+        conn = con.getConexion();
+        db = new DataBase();
     }
 
     @SuppressWarnings("unchecked")
@@ -203,58 +220,67 @@ public class IniciarSesion extends javax.swing.JFrame {
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
         if (!verificarCampos()) {
-            jLabelError.setText("Datos incompletos");
             TimerTime();
         } else {
-            if (!dbTipoUsuario()) {
-                jLabelError.setText("No se encontro el usuario");
-                TimerTime();
-            } else {
-                limpiarCampos();
-            }
+            dbTipoUsuario();
         }
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
-    public boolean dbTipoUsuario() {
-        String usuario = txtUsuario.getText(), password = txtPassword.getText(), tipo1 = "administrador", tipo2 = "empleado";
+    
+    public void dbTipoUsuario() {
         boolean estatus = false;
-        //buscar el usuario y la contraseña si se encuentran retorname el tipo de usuario
-        if (usuario.equals("admin") && password.equals("root")) {
-            estatus = true;
-            txtBorderColors(estatus);
-            //pasar los datos a una clase para seguir trabajando en la siguiente ventana
-
-            //ir a la ventana
-            Administrador admin = new Administrador();
-            admin.setVisible(true);
-            this.setVisible(false);
-            return estatus;
-        } else if (usuario.equals("lpng") && password.equals("123")) {
-            estatus = true;
-            txtBorderColors(estatus);
-            //pasar los datos a una clase para seguir trabajando en la siguiente ventana
-
-            //ir a la ventana
-            ControlProduccion cp = new ControlProduccion();
-            cp.setVisible(true);
-            this.setVisible(false);
-            return estatus;
-        } else {
-            txtBorderColors(estatus);
-            return estatus;
+        try {
+            String registro;
+            log = new LogIn();
+            log.setUsuario(txtUsuario.getText());
+            log.setPassword(txtPassword.getText());
+            registro = db.IniciarSesion(conn, log);
+            if (registro.equals("0")) {
+                estatus = true;
+                txtBorderColors(estatus);
+                limpiarCampos();
+                ControlProduccion cp = new ControlProduccion();
+                cp.setVisible(true);
+                this.setVisible(false);
+            }else if(registro.equals("1")){
+                estatus = true;
+                txtBorderColors(estatus);
+                limpiarCampos();
+                System.out.println("aqui es admin" + registro);
+                Administrador admin = new Administrador();
+                admin.setVisible(true);
+                this.setVisible(false);
+            } else {
+                jLabelError.setText("No se encontro el usuario");
+                jLabelError.setOpaque(true);
+                txtBorderColors(estatus);
+                TimerTime();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(IniciarSesion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     public boolean verificarCampos() {
-        String usuario = txtUsuario.getText(), password = txtPassword.getText();
-        boolean estatus;
-        if (usuario.equals("") || password.equals("")) {
-            estatus = false;
-            txtBorderColors(estatus);
-            return estatus;
-        } else {
-            estatus = true;
-            jLabelError.setText("");
-            txtBorderColors(estatus);
+        int n=0;
+        if (txtUsuario.getText().equals("")) {
+            txtUsuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(209, 49, 53)));
+            n+=1;
+        }else{
+            txtUsuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(21, 127, 251)));
+        }
+        
+        if(txtPassword.getText().equals("")){
+            txtPassword.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(209, 49, 53)));
+            n+=1;
+        }else{
+            txtPassword.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(21, 127, 251)));
+        }
+        
+        if(n!=0){
+            jLabelError.setText("Datos incompletos");
+            jLabelError.setOpaque(true);
+            return false;
+        }else {
             return true;
         }
     }
@@ -266,11 +292,9 @@ public class IniciarSesion extends javax.swing.JFrame {
 
     public void txtBorderColors(boolean obj) {
         if (!obj) {
-            jLabelError.setOpaque(true);
             txtUsuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(209, 49, 53)));
             txtPassword.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(209, 49, 53)));
         } else {
-            jLabelError.setOpaque(false);
             txtUsuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(21, 127, 251)));
             txtPassword.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(21, 127, 251)));
         }

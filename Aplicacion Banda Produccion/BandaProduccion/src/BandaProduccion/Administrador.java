@@ -25,6 +25,7 @@ public class Administrador extends javax.swing.JFrame {
         con = new Conexion();
         conn = con.getConexion();
         db = new DataBase();
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -79,7 +80,8 @@ public class Administrador extends javax.swing.JFrame {
         UsuarioID.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         UsuarioID.setForeground(new java.awt.Color(242, 242, 242));
         UsuarioID.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        UsuarioID.setText("Administrador ID");
+        UsuarioID.setText("Administrador");
+        UsuarioID.setToolTipText("");
         UsuarioID.setFocusable(false);
         UsuarioID.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         UsuarioID.setInheritsPopupMenu(false);
@@ -734,7 +736,9 @@ public class Administrador extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        
+        IniciarSesion ini = new IniciarSesion();
+        ini.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
