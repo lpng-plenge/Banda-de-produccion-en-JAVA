@@ -55,8 +55,11 @@ public class DataBase {
             registro[5] = rs.getString("usuario");
             registro[6] = rs.getString("password");
             registro[7] = rs.getString(String.valueOf("tipo"));
+            return registro;
+        }else{
+            registro[0]="null";
+            return registro;
         }
-        return registro;
     }
 
     public void Editar(Connection conn, Usuario us) throws SQLException {

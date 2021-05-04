@@ -57,20 +57,21 @@ public class InterfaceSerial implements SerialPortEventListener {
     @Override
     public synchronized void serialEvent(SerialPortEvent spe) {
         try {
-            String lineaEntrada1 = input.readLine();
-            String lineaEntrada2 = input.readLine();
-            String lineaEntrada3 = input.readLine();
+            String tiempoactivo = input.readLine();
+            String pistonactivo = input.readLine();
+            String velocidadBanda = input.readLine();
 
-            tempData[0] = lineaEntrada1;
-            tempData[1] = lineaEntrada2;
-            tempData[2] = lineaEntrada3;
+            tempData[0] = tiempoactivo;
+            tempData[1] = pistonactivo;
+            tempData[2] = velocidadBanda;
+            
         } catch (Exception e) {
             System.err.println(e.toString());
         }
     }
 
     public String[] getDataInput() {
-        return tempData;
+            return tempData;
     }
     
     public synchronized void Close(){

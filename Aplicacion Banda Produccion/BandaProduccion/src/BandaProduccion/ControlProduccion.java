@@ -159,7 +159,7 @@ public class ControlProduccion extends javax.swing.JFrame {
             }
         });
 
-        jPanelChartVelocidad.setBackground(new java.awt.Color(153, 204, 255));
+        jPanelChartVelocidad.setBackground(new java.awt.Color(21, 127, 251));
         jPanelChartVelocidad.setMinimumSize(new java.awt.Dimension(460, 200));
         jPanelChartVelocidad.setPreferredSize(new java.awt.Dimension(460, 200));
         jPanelChartVelocidad.setRequestFocusEnabled(false);
@@ -175,6 +175,7 @@ public class ControlProduccion extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
+        jPanelChartPiston.setBackground(new java.awt.Color(209, 49, 53));
         jPanelChartPiston.setMinimumSize(new java.awt.Dimension(460, 200));
         jPanelChartPiston.setPreferredSize(new java.awt.Dimension(460, 200));
         jPanelChartPiston.setRequestFocusEnabled(false);
@@ -252,7 +253,7 @@ public class ControlProduccion extends javax.swing.JFrame {
                         .addGap(60, 60, 60))
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
                         .addGap(34, 34, 34)
-                        .addComponent(jPanelChartPiston, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
+                        .addComponent(jPanelChartPiston, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
@@ -276,9 +277,9 @@ public class ControlProduccion extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnSalirActionPerformed
 
-    public void Chart(float data1, float data2, float data3) {
+    public void ChartVelocidad(float data1, float data2) {
         try {
-            float[][] Array = {{data1, data2, data3}};
+            float[][] Array = {{data1, data2}};
             ObGraphicsX = new GraphicsX();
             float[] Canal = new float[256];
             //copiar a la matriz
@@ -290,7 +291,23 @@ public class ControlProduccion extends javax.swing.JFrame {
             System.err.println("No se puedo graficar");
         }
     }
+
+    public void ChartPiston(int data1, int data2) {
+        try {
+            int[][] Array = {{data1, data2}};
+            ObGraphicsX = new GraphicsX();
+            int[] Canal = new int[256];
+            //copiar a la matriz
+            System.arraycopy(Array[0], 0, Canal, 0, Array[0].length);
+
+            ObGraphicsX.piston(Canal, jPanelChartVelocidad, Color.blue);
+
+        } catch (Exception e) {
+            System.err.println("No se puedo graficar");
+        }
+    }
     String[] tempDatos;
+
     public void MostrarDatos() {
         try {
             timer = new Timer(100, new ActionListener() {
@@ -302,7 +319,8 @@ public class ControlProduccion extends javax.swing.JFrame {
                         txtIngresados.setText(String.valueOf(tempDatos[0]));
                         txtDefectuosos.setText(String.valueOf(tempDatos[1]));
                         txtSalida.setText(String.valueOf(tempDatos[2]));
-                        Chart(Float.parseFloat(tempDatos[0]), Float.parseFloat(tempDatos[1]), Float.parseFloat(tempDatos[2]));
+                        ChartVelocidad(Float.parseFloat(tempDatos[0]), Float.parseFloat(tempDatos[1]));
+                        ChartPiston(Integer.parseInt(tempDatos[0]), Integer.parseInt(tempDatos[2]));
                     } catch (NumberFormatException e) {
                     }
                 }

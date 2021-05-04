@@ -25,7 +25,7 @@ public class Administrador extends javax.swing.JFrame {
         con = new Conexion();
         conn = con.getConexion();
         db = new DataBase();
-        
+
     }
 
     @SuppressWarnings("unchecked")
@@ -673,22 +673,22 @@ public class Administrador extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnBuscarIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarIdActionPerformed
-        boolean estatus; 
+        boolean estatus;
         //colocar validacion de caracteres no validos a-zA-Z y caracteres especiales 
         try {
             Integer.parseInt(txtId.getText());
-            estatus=true;
+            estatus = true;
         } catch (NumberFormatException e) {
-            estatus=false;
+            estatus = false;
         }
-        if (txtId.getText().equals("")||!estatus){
+        if (txtId.getText().equals("") || !estatus) {
             jLabelError.setText("Usuario no encontrado");
             jLabelError.setOpaque(true);
             TimerTime();
         } else {
             int id = Integer.valueOf(txtId.getText());
             try {
-                if (id > db.getID(conn)||id==db.getID(conn)) {
+                if (id > db.getID(conn) || id == db.getID(conn)) {
                     jLabelError.setText("Usuario no encontrado");
                     jLabelError.setOpaque(true);
                     TimerTime();
@@ -698,21 +698,27 @@ public class Administrador extends javax.swing.JFrame {
                         us = new Usuario();
                         us.setId(Integer.parseInt(txtId.getText()));
                         registro = db.Buscar(conn, us);
-                        txtNombre.setText(registro[0]);
-                        txtAPaterno.setText(registro[1]);
-                        txtAMaterno.setText(registro[2]);
-                        txtTelefono.setText(registro[3]);
-                        txtDireccion.setText(registro[4]);
-                        txtUsuario.setText(registro[5]);
-                        txtPassword.setText(registro[6]);
-                        comBoxPerfil.setSelectedIndex(Integer.parseInt(registro[7]));
-                        HabilitarTextFields();
-                        btnNuevo.setEnabled(false);
-                        btnGuardar.setEnabled(false);
-                        btnCancelar.setEnabled(true);
-                        btnEditar.setEnabled(true);
-                        btnEliminar.setEnabled(true);
-                        btnBuscarId.setEnabled(false);
+                        if (registro[0] == "null") {
+                            jLabelError.setText("Usuario no encontrado");
+                            jLabelError.setOpaque(true);
+                            TimerTime();
+                        } else {
+                            txtNombre.setText(registro[0]);
+                            txtAPaterno.setText(registro[1]);
+                            txtAMaterno.setText(registro[2]);
+                            txtTelefono.setText(registro[3]);
+                            txtDireccion.setText(registro[4]);
+                            txtUsuario.setText(registro[5]);
+                            txtPassword.setText(registro[6]);
+                            comBoxPerfil.setSelectedIndex(Integer.parseInt(registro[7]));
+                            HabilitarTextFields();
+                            btnNuevo.setEnabled(false);
+                            btnGuardar.setEnabled(false);
+                            btnCancelar.setEnabled(true);
+                            btnEditar.setEnabled(true);
+                            btnEliminar.setEnabled(true);
+                            btnBuscarId.setEnabled(false);
+                        }
 
                     } catch (SQLException ex) {
                         //Logger.getLogger(Administrador.class.getName()).log(Level.SEVERE, null, ex);
@@ -765,7 +771,7 @@ public class Administrador extends javax.swing.JFrame {
                 us.setUsuario(txtUsuario.getText());
                 us.setPassword(txtPassword.getText());
                 us.setTipo(comBoxPerfil.getSelectedIndex());
-                
+
                 db.Editar(conn, us);
                 CleanFields();
                 DeshabilitarFields();
