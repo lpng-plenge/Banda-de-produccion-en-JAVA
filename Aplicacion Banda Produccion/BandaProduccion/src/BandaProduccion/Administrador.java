@@ -507,12 +507,12 @@ public class Administrador extends javax.swing.JFrame {
         try {
             us = new Usuario();
             us.setUsuario(usuario);
-            boolean estatus = db.UserState(conn, us);
+            boolean estatus = db.EncontrarUsuario(conn, us);
             if (estatus) {
                 System.out.println(estatus);
-
             } else {
                 System.out.println("No se encontro");
+                Salir();
             }
         } catch (SQLException ex) {
             Logger.getLogger(Administrador.class.getName()).log(Level.SEVERE, null, ex);
@@ -751,7 +751,6 @@ public class Administrador extends javax.swing.JFrame {
                             btnEliminar.setEnabled(true);
                             btnBuscarId.setEnabled(false);
                         }
-
                     } catch (SQLException ex) {
                         //Logger.getLogger(Administrador.class.getName()).log(Level.SEVERE, null, ex);
                     }

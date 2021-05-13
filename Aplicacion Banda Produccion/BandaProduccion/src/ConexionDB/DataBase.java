@@ -27,7 +27,7 @@ public class DataBase {
     }
 
     public boolean Salvar(Connection conn, Usuario us) throws SQLException {
-        if(!NoRepeat(conn, us)){
+        if(!EncontrarUsuario(conn, us)){
             PreparedStatement stmt = conn.prepareStatement("insert into usuarios values(?,?,?,?,?,?,?,?,?)");
             stmt.setInt(1, us.getId());
             stmt.setString(2, us.getNombres());
@@ -100,13 +100,7 @@ public class DataBase {
         }
         return tipo;
     }
-    public boolean NoRepeat(Connection conn, Usuario us)throws SQLException{
-        PreparedStatement stmt = conn.prepareStatement("select usuario from usuarios where usuario=?");
-        stmt.setString(1, us.getUsuario());
-        rs=stmt.executeQuery();
-        return rs.next();
-    }
-    public boolean UserState(Connection conn, Usuario us)throws SQLException{
+    public boolean EncontrarUsuario(Connection conn, Usuario us)throws SQLException{
         PreparedStatement stmt = conn.prepareStatement("select usuario from usuarios where usuario=?");
         stmt.setString(1, us.getUsuario());
         rs=stmt.executeQuery();
