@@ -14,13 +14,18 @@ public class ControlProduccion extends javax.swing.JFrame {
     Timer timer;
 
     public ControlProduccion() {
-        initComponents();
-        res = new InterfaceSerial();
-        res.initialize();
-        this.jPanelChartVelocidad.setLayout(null);
-        this.jPanelChartPiston.setLayout(null);
-        setLocationRelativeTo(null);
-        MostrarDatos();
+        if (txtUsuarioEmpl.getText().equals("")) {
+            Salir();
+        } else {
+            initComponents();
+            res = new InterfaceSerial();
+            res.initialize();
+            this.jPanelChartVelocidad.setLayout(null);
+            this.jPanelChartPiston.setLayout(null);
+            setLocationRelativeTo(null);
+            MostrarDatos();
+        }
+
     }
 
     @SuppressWarnings("unchecked")
@@ -29,7 +34,6 @@ public class ControlProduccion extends javax.swing.JFrame {
 
         kGradientPanel1 = new keeptoo.KGradientPanel();
         ControlProduccionPanel = new javax.swing.JPanel();
-        txtUsuarioID = new javax.swing.JLabel();
         jLabelIngresados = new javax.swing.JLabel();
         txtIngresados = new javax.swing.JTextField();
         jLabelDefectuoso = new javax.swing.JLabel();
@@ -56,14 +60,13 @@ public class ControlProduccion extends javax.swing.JFrame {
         ControlProduccionPanel.setBackground(new java.awt.Color(34, 34, 34));
         ControlProduccionPanel.setPreferredSize(new java.awt.Dimension(1024, 64));
 
-        txtUsuarioID.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        txtUsuarioID.setForeground(new java.awt.Color(242, 242, 242));
-        txtUsuarioID.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        txtUsuarioID.setText("Empleado");
-        txtUsuarioID.setFocusable(false);
-        txtUsuarioID.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        txtUsuarioID.setInheritsPopupMenu(false);
-        txtUsuarioID.setPreferredSize(new java.awt.Dimension(210, 64));
+        txtUsuarioEmpl.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        txtUsuarioEmpl.setForeground(new java.awt.Color(242, 242, 242));
+        txtUsuarioEmpl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtUsuarioEmpl.setFocusable(false);
+        txtUsuarioEmpl.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        txtUsuarioEmpl.setInheritsPopupMenu(false);
+        txtUsuarioEmpl.setPreferredSize(new java.awt.Dimension(210, 64));
 
         javax.swing.GroupLayout ControlProduccionPanelLayout = new javax.swing.GroupLayout(ControlProduccionPanel);
         ControlProduccionPanel.setLayout(ControlProduccionPanelLayout);
@@ -71,14 +74,14 @@ public class ControlProduccion extends javax.swing.JFrame {
             ControlProduccionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ControlProduccionPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtUsuarioID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtUsuarioEmpl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         ControlProduccionPanelLayout.setVerticalGroup(
             ControlProduccionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ControlProduccionPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtUsuarioID, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                .addComponent(txtUsuarioEmpl, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -243,9 +246,7 @@ public class ControlProduccion extends javax.swing.JFrame {
                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtSalida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabelSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanelChartVelocidad, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addComponent(jPanelChartVelocidad, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE))
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 180, Short.MAX_VALUE)
@@ -271,10 +272,13 @@ public class ControlProduccion extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+    public void Salir() {
         IniciarSesion ini = new IniciarSesion();
         ini.setVisible(true);
         this.setVisible(false);
+    }
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        Salir();
     }//GEN-LAST:event_btnSalirActionPerformed
 
     public void ChartVelocidad(float data1, float data2) {
@@ -284,7 +288,6 @@ public class ControlProduccion extends javax.swing.JFrame {
             float[] Canal = new float[256];
             //copiar a la matriz
             System.arraycopy(Array[0], 0, Canal, 0, Array[0].length);
-
             ObGraphicsX.createHistogramm(Canal, jPanelChartVelocidad, Color.blue);
 
         } catch (Exception e) {
@@ -319,7 +322,7 @@ public class ControlProduccion extends javax.swing.JFrame {
                         txtIngresados.setText(String.valueOf(tempDatos[0]));
                         txtDefectuosos.setText(String.valueOf(tempDatos[1]));
                         txtSalida.setText(String.valueOf(tempDatos[2]));
-                        ChartVelocidad(Float.parseFloat(tempDatos[0]), Float.parseFloat(tempDatos[1]));
+                        //ChartVelocidad(Float.parseFloat(tempDatos[0]), Float.parseFloat(tempDatos[1]));
                         ChartPiston(Integer.parseInt(tempDatos[0]), Integer.parseInt(tempDatos[2]));
                     } catch (NumberFormatException e) {
                     }
@@ -377,6 +380,6 @@ public class ControlProduccion extends javax.swing.JFrame {
     private javax.swing.JTextField txtDefectuosos;
     private javax.swing.JTextField txtIngresados;
     private javax.swing.JTextField txtSalida;
-    private javax.swing.JLabel txtUsuarioID;
+    public static final javax.swing.JLabel txtUsuarioEmpl = new javax.swing.JLabel();
     // End of variables declaration//GEN-END:variables
 }

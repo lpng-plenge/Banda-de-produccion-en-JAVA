@@ -26,7 +26,7 @@ public class IniciarSesion extends javax.swing.JFrame {
         conn = con.getConexion();
         db = new DataBase();
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -216,7 +216,7 @@ public class IniciarSesion extends javax.swing.JFrame {
                 jLabelError.setOpaque(false);
             }
         };
-        timer.scheduleAtFixedRate(tare, 1000, 2000);
+        timer.scheduleAtFixedRate(tare, 1000, 4000);
     }
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
@@ -236,17 +236,18 @@ public class IniciarSesion extends javax.swing.JFrame {
             log.setPassword(txtPassword.getText());
             registro = db.IniciarSesion(conn, log);
             if (registro.equals("0")) {
+                ControlProduccion.txtUsuarioEmpl.setText(log.getUsuario());
                 estatus = true;
                 txtBorderColors(estatus);
                 limpiarCampos();
                 ControlProduccion cp = new ControlProduccion();
                 cp.setVisible(true);
                 this.setVisible(false);
-            }else if(registro.equals("1")){
+            } else if (registro.equals("1")) {
+                Administrador.txtUsuarioAdmin.setText(log.getUsuario());
                 estatus = true;
                 txtBorderColors(estatus);
                 limpiarCampos();
-                System.out.println("aqui es admin" + registro);
                 Administrador admin = new Administrador();
                 admin.setVisible(true);
                 this.setVisible(false);
@@ -260,37 +261,37 @@ public class IniciarSesion extends javax.swing.JFrame {
             Logger.getLogger(IniciarSesion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     public boolean verificarCampos() {
-        int n=0;
+        int n = 0;
         if (txtUsuario.getText().equals("")) {
             txtUsuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(209, 49, 53)));
-            n+=1;
-        }else{
+            n += 1;
+        } else {
             txtUsuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(21, 127, 251)));
         }
         
-        if(txtPassword.getText().equals("")){
+        if (txtPassword.getText().equals("")) {
             txtPassword.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(209, 49, 53)));
-            n+=1;
-        }else{
+            n += 1;
+        } else {
             txtPassword.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(21, 127, 251)));
         }
         
-        if(n!=0){
+        if (n != 0) {
             jLabelError.setText("Datos incompletos");
             jLabelError.setOpaque(true);
             return false;
-        }else {
+        } else {
             return true;
         }
     }
-
+    
     public void limpiarCampos() {
         txtPassword.setText("");
         txtUsuario.setText("");
     }
-
+    
     public void txtBorderColors(boolean obj) {
         if (!obj) {
             txtUsuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(209, 49, 53)));
@@ -300,7 +301,7 @@ public class IniciarSesion extends javax.swing.JFrame {
             txtPassword.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(21, 127, 251)));
         }
     }
-
+    
     public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -318,7 +319,7 @@ public class IniciarSesion extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(IniciarSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new IniciarSesion().setVisible(true);

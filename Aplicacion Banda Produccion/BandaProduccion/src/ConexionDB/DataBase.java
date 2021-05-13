@@ -26,18 +26,23 @@ public class DataBase {
         return id;
     }
 
-    public void Salvar(Connection conn, Usuario us) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement("insert into usuarios values(?,?,?,?,?,?,?,?,?)");
-        stmt.setInt(1, us.getId());
-        stmt.setString(2, us.getNombres());
-        stmt.setString(3, us.getApellidoPaterno());
-        stmt.setString(4, us.getApellidoMaterno());
-        stmt.setString(5, us.getTelefono());
-        stmt.setString(6, us.getDireccion());
-        stmt.setString(7, us.getUsuario());
-        stmt.setString(8, us.getPassword());
-        stmt.setInt(9, us.getTipo());
-        stmt.executeUpdate();
+    public boolean Salvar(Connection conn, Usuario us) throws SQLException {
+        if(!NoRepeat(conn, us)){
+            PreparedStatement stmt = conn.prepareStatement("insert into usuarios values(?,?,?,?,?,?,?,?,?)");
+            stmt.setInt(1, us.getId());
+            stmt.setString(2, us.getNombres());
+            stmt.setString(3, us.getApellidoPaterno());
+            stmt.setString(4, us.getApellidoMaterno());
+            stmt.setString(5, us.getTelefono());
+            stmt.setString(6, us.getDireccion());
+            stmt.setString(7, us.getUsuario());
+            stmt.setString(8, us.getPassword());
+            stmt.setInt(9, us.getTipo());
+            stmt.executeUpdate();
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public String[] Buscar(Connection conn, Usuario us) throws SQLException {
@@ -95,5 +100,16 @@ public class DataBase {
         }
         return tipo;
     }
-    
+    public boolean NoRepeat(Connection conn, Usuario us)throws SQLException{
+        PreparedStatement stmt = conn.prepareStatement("select usuario from usuarios where usuario=?");
+        stmt.setString(1, us.getUsuario());
+        rs=stmt.executeQuery();
+        return rs.next();
+    }
+    public boolean UserState(Connection conn, Usuario us)throws SQLException{
+        PreparedStatement stmt = conn.prepareStatement("select usuario from usuarios where usuario=?");
+        stmt.setString(1, us.getUsuario());
+        rs=stmt.executeQuery();
+        return rs.next();
+    }
 }

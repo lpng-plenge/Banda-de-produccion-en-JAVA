@@ -12,6 +12,8 @@ import java.util.logging.Logger;
 
 public class Administrador extends javax.swing.JFrame {
 
+    //variable global
+    String usuario = txtUsuarioAdmin.getText();
     //clases
     Conexion con;//clase
     DataBase db;
@@ -19,13 +21,16 @@ public class Administrador extends javax.swing.JFrame {
     Usuario us;
 
     public Administrador() {
-        initComponents();
-        setLocationRelativeTo(null);
-        //instanciar
-        con = new Conexion();
-        conn = con.getConexion();
-        db = new DataBase();
-
+        if (txtUsuarioAdmin.getText().equals("")) {
+            Salir();
+        } else {
+            initComponents();
+            setLocationRelativeTo(null);
+            //instanciar
+            con = new Conexion();
+            conn = con.getConexion();
+            db = new DataBase();
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -34,7 +39,6 @@ public class Administrador extends javax.swing.JFrame {
 
         kGradientPanel1 = new keeptoo.KGradientPanel();
         AdminPanel = new javax.swing.JPanel();
-        UsuarioID = new javax.swing.JLabel();
         jLabelControlUsuario = new javax.swing.JLabel();
         jLabelError = new javax.swing.JLabel();
         jLabelId = new javax.swing.JLabel();
@@ -77,17 +81,16 @@ public class Administrador extends javax.swing.JFrame {
         AdminPanel.setBackground(new java.awt.Color(34, 34, 34));
         AdminPanel.setPreferredSize(new java.awt.Dimension(1024, 64));
 
-        UsuarioID.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        UsuarioID.setForeground(new java.awt.Color(242, 242, 242));
-        UsuarioID.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        UsuarioID.setText("Administrador");
-        UsuarioID.setToolTipText("");
-        UsuarioID.setFocusable(false);
-        UsuarioID.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        UsuarioID.setInheritsPopupMenu(false);
-        UsuarioID.setMaximumSize(new java.awt.Dimension(115, 22));
-        UsuarioID.setMinimumSize(new java.awt.Dimension(115, 22));
-        UsuarioID.setPreferredSize(new java.awt.Dimension(210, 64));
+        txtUsuarioAdmin.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        txtUsuarioAdmin.setForeground(new java.awt.Color(242, 242, 242));
+        txtUsuarioAdmin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtUsuarioAdmin.setToolTipText("");
+        txtUsuarioAdmin.setFocusable(false);
+        txtUsuarioAdmin.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        txtUsuarioAdmin.setInheritsPopupMenu(false);
+        txtUsuarioAdmin.setMaximumSize(new java.awt.Dimension(115, 22));
+        txtUsuarioAdmin.setMinimumSize(new java.awt.Dimension(115, 22));
+        txtUsuarioAdmin.setPreferredSize(new java.awt.Dimension(210, 64));
 
         javax.swing.GroupLayout AdminPanelLayout = new javax.swing.GroupLayout(AdminPanel);
         AdminPanel.setLayout(AdminPanelLayout);
@@ -95,14 +98,14 @@ public class Administrador extends javax.swing.JFrame {
             AdminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AdminPanelLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addComponent(UsuarioID, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtUsuarioAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         AdminPanelLayout.setVerticalGroup(
             AdminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AdminPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(UsuarioID, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                .addComponent(txtUsuarioAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -499,7 +502,23 @@ public class Administrador extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
+    public void Estatus(){
+        try {
+            us = new Usuario();
+            us.setUsuario(usuario);
+            boolean estatus = db.UserState(conn, us);
+            if (estatus) {
+                System.out.println(estatus);
 
+            } else {
+                System.out.println("No se encontro");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Administrador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     public void HabilitarTextFields() {
         txtId.setEnabled(false);
         txtNombre.setEnabled(true);
@@ -551,6 +570,7 @@ public class Administrador extends javax.swing.JFrame {
                 dir = txtDireccion.getText(), usua = txtUsuario.getText(),
                 pass = txtPassword.getText();
         int con = 0;
+
         if (n.equals("")) {
             txtNombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(209, 49, 53)));
             con += 1;
@@ -609,7 +629,13 @@ public class Administrador extends javax.swing.JFrame {
                 jLabelError.setOpaque(false);
             }
         };
-        timer.scheduleAtFixedRate(tare, 1000, 2000);
+        timer.scheduleAtFixedRate(tare, 1000, 4000);
+    }
+
+    public void Salir() {
+        IniciarSesion ini = new IniciarSesion();
+        ini.setVisible(true);
+        this.setVisible(false);
     }
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
@@ -628,7 +654,6 @@ public class Administrador extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-
         if (!ValidateFields()) {
             jLabelError.setText("Datos incompletos");
             jLabelError.setOpaque(true);
@@ -645,16 +670,23 @@ public class Administrador extends javax.swing.JFrame {
                 us.setUsuario(txtUsuario.getText());
                 us.setPassword(txtPassword.getText());
                 us.setTipo(comBoxPerfil.getSelectedIndex());
-
-                db.Salvar(conn, us);
-                CleanFields();
-                DeshabilitarFields();
-                btnNuevo.setEnabled(true);
-                btnGuardar.setEnabled(false);
-                btnCancelar.setEnabled(false);
-                btnBuscarId.setEnabled(true);
-                btnEditar.setEnabled(false);
-                btnEliminar.setEnabled(false);
+                boolean valor;
+                valor = db.Salvar(conn, us);
+                if (valor) {
+                    CleanFields();
+                    DeshabilitarFields();
+                    btnNuevo.setEnabled(true);
+                    btnGuardar.setEnabled(false);
+                    btnCancelar.setEnabled(false);
+                    btnBuscarId.setEnabled(true);
+                    btnEditar.setEnabled(false);
+                    btnEliminar.setEnabled(false);
+                } else {
+                    jLabelError.setText("Usuario repetido");
+                    jLabelError.setOpaque(true);
+                    txtUsuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(209, 49, 53)));
+                    TimerTime();
+                }
             } catch (SQLException ex) {
                 Logger.getLogger(Administrador.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -698,7 +730,7 @@ public class Administrador extends javax.swing.JFrame {
                         us = new Usuario();
                         us.setId(Integer.parseInt(txtId.getText()));
                         registro = db.Buscar(conn, us);
-                        if (registro[0] == "null") {
+                        if ("null".equals(registro[0])) {
                             jLabelError.setText("Usuario no encontrado");
                             jLabelError.setOpaque(true);
                             TimerTime();
@@ -735,6 +767,7 @@ public class Administrador extends javax.swing.JFrame {
             us = new Usuario();
             us.setId(Integer.parseInt(txtId.getText()));
             db.Eliminar(conn, us);
+            Estatus();
             DeshabilitarFields();
             btnNuevo.setEnabled(true);
             btnGuardar.setEnabled(false);
@@ -749,9 +782,7 @@ public class Administrador extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        IniciarSesion ini = new IniciarSesion();
-        ini.setVisible(true);
-        this.setVisible(false);
+        Salir();
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
@@ -805,7 +836,6 @@ public class Administrador extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Administrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Administrador().setVisible(true);
@@ -815,7 +845,6 @@ public class Administrador extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel AdminPanel;
-    private javax.swing.JLabel UsuarioID;
     private javax.swing.JButton btnBuscarId;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEditar;
@@ -844,5 +873,6 @@ public class Administrador extends javax.swing.JFrame {
     private javax.swing.JTextField txtPassword;
     private javax.swing.JTextField txtTelefono;
     private javax.swing.JTextField txtUsuario;
+    public static final javax.swing.JLabel txtUsuarioAdmin = new javax.swing.JLabel();
     // End of variables declaration//GEN-END:variables
 }
