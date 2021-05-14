@@ -306,31 +306,34 @@ public class ControlProduccion extends javax.swing.JFrame {
     
     //tiempo
     private Timer timer;
-    private int seg, cs, velocidad, piston, mult=5;
+    private int seg, cs, velocidad, piston, mult=5, defectuosos, entrada, salida;
     
     private ActionListener acciones = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
             cs++;
-            if(cs==100){
-                cs =0;
+            if (cs == 100) {
+                cs = 0;
                 ++seg;
-            }
-            for(int i=0; i<=seg;i++){
-                if(i%mult==0){
-                    velocidad=0;
-                    piston=1;
-                }else{
-                    velocidad=440;
-                    piston=0;
+                if (seg % mult == 0) {
+                    defectuosos++;
+                    velocidad = 0;
+                    piston = 1;
+                } else {
+                    entrada++;
+                    salida=entrada-defectuosos;
+                    piston = 0;
+                    velocidad = 400;
                 }
-            }          
+
+            }
+   
             graficarDatos();
         }
     };
     //limpiar campos y salir
     public void limpiarCampos(){
-        cs=0; seg=0; velocidad=0; piston=0;
+        cs=0; seg=0; velocidad=0; piston=0; entrada=0; defectuosos=0; salida=0;
         txtIngresados.setText("");
         txtDefectuosos.setText("");
         txtSalida.setText("");
@@ -371,9 +374,13 @@ public class ControlProduccion extends javax.swing.JFrame {
     //graficas
     public void pistonActivo(int data1, int data2) {
         try {
+            int[][] Array = {{data1, data2}};
+            int[] Canal = new int[256];
             ObGraphicsX = new GraphicsX();
-            ObGraphicsX.piston(data1, data2, jPanelChartPiston);
-            System.out.println(data2);
+            //copiar a la matriz
+            System.arraycopy(Array[0], 0, Canal, 0, Array[0].length);
+            ObGraphicsX.piston(Canal, jPanelChartPiston);
+            
         } catch (Exception e) {
             System.err.println("No se puedo graficar");
         }
@@ -381,8 +388,13 @@ public class ControlProduccion extends javax.swing.JFrame {
     
     public void velocidadBanda(int data1, int data2){
         try {
+            int[][] Array = {{data1, data2}};
             ObGraphicsX = new GraphicsX();
-            ObGraphicsX.velocidadBanda(data1, data2, jPanelChartVelocidad); 
+            int[] Canal = new int[256];
+            ObGraphicsX = new GraphicsX();
+            //copiar a la matriz
+            System.arraycopy(Array[0], 0, Canal, 0, Array[0].length);
+            ObGraphicsX.velocidadBanda(Canal, jPanelChartVelocidad); 
             
         } catch (Exception e) {
             System.err.println("No se puedo graficar");
@@ -390,33 +402,21 @@ public class ControlProduccion extends javax.swing.JFrame {
     }
     //mandando datos
     public void graficarDatos(){
-        String tiempo;
-        tiempo= String.valueOf(seg);
-
-        velocidadBanda(Integer.parseInt(tiempo), velocidad);
-        pistonActivo(Integer.parseInt(tiempo), piston);
+        int tiempo;
+        tiempo= cs;
+        if(tiempo==10){
+            velocidadBanda(seg, velocidad);
+            pistonActivo(seg, piston);
+            tiempo=0;
+            openCv();
+        }
     }
-//    public void MostrarDatos() {
-//        try {
-//            timer = new Timer(100, (ActionEvent ae) -> {
-//                try {
-//                    res.initialize();
-//                    tempDatos = res.getDataInput();
-//                    velocidadBanda(Integer.parseInt(tempDatos[1]), Integer.parseInt(tempDatos[0]));
-//                    pistonActivo(Float.parseFloat(tempDatos[1]), Float.parseFloat(tempDatos[0]));
-//                } catch (NumberFormatException e) {
-//                }
-//            });
-//            timer.start();
-//        } catch (Exception e) {
-//
-//        }
-//    }
+
     public void openCv(){
         //depende de OpenCV
-        txtIngresados.setText("10");
-        txtDefectuosos.setText("10");
-        txtSalida.setText("10");
+        txtIngresados.setText(String.valueOf(entrada));
+        txtDefectuosos.setText(String.valueOf(defectuosos));
+        txtSalida.setText(String.valueOf(salida));
     }
     //principal
     public static void main(String args[]) {
