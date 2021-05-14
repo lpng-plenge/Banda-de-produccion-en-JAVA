@@ -2,30 +2,27 @@ package BandaProduccion;
 
 import Clases.GraphicsX;
 import ConexionUNO.InterfaceSerial;
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Timer;
 
 public class ControlProduccion extends javax.swing.JFrame {
-
+    //variables globales
+    String[] tempDatos;
+    //clases
     InterfaceSerial res;
     GraphicsX ObGraphicsX;
-    Timer timer;
-
+   
     public ControlProduccion() {
-        if (txtUsuarioEmpl.getText().equals("")) {
+        /*if (txtUsuarioEmpl.getText().equals("")) {
             Salir();
-        } else {
+        } else {*/
             initComponents();
-            res = new InterfaceSerial();
-            res.initialize();
-            this.jPanelChartVelocidad.setLayout(null);
-            this.jPanelChartPiston.setLayout(null);
             setLocationRelativeTo(null);
-            MostrarDatos();
-        }
-
+            //res = new InterfaceSerial();
+            //res.initialize();
+            timer =new Timer(10, acciones);
+        //}
     }
 
     @SuppressWarnings("unchecked")
@@ -194,6 +191,33 @@ public class ControlProduccion extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
+        btnPausar.setBackground(new java.awt.Color(243, 124, 34));
+        btnPausar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnPausar.setForeground(new java.awt.Color(255, 255, 255));
+        btnPausar.setText("Pausar");
+        btnPausar.setEnabled(false);
+        btnPausar.setMaximumSize(new java.awt.Dimension(120, 40));
+        btnPausar.setMinimumSize(new java.awt.Dimension(120, 40));
+        btnPausar.setPreferredSize(new java.awt.Dimension(120, 40));
+        btnPausar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPausarActionPerformed(evt);
+            }
+        });
+
+        btnIniciar.setBackground(new java.awt.Color(21, 149, 136));
+        btnIniciar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnIniciar.setForeground(new java.awt.Color(255, 255, 255));
+        btnIniciar.setText("Iniciar");
+        btnIniciar.setMaximumSize(new java.awt.Dimension(120, 40));
+        btnIniciar.setMinimumSize(new java.awt.Dimension(120, 40));
+        btnIniciar.setPreferredSize(new java.awt.Dimension(120, 40));
+        btnIniciar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIniciarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
         kGradientPanel1Layout.setHorizontalGroup(
@@ -211,11 +235,15 @@ public class ControlProduccion extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(txtDefectuosos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabelControlUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabelSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(txtSalida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnPausar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtSalida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(85, 85, 85)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelEstatusGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -245,16 +273,20 @@ public class ControlProduccion extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtSalida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jPanelChartVelocidad, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE))
+                            .addComponent(jLabelSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(25, 25, 25)
+                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnPausar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jPanelChartVelocidad, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE))
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 180, Short.MAX_VALUE)
+                        .addGap(178, 178, 178)
                         .addComponent(btnSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(60, 60, 60))
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(jPanelChartPiston, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanelChartPiston, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
@@ -271,69 +303,122 @@ public class ControlProduccion extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    //tiempo
+    private Timer timer;
+    private int seg, cs, velocidad, piston, mult=5;
+    
+    private ActionListener acciones = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            cs++;
+            if(cs==100){
+                cs =0;
+                ++seg;
+            }
+            for(int i=0; i<=seg;i++){
+                if(i%mult==0){
+                    velocidad=0;
+                    piston=1;
+                }else{
+                    velocidad=440;
+                    piston=0;
+                }
+            }          
+            graficarDatos();
+        }
+    };
+    //limpiar campos y salir
+    public void limpiarCampos(){
+        cs=0; seg=0; velocidad=0; piston=0;
+        txtIngresados.setText("");
+        txtDefectuosos.setText("");
+        txtSalida.setText("");
+        this.jPanelChartVelocidad.setLayout(null);
+        this.jPanelChartPiston.setLayout(null);
+        graficarDatos();
+    }
     public void Salir() {
         IniciarSesion ini = new IniciarSesion();
         ini.setVisible(true);
         this.setVisible(false);
     }
+    //botones
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        if(timer.isRunning()){
+            timer.stop();
+        }
+        btnIniciar.setText("Iniciar");
+        limpiarCampos();
         Salir();
     }//GEN-LAST:event_btnSalirActionPerformed
 
-    public void ChartVelocidad(float data1, float data2) {
-        try {
-            float[][] Array = {{data1, data2}};
-            ObGraphicsX = new GraphicsX();
-            float[] Canal = new float[256];
-            //copiar a la matriz
-            System.arraycopy(Array[0], 0, Canal, 0, Array[0].length);
-            ObGraphicsX.createHistogramm(Canal, jPanelChartVelocidad, Color.blue);
+    private void btnPausarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPausarActionPerformed
+        timer.stop();
+        btnIniciar.setEnabled(true);
+        btnPausar.setEnabled(false);
+        btnSalir.setEnabled(true);
+    }//GEN-LAST:event_btnPausarActionPerformed
 
+    private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
+        timer.start();
+        btnIniciar.setText("Reanudar");
+        btnIniciar.setEnabled(false);
+        btnPausar.setEnabled(true);
+        btnSalir.setEnabled(false);
+        openCv();
+    }//GEN-LAST:event_btnIniciarActionPerformed
+    //graficas
+    public void pistonActivo(int data1, int data2) {
+        try {
+            ObGraphicsX = new GraphicsX();
+            ObGraphicsX.piston(data1, data2, jPanelChartPiston);
+            System.out.println(data2);
         } catch (Exception e) {
             System.err.println("No se puedo graficar");
         }
     }
-
-    public void ChartPiston(int data1, int data2) {
+    
+    public void velocidadBanda(int data1, int data2){
         try {
-            int[][] Array = {{data1, data2}};
             ObGraphicsX = new GraphicsX();
-            int[] Canal = new int[256];
-            //copiar a la matriz
-            System.arraycopy(Array[0], 0, Canal, 0, Array[0].length);
-
-            ObGraphicsX.piston(Canal, jPanelChartVelocidad, Color.blue);
-
+            ObGraphicsX.velocidadBanda(data1, data2, jPanelChartVelocidad); 
+            
         } catch (Exception e) {
             System.err.println("No se puedo graficar");
         }
     }
-    String[] tempDatos;
+    //mandando datos
+    public void graficarDatos(){
+        String tiempo;
+        tiempo= String.valueOf(seg);
 
-    public void MostrarDatos() {
-        try {
-            timer = new Timer(100, new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent ae) {
-                    try {
-                        res.initialize();
-                        tempDatos = res.getDataInput();
-                        txtIngresados.setText(String.valueOf(tempDatos[0]));
-                        txtDefectuosos.setText(String.valueOf(tempDatos[1]));
-                        txtSalida.setText(String.valueOf(tempDatos[2]));
-                        //ChartVelocidad(Float.parseFloat(tempDatos[0]), Float.parseFloat(tempDatos[1]));
-                        ChartPiston(Integer.parseInt(tempDatos[0]), Integer.parseInt(tempDatos[2]));
-                    } catch (NumberFormatException e) {
-                    }
-                }
-            });
-            timer.start();
-        } catch (Exception e) {
-
-        }
+        velocidadBanda(Integer.parseInt(tiempo), velocidad);
+        pistonActivo(Integer.parseInt(tiempo), piston);
     }
-
+//    public void MostrarDatos() {
+//        try {
+//            timer = new Timer(100, (ActionEvent ae) -> {
+//                try {
+//                    res.initialize();
+//                    tempDatos = res.getDataInput();
+//                    velocidadBanda(Integer.parseInt(tempDatos[1]), Integer.parseInt(tempDatos[0]));
+//                    pistonActivo(Float.parseFloat(tempDatos[1]), Float.parseFloat(tempDatos[0]));
+//                } catch (NumberFormatException e) {
+//                }
+//            });
+//            timer.start();
+//        } catch (Exception e) {
+//
+//        }
+//    }
+    public void openCv(){
+        //depende de OpenCV
+        txtIngresados.setText("10");
+        txtDefectuosos.setText("10");
+        txtSalida.setText("10");
+    }
+    //principal
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -368,6 +453,8 @@ public class ControlProduccion extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ControlProduccionPanel;
+    public static final javax.swing.JButton btnIniciar = new javax.swing.JButton();
+    public static final javax.swing.JButton btnPausar = new javax.swing.JButton();
     private javax.swing.JButton btnSalir;
     private javax.swing.JLabel jLabelControlUsuario;
     private javax.swing.JLabel jLabelDefectuoso;

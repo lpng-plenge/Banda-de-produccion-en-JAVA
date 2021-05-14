@@ -1,5 +1,7 @@
 package ConexionUNO;
 
+
+import BandaProduccion.ControlProduccion;
 import gnu.io.CommPortIdentifier;
 import gnu.io.SerialPort;
 import gnu.io.SerialPortEvent;
@@ -12,7 +14,7 @@ import java.util.Enumeration;
 public class InterfaceSerial implements SerialPortEventListener {
 
     public SerialPort serialPort;
-    String[] tempData = new String[3];
+    String[] tempData = new String[10];
     public static final String PORT_NAMES[] = {"COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9"};
     public static BufferedReader input;
     public static OutputStream output;
@@ -39,7 +41,7 @@ public class InterfaceSerial implements SerialPortEventListener {
             return;
         }
         try {
-//            revisar funcionalidad
+            //            revisar funcionalidad
             serialPort = (SerialPort) port.open(this.getClass().getName(), TIME_OUT);
             serialPort.setSerialPortParams(DATA_RATE, SerialPort.DATABITS_8, SerialPort.STOPBITS_1, SerialPort.PARITY_NONE);
 
@@ -57,22 +59,22 @@ public class InterfaceSerial implements SerialPortEventListener {
     @Override
     public synchronized void serialEvent(SerialPortEvent spe) {
         try {
-            String tiempoactivo = input.readLine();
-            String pistonactivo = input.readLine();
-            String velocidadBanda = input.readLine();
+            String velocidad = input.readLine();
+            String piston = input.readLine();
 
-            tempData[0] = tiempoactivo;
-            tempData[1] = pistonactivo;
-            tempData[2] = velocidadBanda;
-            
+            tempData[0] = velocidad;
+                       
         } catch (Exception e) {
             System.err.println(e.toString());
         }
     }
 
     public String[] getDataInput() {
-            return tempData;
+        return tempData;
     }
+
+
+    
     
     public synchronized void Close(){
         if(serialPort != null){
