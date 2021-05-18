@@ -14,15 +14,15 @@ public class ControlProduccion extends javax.swing.JFrame {
     GraphicsX ObGraphicsX;
    
     public ControlProduccion() {
-        /*if (txtUsuarioEmpl.getText().equals("")) {
+        if (txtUsuarioEmpl.getText().equals("")) {
             Salir();
-        } else {*/
+        } else {
             initComponents();
             setLocationRelativeTo(null);
             //res = new InterfaceSerial();
             //res.initialize();
             timer =new Timer(10, acciones);
-        //}
+        }
     }
 
     @SuppressWarnings("unchecked")
