@@ -9,6 +9,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.opencv.core.Core;
 
 public class IniciarSesion extends javax.swing.JFrame {
 
@@ -24,9 +25,15 @@ public class IniciarSesion extends javax.swing.JFrame {
         //instanciar
         con = new Conexion();
         conn = con.getConexion();
+        if (conn.equals(null)) {
+            System.exit(0);
+            System.out.close();
+        }
+        
         db = new DataBase();
+
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -226,7 +233,7 @@ public class IniciarSesion extends javax.swing.JFrame {
             dbTipoUsuario();
         }
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
-    
+
     public void dbTipoUsuario() {
         boolean estatus = false;
         try {
@@ -261,7 +268,7 @@ public class IniciarSesion extends javax.swing.JFrame {
             Logger.getLogger(IniciarSesion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public boolean verificarCampos() {
         int n = 0;
         if (txtUsuario.getText().equals("")) {
@@ -270,14 +277,14 @@ public class IniciarSesion extends javax.swing.JFrame {
         } else {
             txtUsuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(21, 127, 251)));
         }
-        
+
         if (txtPassword.getText().equals("")) {
             txtPassword.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(209, 49, 53)));
             n += 1;
         } else {
             txtPassword.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(21, 127, 251)));
         }
-        
+
         if (n != 0) {
             jLabelError.setText("Datos incompletos");
             jLabelError.setOpaque(true);
@@ -286,12 +293,12 @@ public class IniciarSesion extends javax.swing.JFrame {
             return true;
         }
     }
-    
+
     public void limpiarCampos() {
         txtPassword.setText("");
         txtUsuario.setText("");
     }
-    
+
     public void txtBorderColors(boolean obj) {
         if (!obj) {
             txtUsuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(209, 49, 53)));
@@ -301,7 +308,7 @@ public class IniciarSesion extends javax.swing.JFrame {
             txtPassword.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(21, 127, 251)));
         }
     }
-    
+
     public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -319,7 +326,8 @@ public class IniciarSesion extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(IniciarSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        
+        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new IniciarSesion().setVisible(true);
