@@ -2,6 +2,7 @@ package BandaProduccion;
 
 import Clases.GraphicsX;
 import ConexionUNO.InterfaceSerial;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -27,15 +28,15 @@ import org.opencv.objdetect.CascadeClassifier;
 import org.opencv.objdetect.Objdetect;
 import org.opencv.videoio.VideoCapture;
 
-
 public class ControlProduccion extends javax.swing.JFrame {
+
     //variables globales
     String[] tempDatos;
     public static String sources = "D:\\Usuarios\\Luis Pablo Personal y Creativo\\Documentos\\GitHub\\JAVA-Banda-Produccion\\haarcascades\\haarcascade_frontalface_alt.xml";
     //clases
     InterfaceSerial res;
     GraphicsX ObGraphicsX;
-   
+
     public ControlProduccion() {
         if (txtUsuarioEmpl.getText().equals("")) {
             Salir();
@@ -44,7 +45,7 @@ public class ControlProduccion extends javax.swing.JFrame {
             setLocationRelativeTo(null);
             //res = new InterfaceSerial();
             //res.initialize();
-            timer =new Timer(10, acciones);
+            timer = new Timer(10, acciones);
         }
     }
 
@@ -401,11 +402,11 @@ public class ControlProduccion extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
+
     //tiempo
     private Timer timer;
-    private int seg, cs, velocidad, piston, mult=5, defectuosos, entrada, salida;
-    
+    private int seg, cs, velocidad, piston, mult = 5, defectuosos, entrada, salida;
+
     private ActionListener acciones = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -419,19 +420,26 @@ public class ControlProduccion extends javax.swing.JFrame {
                     piston = 1;
                 } else {
                     entrada++;
-                    salida=entrada-defectuosos;
+                    salida = entrada - defectuosos;
                     piston = 0;
                     velocidad = 400;
                 }
 
             }
-   
+
             graficarDatos();
         }
     };
+
     //limpiar campos y salir
-    public void limpiarCampos(){
-        cs=0; seg=0; velocidad=0; piston=0; entrada=0; defectuosos=0; salida=0;
+    public void limpiarCampos() {
+        cs = 0;
+        seg = 0;
+        velocidad = 0;
+        piston = 0;
+        entrada = 0;
+        defectuosos = 0;
+        salida = 0;
         txtIngresados.setText("");
         txtDefectuosos.setText("");
         txtSalida.setText("");
@@ -439,14 +447,16 @@ public class ControlProduccion extends javax.swing.JFrame {
         this.jPanelChartPiston.setLayout(null);
         graficarDatos();
     }
+
     public void Salir() {
         IniciarSesion ini = new IniciarSesion();
         ini.setVisible(true);
         this.setVisible(false);
     }
+
     //botones
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        if(timer.isRunning()){
+        if (timer.isRunning()) {
             timer.stop();
         }
         btnIniciar.setText("Iniciar");
@@ -482,13 +492,13 @@ public class ControlProduccion extends javax.swing.JFrame {
             //copiar a la matriz
             System.arraycopy(Array[0], 0, Canal, 0, Array[0].length);
             ObGraphicsX.piston(Canal, jPanelChartPiston);
-            
+
         } catch (Exception e) {
             System.err.println("No se puedo graficar");
         }
     }
-    
-    public void velocidadBanda(int data1, int data2){
+
+    public void velocidadBanda(int data1, int data2) {
         try {
             int[][] Array = {{data1, data2}};
             ObGraphicsX = new GraphicsX();
@@ -496,53 +506,59 @@ public class ControlProduccion extends javax.swing.JFrame {
             ObGraphicsX = new GraphicsX();
             //copiar a la matriz
             System.arraycopy(Array[0], 0, Canal, 0, Array[0].length);
-            ObGraphicsX.velocidadBanda(Canal, jPanelChartVelocidad); 
-            
+            ObGraphicsX.velocidadBanda(Canal, jPanelChartVelocidad);
+
         } catch (Exception e) {
             System.err.println("No se puedo graficar");
         }
     }
+
     //mandando datos
-    public void graficarDatos(){
+    public void graficarDatos() {
         int tiempo;
-        tiempo= cs;
-        if(tiempo==10){
+        tiempo = cs;
+        if (tiempo == 10) {
             velocidadBanda(seg, velocidad);
             pistonActivo(seg, piston);
-            tiempo=0;
+            tiempo = 0;
             openCv();
         }
     }
 
-    public void openCv(){
+    public void openCv() {
         //depende de OpenCV
         txtIngresados.setText(String.valueOf(entrada));
         txtDefectuosos.setText(String.valueOf(defectuosos));
         txtSalida.setText(String.valueOf(salida));
     }
-       
-    public void prenderCamara(){
+    public void prenderCamara() {
         System.out.println(sources);
         CascadeClassifier faceDetector = new CascadeClassifier(sources);
-        (new Thread(){
-            public void run(){
-                VideoCapture capture = new VideoCapture();
+        (new Thread() {
+            public void run() {
+                VideoCapture capture = new VideoCapture(0);
                 MatOfRect rostros = new MatOfRect();
                 MatOfByte mem = new MatOfByte();
-                
+
                 Mat frame = new Mat();
                 Mat frame_gray = new Mat();
-                
+
                 Rect[] facesArray;
                 Graphics g;
                 BufferedImage buff = null;
-                
-                while(capture.read(frame)){
-                    if(frame.empty()){
-                        System.out.println("No hay Conexion");
+                while (capture.read(frame)) {
+                    if (frame.empty()) {
+                        System.out.println("No hay Conexion con la camara");
                         break;
-                    }else{
+                    } else {
                         try {
+                           //Saturacion 
+                            long Umbral = 5000000;
+                            int [] color =new int [2];
+                            color[0] = new Color (255,255,255).getRGB();
+                            color[1] = new Color (0,0,0).getRGB();
+                            
+                            //Procesos de reconocimiento
                             g = jPanelVideo.getGraphics();
                             Imgproc.cvtColor(frame, frame_gray, Imgproc.COLOR_BGR2GRAY);
                             Imgproc.equalizeHist(frame_gray, frame_gray);
@@ -551,22 +567,25 @@ public class ControlProduccion extends javax.swing.JFrame {
                             faceDetector.detectMultiScale(frame_gray, rostros,
                                     1.1,
                                     2,
-                                    0|Objdetect.CASCADE_SCALE_IMAGE,
-                                    new Size(30,30),
-                                    new Size(w,h)
+                                    0 | Objdetect.CASCADE_SCALE_IMAGE,
+                                    new Size(30, 30),
+                                    new Size(w, h)
                             );
                             facesArray = rostros.toArray();
-                            System.out.println("Numero de rostros"+facesArray.length);
+                            System.out.println("Numero de rostros" + facesArray.length);
                             
-                            for(int i=0;i<facesArray.length;i++){
-                                Point centerPoint = new Point((facesArray[i].x+facesArray[i].width*0.5), (facesArray[i].y+facesArray[i].height*0.5));
+                            for (int i = 0; i < facesArray.length; i++) {
+                                Point centerPoint = new Point(
+                                        (facesArray[i].x + facesArray[i].width * 0.5),
+                                        (facesArray[i].y + facesArray[i].height * 0.5)
+                                );
                                 Imgproc.ellipse(frame,
                                         centerPoint,
-                                        new Size(facesArray[i].width*0.5,facesArray[i].height*0.5),
+                                        new Size(facesArray[i].width * 0.5, facesArray[i].height * 0.5),
                                         0,
                                         0,
                                         360,
-                                        new Scalar(255,255, 255),
+                                        new Scalar(255, 255, 255),
                                         4,
                                         8,
                                         0
@@ -575,32 +594,49 @@ public class ControlProduccion extends javax.swing.JFrame {
                                 Mat faceROIMat = frame_gray.submat(facesArray[i]);
                                 Imgproc.rectangle(frame,
                                         new Point(facesArray[i].x, facesArray[i].y),
-                                        new Point((facesArray[i].x+facesArray[i].width), (facesArray[i].y+facesArray[i].height)),      
+                                        new Point((facesArray[i].x + facesArray[i].width), (facesArray[i].y + facesArray[i].height)),
                                         new Scalar(123, 213, 23, 120)
                                 );
                                 Imgproc.putText(frame,
-                                        "Ancho: "+faceROIMat.width()+"Alto: "+faceROIMat.height()+"x= "+facesArray[i].x+"y= "+facesArray[i].y,
-                                        new Point(facesArray[i].x, facesArray[i].y-20),
+                                        "Ancho: " + faceROIMat.width() + "Alto: " + faceROIMat.height() + "x= " + facesArray[i].x + "y= " + facesArray[i].y,
+                                        new Point(facesArray[i].x, facesArray[i].y - 20),
                                         1,
                                         1,
                                         new Scalar(255, 255, 255)
                                 );
                             }
-                            int no= facesArray.length;
+                            int no = facesArray.length;
+                            //Mandar al label si se identifica
                             txtNumeroEncontradas.setText(String.valueOf(no));
                             
                             Imgcodecs.imencode(".jpg", frame, mem);
-                            Image img = ImageIO.read(new ByteArrayInputStream(mem.toArray()));
+                            Image img;
+                            
+                            img = ImageIO.read(new ByteArrayInputStream(mem.toArray()));
                             buff = (BufferedImage) img;
-                            g.drawImage(buff, 0, 0, jPanelVideo.getWidth(), jPanelVideo.getHeight(), 0,0, buff.getWidth(), buff.getHeight(), null);
+                            //cambio de color de la imagen
+                            for (int i = 0; i < buff.getWidth(); i++) {
+                                for (int j = 0; j < buff.getHeight(); j++) {
+                                    if (buff.getRGB(i, j) < -Umbral *2) {
+                                        buff.setRGB(i, j, color[0]);
+                                    } else {
+                                        buff.setRGB(i, j, color[1]);
+                                    }
+                                }
+                            }
+                            //renderizado
+                            g.drawImage(buff, 0, 0, jPanelVideo.getWidth(), jPanelVideo.getHeight(), 0, 0, buff.getWidth(), buff.getHeight(), null);
+                            
                         } catch (IOException ex) {
                             Logger.getLogger(ControlProduccion.class.getName()).log(Level.SEVERE, null, ex);
                         }
+
                     }
                 }
             }
         }).start();
     }
+          
     //principal
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
