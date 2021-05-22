@@ -32,7 +32,9 @@ public class ControlProduccion extends javax.swing.JFrame {
 
     //variables globales
     String[] tempDatos;
-    public static String sources = "D:\\Usuarios\\Luis Pablo Personal y Creativo\\Documentos\\GitHub\\JAVA-Banda-Produccion\\haarcascades\\haarcascade_frontalface_alt.xml";
+    public static String sources = "D:\\Usuarios\\Luis Pablo Personal y Creativo\\Documentos\\GitHub\\JAVA-Banda-Produccion\\haarcascades\\haarcascade_frontalface_alt.xml"; //fotografias xml
+    CascadeClassifier faceDetector = new CascadeClassifier(sources);
+    boolean _cambioPestana= false, _activarVideo=true;
     //clases
     InterfaceSerial res;
     GraphicsX ObGraphicsX;
@@ -77,6 +79,7 @@ public class ControlProduccion extends javax.swing.JFrame {
         setName("Empleado"); // NOI18N
         setSize(new java.awt.Dimension(1024, 640));
 
+        jTabbedPane1.setBackground(new java.awt.Color(34, 34, 34));
         jTabbedPane1.setPreferredSize(new java.awt.Dimension(1024, 640));
         jTabbedPane1.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -424,9 +427,7 @@ public class ControlProduccion extends javax.swing.JFrame {
                     piston = 0;
                     velocidad = 400;
                 }
-
             }
-
             graficarDatos();
         }
     };
@@ -440,6 +441,7 @@ public class ControlProduccion extends javax.swing.JFrame {
         entrada = 0;
         defectuosos = 0;
         salida = 0;
+        _cambioPestana = false;
         txtIngresados.setText("");
         txtDefectuosos.setText("");
         txtSalida.setText("");
@@ -449,9 +451,11 @@ public class ControlProduccion extends javax.swing.JFrame {
     }
 
     public void Salir() {
+        
         IniciarSesion ini = new IniciarSesion();
         ini.setVisible(true);
         this.setVisible(false);
+        System.exit(0);
     }
 
     //botones
@@ -465,6 +469,8 @@ public class ControlProduccion extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnPausarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPausarActionPerformed
+        _activarVideo=false;
+        prenderCamara();
         timer.stop();
         btnIniciar.setEnabled(true);
         btnPausar.setEnabled(false);
@@ -473,15 +479,20 @@ public class ControlProduccion extends javax.swing.JFrame {
 
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
         timer.start();
+        _activarVideo=true;
         prenderCamara();
         btnIniciar.setText("Reanudar");
         btnIniciar.setEnabled(false);
         btnPausar.setEnabled(true);
         btnSalir.setEnabled(false);
     }//GEN-LAST:event_btnIniciarActionPerformed
-
+   
     private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
-
+        if(!_cambioPestana){
+            _cambioPestana =true;
+        }else{
+            _cambioPestana = false;
+        }
     }//GEN-LAST:event_jTabbedPane1StateChanged
     //graficas
     public void pistonActivo(int data1, int data2) {
@@ -532,21 +543,21 @@ public class ControlProduccion extends javax.swing.JFrame {
         txtSalida.setText(String.valueOf(salida));
     }
     public void prenderCamara() {
-        System.out.println(sources);
-        CascadeClassifier faceDetector = new CascadeClassifier(sources);
         (new Thread() {
             public void run() {
-                VideoCapture capture = new VideoCapture(0);
+                VideoCapture capture = new VideoCapture(1);
+                capture.open(0);
+
                 MatOfRect rostros = new MatOfRect();
                 MatOfByte mem = new MatOfByte();
 
                 Mat frame = new Mat();
                 Mat frame_gray = new Mat();
-
+                //Mat RCI =null;
                 Rect[] facesArray;
                 Graphics g;
                 BufferedImage buff = null;
-                while (capture.read(frame)) {
+                while (capture.read(frame)&&_activarVideo) {
                     if (frame.empty()) {
                         System.out.println("No hay Conexion con la camara");
                         break;
@@ -572,7 +583,7 @@ public class ControlProduccion extends javax.swing.JFrame {
                                     new Size(w, h)
                             );
                             facesArray = rostros.toArray();
-                            System.out.println("Numero de rostros" + facesArray.length);
+                            //System.out.println("Numero de rostros" + facesArray.length);
                             
                             for (int i = 0; i < facesArray.length; i++) {
                                 Point centerPoint = new Point(
@@ -608,7 +619,7 @@ public class ControlProduccion extends javax.swing.JFrame {
                             int no = facesArray.length;
                             //Mandar al label si se identifica
                             txtNumeroEncontradas.setText(String.valueOf(no));
-                            
+
                             Imgcodecs.imencode(".jpg", frame, mem);
                             Image img;
                             
@@ -624,19 +635,28 @@ public class ControlProduccion extends javax.swing.JFrame {
                                     }
                                 }
                             }
-                            //renderizado
-                            g.drawImage(buff, 0, 0, jPanelVideo.getWidth(), jPanelVideo.getHeight(), 0, 0, buff.getWidth(), buff.getHeight(), null);
-                            
+                           
+                            if(_cambioPestana){
+                                jPanelVideo.removeAll();
+                            }else{
+                                //renderizado
+                                g.drawImage(buff, 0, 0, jPanelVideo.getWidth(), jPanelVideo.getHeight(), 0, 0, buff.getWidth(), buff.getHeight(), null);
+                            }
                         } catch (IOException ex) {
                             Logger.getLogger(ControlProduccion.class.getName()).log(Level.SEVERE, null, ex);
                         }
-
                     }
+                }
+                if (!_activarVideo) {
+                    capture=null;
+                    jPanelVideo.removeAll();
+                    txtNumeroEncontradas.setText("");
+                    Thread.interrupted();
                 }
             }
         }).start();
     }
-          
+         
     //principal
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -669,6 +689,7 @@ public class ControlProduccion extends javax.swing.JFrame {
             }
         });
     }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ControlProduccionPanel;
