@@ -14,7 +14,8 @@ public class Conexion {
                 "jdbc:mysql://localhost/dbBandaProduccion","root", "");
                this.conn=con;
            } catch (Exception e){
-               JOptionPane.showMessageDialog(null, "Error en la Conexion");
+               JOptionPane.showMessageDialog(null, "Error en la Conexion, vuelva mas tarde");
+               System.exit(0);
            }
          return this.conn;
    }

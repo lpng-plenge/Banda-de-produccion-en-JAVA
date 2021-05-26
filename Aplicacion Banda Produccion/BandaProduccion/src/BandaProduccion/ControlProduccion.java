@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
@@ -451,7 +452,6 @@ public class ControlProduccion extends javax.swing.JFrame {
     }
 
     public void Salir() {
-        
         IniciarSesion ini = new IniciarSesion();
         ini.setVisible(true);
         this.setVisible(false);
@@ -628,8 +628,10 @@ public class ControlProduccion extends javax.swing.JFrame {
                             //cambio de color de la imagen
                             for (int i = 0; i < buff.getWidth(); i++) {
                                 for (int j = 0; j < buff.getHeight(); j++) {
-                                    if (buff.getRGB(i, j) < -Umbral *2) {
+                                    if (buff.getRGB(i, j) < -Umbral*2) {
+                                        //dar un cero
                                         buff.setRGB(i, j, color[0]);
+                                        //activar el piston
                                     } else {
                                         buff.setRGB(i, j, color[1]);
                                     }

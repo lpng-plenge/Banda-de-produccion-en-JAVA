@@ -25,13 +25,7 @@ public class IniciarSesion extends javax.swing.JFrame {
         //instanciar
         con = new Conexion();
         conn = con.getConexion();
-        if (conn.equals(null)) {
-            System.exit(0);
-            System.out.close();
-        }
-        
         db = new DataBase();
-
     }
 
     @SuppressWarnings("unchecked")
