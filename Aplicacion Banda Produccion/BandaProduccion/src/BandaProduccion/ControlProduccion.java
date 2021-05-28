@@ -342,6 +342,10 @@ public class ControlProduccion extends javax.swing.JFrame {
         txtNumeroEncontradas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtNumeroEncontradas.setText("No. de Encontrados");
 
+        txtPasante.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtPasante.setText("% De paso");
+        txtPasante.setToolTipText("");
+
         javax.swing.GroupLayout kGradientPanel2Layout = new javax.swing.GroupLayout(kGradientPanel2);
         kGradientPanel2.setLayout(kGradientPanel2Layout);
         kGradientPanel2Layout.setHorizontalGroup(
@@ -349,7 +353,9 @@ public class ControlProduccion extends javax.swing.JFrame {
             .addGroup(kGradientPanel2Layout.createSequentialGroup()
                 .addGap(60, 60, 60)
                 .addComponent(txtNumeroEncontradas, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(854, Short.MAX_VALUE))
+                .addGap(14, 14, 14)
+                .addComponent(txtPasante, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(730, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel2Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(jPanelVideo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -359,7 +365,9 @@ public class ControlProduccion extends javax.swing.JFrame {
             kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel2Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(txtNumeroEncontradas, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNumeroEncontradas, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPasante, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanelVideo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap(25, Short.MAX_VALUE))
@@ -562,6 +570,7 @@ public class ControlProduccion extends javax.swing.JFrame {
     private javax.swing.JTextField txtDefectuosos;
     private javax.swing.JTextField txtIngresados;
     public static final javax.swing.JLabel txtNumeroEncontradas = new javax.swing.JLabel();
+    public static final javax.swing.JLabel txtPasante = new javax.swing.JLabel();
     private javax.swing.JTextField txtSalida;
     public static final javax.swing.JLabel txtUsuarioEmpl = new javax.swing.JLabel();
     // End of variables declaration//GEN-END:variables

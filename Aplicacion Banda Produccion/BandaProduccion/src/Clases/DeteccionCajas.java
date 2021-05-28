@@ -18,7 +18,6 @@ import org.opencv.core.Size;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.objdetect.CascadeClassifier;
-import org.opencv.objdetect.Objdetect;
 import org.opencv.videoio.VideoCapture;
 
 public class DeteccionCajas implements Runnable {
@@ -26,7 +25,7 @@ public class DeteccionCajas implements Runnable {
     //variables globales
     double negro = 0, blanco = 0, total = 0;
     // Harscascade
-    public static String sources = "D:\\Usuarios\\Luis Pablo Personal y Creativo\\Documentos\\GitHub\\JAVA-Banda-Produccion\\haarcascades\\haarcascade_frontalface_alt.xml"; //fotografias xml
+    public static String sources = "D:\\Usuarios\\Luis Pablo Personal y Creativo\\Documentos\\GitHub\\JAVA-Banda-Produccion\\haarcascades\\cascade.xml"; //fotografias xml
     CascadeClassifier faceDetector = new CascadeClassifier(sources);
 
     @Override
@@ -54,23 +53,23 @@ public class DeteccionCajas implements Runnable {
                     int[] color = new int[2];
                     color[0] = new Color(255, 255, 255).getRGB();
                     color[1] = new Color(0, 0, 0).getRGB();
-
+                    
                     //Procesos de reconocimiento
                     g = ControlProduccion.jPanelVideo.getGraphics();
                     Imgproc.cvtColor(frame, frame_gray, Imgproc.COLOR_BGR2GRAY);
                     Imgproc.equalizeHist(frame_gray, frame_gray);
-                    double w = frame.width();
-                    double h = frame.height();
+
+                    System.out.println();
                     faceDetector.detectMultiScale(frame_gray, rostros,
-                            1.1,
-                            2,
-                            0 | Objdetect.CASCADE_SCALE_IMAGE,
-                            new Size(30, 30),
-                            new Size(w, h)
+                            5,
+                            91,
+                            0 ,
+                            new Size(100, 100)
                     );
                     facesArray = rostros.toArray();
                     //System.out.println("Numero de rostros" + facesArray.length);
-
+                    
+                    //detector
                     for (int i = 0; i < facesArray.length; i++) {
                         Point centerPoint = new Point(
                                 (facesArray[i].x + facesArray[i].width * 0.5),
@@ -87,13 +86,7 @@ public class DeteccionCajas implements Runnable {
                                 8,
                                 0
                         );
-
                         Mat faceROIMat = frame_gray.submat(facesArray[i]);
-                        Imgproc.rectangle(frame,
-                                new Point(facesArray[i].x, facesArray[i].y),
-                                new Point((facesArray[i].x + facesArray[i].width), (facesArray[i].y + facesArray[i].height)),
-                                new Scalar(123, 213, 23, 120)
-                        );
                         Imgproc.putText(frame,
                                 "Ancho: " + faceROIMat.width() + "Alto: " + faceROIMat.height() + "x= " + facesArray[i].x + "y= " + facesArray[i].y,
                                 new Point(facesArray[i].x, facesArray[i].y - 20),
@@ -111,6 +104,7 @@ public class DeteccionCajas implements Runnable {
 
                     img = ImageIO.read(new ByteArrayInputStream(mem.toArray()));
                     buff = (BufferedImage) img;
+                    
                     //cambio de color de la imagen
                     for (int i = 0; i < buff.getWidth(); i++) {
                         for (int j = 0; j < buff.getHeight(); j++) {
@@ -150,6 +144,8 @@ public class DeteccionCajas implements Runnable {
     public void porcentaje(double total, double negro) {
         double porcentaje = (negro / total) * 100;
         double pfinal = Math.round(porcentaje * 1000) / 1000;
+        ControlProduccion.txtPasante.setText(String.valueOf(pfinal));
+        
     }
 
 }
