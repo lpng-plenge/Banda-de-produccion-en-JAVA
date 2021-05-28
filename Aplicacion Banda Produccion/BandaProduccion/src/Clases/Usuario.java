@@ -4,7 +4,8 @@ package Clases;
 public class Usuario {
     private int _id, _tipo;
     private String _nombres, _apellidoMaterno, _apellidoPaterno, _direccion,_usuario,_password, _telefono;
-
+    private boolean _estatus;
+    
     public int getId() {
         return _id;
     }
@@ -75,6 +76,10 @@ public class Usuario {
 
     public void setTipo(int _tipo) {
         this._tipo = _tipo;
+    }
+
+    public boolean isEstatus() {
+        return _estatus=false;
     }
     
     

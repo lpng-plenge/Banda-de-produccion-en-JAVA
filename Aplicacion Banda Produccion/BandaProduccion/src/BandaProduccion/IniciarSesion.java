@@ -231,12 +231,13 @@ public class IniciarSesion extends javax.swing.JFrame {
     public void dbTipoUsuario() {
         boolean estatus = false;
         try {
-            String registro;
+            String []registro;
             log = new LogIn();
             log.setUsuario(txtUsuario.getText());
             log.setPassword(txtPassword.getText());
+            
             registro = db.IniciarSesion(conn, log);
-            if (registro.equals("0")) {
+            if (registro[0].equals("0")) {
                 ControlProduccion.txtUsuarioEmpl.setText(log.getUsuario());
                 estatus = true;
                 txtBorderColors(estatus);
@@ -244,7 +245,7 @@ public class IniciarSesion extends javax.swing.JFrame {
                 ControlProduccion cp = new ControlProduccion();
                 cp.setVisible(true);
                 this.setVisible(false);
-            } else if (registro.equals("1")) {
+            } else if (registro[0].equals("1")) {
                 Administrador.txtUsuarioAdmin.setText(log.getUsuario());
                 estatus = true;
                 txtBorderColors(estatus);
@@ -252,7 +253,12 @@ public class IniciarSesion extends javax.swing.JFrame {
                 Administrador admin = new Administrador();
                 admin.setVisible(true);
                 this.setVisible(false);
-            } else {
+            }else if(registro[0].equals("3")){
+                jLabelError.setText("Intentelo mas tarde");
+                jLabelError.setOpaque(true);
+                txtBorderColors(estatus);
+                TimerTime();    
+            }else {
                 jLabelError.setText("No se encontro el usuario");
                 jLabelError.setOpaque(true);
                 txtBorderColors(estatus);

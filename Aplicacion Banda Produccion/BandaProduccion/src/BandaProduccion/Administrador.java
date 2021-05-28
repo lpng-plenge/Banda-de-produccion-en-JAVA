@@ -1,5 +1,6 @@
 package BandaProduccion;
 
+import Clases.CerrarSesion;
 import Clases.Usuario;
 import ConexionDB.Conexion;
 import ConexionDB.DataBase;
@@ -15,10 +16,11 @@ public class Administrador extends javax.swing.JFrame {
     //variable global
     String usuario = txtUsuarioAdmin.getText();
     //clases
-    Conexion con;//clase
+    Conexion con;
     DataBase db;
-    Connection conn;//libreria 
+    Connection conn;
     Usuario us;
+    CerrarSesion cS;
 
     public Administrador() {
         if (txtUsuarioAdmin.getText().equals("")) {
@@ -29,7 +31,7 @@ public class Administrador extends javax.swing.JFrame {
             //instanciar
             con = new Conexion();
             conn = con.getConexion();
-            db = new DataBase();
+            db=new DataBase();
         }
     }
 
@@ -502,17 +504,36 @@ public class Administrador extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
+    Timer timer = new Timer();
+    public void TimerTime() {
+        TimerTask tare = new TimerTask() {
+            @Override
+            public void run() {
+                jLabelError.setText("");
+                jLabelError.setOpaque(false);
+            }
+        };
+        timer.scheduleAtFixedRate(tare, 1000, 4000);
+    }
+            
     public void Estatus(){
         try {
-            us = new Usuario();
-            us.setUsuario(usuario);
-            boolean estatus = db.EncontrarUsuario(conn, us);
-            if (estatus) {
-                System.out.println(estatus);
-            } else {
-                System.out.println("No se encontro");
-                Salir();
+            String activo="";
+            cS = new CerrarSesion();
+            cS.setUsuario(usuario);
+            activo= db.getRefresh(conn, cS);    
+            //Si se modifica el mismo
+            switch (activo) {
+                case "null":
+                    Salir();
+                    break;
+                case "1":
+                    break;
+                case "0":
+                    Salir();
+                    break;
+                default:
+                    break;
             }
         } catch (SQLException ex) {
             Logger.getLogger(Administrador.class.getName()).log(Level.SEVERE, null, ex);
@@ -620,22 +641,18 @@ public class Administrador extends javax.swing.JFrame {
         }
     }
 
-    public void TimerTime() {
-        Timer timer = new Timer();
-        TimerTask tare = new TimerTask() {
-            @Override
-            public void run() {
-                jLabelError.setText("");
-                jLabelError.setOpaque(false);
-            }
-        };
-        timer.scheduleAtFixedRate(tare, 1000, 4000);
-    }
-
     public void Salir() {
-        IniciarSesion ini = new IniciarSesion();
-        ini.setVisible(true);
-        this.setVisible(false);
+        try {
+            cS = new CerrarSesion();
+            cS.setUsuario(txtUsuarioAdmin.getText());
+            cS.setEstatus();
+            db.CerrarSesion(conn, cS);
+            IniciarSesion ini = new IniciarSesion();
+            ini.setVisible(true);
+            this.setVisible(false);
+        } catch (SQLException ex) {
+            Logger.getLogger(Administrador.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
@@ -801,8 +818,8 @@ public class Administrador extends javax.swing.JFrame {
                 us.setUsuario(txtUsuario.getText());
                 us.setPassword(txtPassword.getText());
                 us.setTipo(comBoxPerfil.getSelectedIndex());
-
                 db.Editar(conn, us);
+                Estatus();
                 CleanFields();
                 DeshabilitarFields();
                 btnNuevo.setEnabled(true);

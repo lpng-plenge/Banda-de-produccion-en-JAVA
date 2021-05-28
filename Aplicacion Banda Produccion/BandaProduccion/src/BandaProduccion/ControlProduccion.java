@@ -1,10 +1,17 @@
 package BandaProduccion;
 
+import Clases.CerrarSesion;
 import Clases.GraphicsX;
 import Clases.DeteccionCajas;
+import ConexionDB.Conexion;
+import ConexionDB.DataBase;
 import ConexionUNO.InterfaceSerial;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Timer;
 import org.opencv.core.Core;
 
@@ -12,11 +19,14 @@ public class ControlProduccion extends javax.swing.JFrame {
 
     //variables globales
     public static boolean _cambioPestana= false, _activarVideo=true;
-    
     //clases
     InterfaceSerial res;
     GraphicsX ObGraphicsX;
     DeteccionCajas cajas;
+    CerrarSesion cS;
+    Conexion con;//clase
+    DataBase db;
+    Connection conn;//libreria 
     
     public ControlProduccion() {
         if (txtUsuarioEmpl.getText().equals("")) {
@@ -26,7 +36,14 @@ public class ControlProduccion extends javax.swing.JFrame {
             setLocationRelativeTo(null);
             //res = new InterfaceSerial();
             //res.initialize();
+            
+            //instanciar base de datos
+            con = new Conexion();
+            conn = con.getConexion();
+            db = new DataBase();
             timer = new Timer(10, acciones);
+            usuarioConectado = new Timer(1000, payControll);
+            usuarioConectado.start();
         }
     }
 
@@ -390,11 +407,36 @@ public class ControlProduccion extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    //tiempo
-    private Timer timer;
+    //tiempo de que inicia sesion
+    private Timer usuarioConectado, timer;
+    
+    public ActionListener payControll = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            String estatus="";
+            try {
+                cS = new CerrarSesion();
+                cS.setUsuario(txtUsuarioEmpl.getText());
+                estatus=db.getRefresh(conn, cS);
+                switch (estatus) {
+                    case "null":
+                        desactivar_Todo();
+                        break;
+                    case "1":
+                        break;
+                    case "0":
+                        desactivar_Todo();
+                        break;
+                    default:
+                        break;
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ControlProduccion.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    };
+    //tiempo para calcular la banda
     private int seg, cs, velocidad, piston, mult = 5, defectuosos, entrada, salida;
-
     private ActionListener acciones = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -418,7 +460,7 @@ public class ControlProduccion extends javax.swing.JFrame {
     };
 
     //limpiar campos y salir
-    public void limpiarCampos() {
+    private void limpiarCampos() {
         cs = 0;
         seg = 0;
         velocidad = 0;
@@ -434,11 +476,30 @@ public class ControlProduccion extends javax.swing.JFrame {
         this.jPanelChartPiston.setLayout(null);
         graficarDatos();
     }
-
-    public void Salir() {
+    private void desactivar_Todo(){
+        timer.stop();
+        usuarioConectado.stop();
+        _activarVideo=false;
+        btnIniciar.setEnabled(true);
+        btnPausar.setEnabled(false);
+        btnSalir.setEnabled(true);
+        limpiarCampos();
         IniciarSesion ini = new IniciarSesion();
         ini.setVisible(true);
         this.setVisible(false);
+    }
+    private void Salir() {
+        try {
+            cS = new CerrarSesion();
+            cS.setUsuario(txtUsuarioEmpl.getText());
+            cS.setEstatus();
+            db.CerrarSesion(conn, cS);
+            IniciarSesion ini = new IniciarSesion();
+            ini.setVisible(true);
+            this.setVisible(false);
+        } catch (SQLException ex) {
+            Logger.getLogger(ControlProduccion.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     //botones
