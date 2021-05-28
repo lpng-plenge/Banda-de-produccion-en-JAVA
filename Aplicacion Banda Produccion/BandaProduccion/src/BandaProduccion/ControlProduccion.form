@@ -615,6 +615,9 @@
                   <Color blue="33" green="33" red="33" type="rgb"/>
                 </Property>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="25"/>
+              </AuxValues>
 
               <Layout>
                 <DimensionLayout dim="0">
@@ -636,6 +639,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="No. de Encontrados"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="25"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>

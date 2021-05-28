@@ -1,45 +1,23 @@
 package BandaProduccion;
 
 import Clases.GraphicsX;
+import Clases.DeteccionCajas;
 import ConexionUNO.InterfaceSerial;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
-import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import org.opencv.core.Core;
-import org.opencv.core.Mat;
-import org.opencv.core.MatOfByte;
-import org.opencv.core.MatOfRect;
-import org.opencv.core.Point;
-import org.opencv.core.Rect;
-import org.opencv.core.Scalar;
-import org.opencv.core.Size;
-import org.opencv.imgcodecs.Imgcodecs;
-import org.opencv.imgproc.Imgproc;
-import org.opencv.objdetect.CascadeClassifier;
-import org.opencv.objdetect.Objdetect;
-import org.opencv.videoio.VideoCapture;
 
 public class ControlProduccion extends javax.swing.JFrame {
 
     //variables globales
-    String[] tempDatos;
-    public static String sources = "D:\\Usuarios\\Luis Pablo Personal y Creativo\\Documentos\\GitHub\\JAVA-Banda-Produccion\\haarcascades\\haarcascade_frontalface_alt.xml"; //fotografias xml
-    CascadeClassifier faceDetector = new CascadeClassifier(sources);
-    boolean _cambioPestana= false, _activarVideo=true;
+    public static boolean _cambioPestana= false, _activarVideo=true;
+    
     //clases
     InterfaceSerial res;
     GraphicsX ObGraphicsX;
-
+    DeteccionCajas cajas;
+    
     public ControlProduccion() {
         if (txtUsuarioEmpl.getText().equals("")) {
             Salir();
@@ -72,8 +50,6 @@ public class ControlProduccion extends javax.swing.JFrame {
         jPanelChartVelocidad = new javax.swing.JPanel();
         jPanelChartPiston = new javax.swing.JPanel();
         kGradientPanel2 = new keeptoo.KGradientPanel();
-        jPanelVideo = new javax.swing.JPanel();
-        txtNumeroEncontradas = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1024, 640));
@@ -455,7 +431,6 @@ public class ControlProduccion extends javax.swing.JFrame {
         IniciarSesion ini = new IniciarSesion();
         ini.setVisible(true);
         this.setVisible(false);
-        System.exit(0);
     }
 
     //botones
@@ -469,9 +444,8 @@ public class ControlProduccion extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnPausarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPausarActionPerformed
-        _activarVideo=false;
-        prenderCamara();
         timer.stop();
+        _activarVideo=false;
         btnIniciar.setEnabled(true);
         btnPausar.setEnabled(false);
         btnSalir.setEnabled(true);
@@ -480,7 +454,10 @@ public class ControlProduccion extends javax.swing.JFrame {
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
         timer.start();
         _activarVideo=true;
-        prenderCamara();
+        cajas = new DeteccionCajas(); // se crea el hilo
+        Thread t = new Thread(cajas);
+        t.setDaemon(true);
+        t.start(); 
         btnIniciar.setText("Reanudar");
         btnIniciar.setEnabled(false);
         btnPausar.setEnabled(true);
@@ -532,140 +509,12 @@ public class ControlProduccion extends javax.swing.JFrame {
             velocidadBanda(seg, velocidad);
             pistonActivo(seg, piston);
             tiempo = 0;
-            openCv();
         }
     }
+    //OpenCV
 
-    public void openCv() {
-        //depende de OpenCV
-        txtIngresados.setText(String.valueOf(entrada));
-        txtDefectuosos.setText(String.valueOf(defectuosos));
-        txtSalida.setText(String.valueOf(salida));
-    }
-    public void prenderCamara() {
-        (new Thread() {
-            public void run() {
-                VideoCapture capture = new VideoCapture(1);
-                capture.open(0);
-
-                MatOfRect rostros = new MatOfRect();
-                MatOfByte mem = new MatOfByte();
-
-                Mat frame = new Mat();
-                Mat frame_gray = new Mat();
-                //Mat RCI =null;
-                Rect[] facesArray;
-                Graphics g;
-                BufferedImage buff = null;
-                while (capture.read(frame)&&_activarVideo) {
-                    if (frame.empty()) {
-                        System.out.println("No hay Conexion con la camara");
-                        break;
-                    } else {
-                        try {
-                           //Saturacion 
-                            long Umbral = 5000000;
-                            int [] color =new int [2];
-                            color[0] = new Color (255,255,255).getRGB();
-                            color[1] = new Color (0,0,0).getRGB();
-                            
-                            //Procesos de reconocimiento
-                            g = jPanelVideo.getGraphics();
-                            Imgproc.cvtColor(frame, frame_gray, Imgproc.COLOR_BGR2GRAY);
-                            Imgproc.equalizeHist(frame_gray, frame_gray);
-                            double w = frame.width();
-                            double h = frame.height();
-                            faceDetector.detectMultiScale(frame_gray, rostros,
-                                    1.1,
-                                    2,
-                                    0 | Objdetect.CASCADE_SCALE_IMAGE,
-                                    new Size(30, 30),
-                                    new Size(w, h)
-                            );
-                            facesArray = rostros.toArray();
-                            //System.out.println("Numero de rostros" + facesArray.length);
-                            
-                            for (int i = 0; i < facesArray.length; i++) {
-                                Point centerPoint = new Point(
-                                        (facesArray[i].x + facesArray[i].width * 0.5),
-                                        (facesArray[i].y + facesArray[i].height * 0.5)
-                                );
-                                Imgproc.ellipse(frame,
-                                        centerPoint,
-                                        new Size(facesArray[i].width * 0.5, facesArray[i].height * 0.5),
-                                        0,
-                                        0,
-                                        360,
-                                        new Scalar(255, 255, 255),
-                                        4,
-                                        8,
-                                        0
-                                );
-                                
-                                Mat faceROIMat = frame_gray.submat(facesArray[i]);
-                                Imgproc.rectangle(frame,
-                                        new Point(facesArray[i].x, facesArray[i].y),
-                                        new Point((facesArray[i].x + facesArray[i].width), (facesArray[i].y + facesArray[i].height)),
-                                        new Scalar(123, 213, 23, 120)
-                                );
-                                Imgproc.putText(frame,
-                                        "Ancho: " + faceROIMat.width() + "Alto: " + faceROIMat.height() + "x= " + facesArray[i].x + "y= " + facesArray[i].y,
-                                        new Point(facesArray[i].x, facesArray[i].y - 20),
-                                        1,
-                                        1,
-                                        new Scalar(255, 255, 255)
-                                );
-                            }
-                            int no = facesArray.length;
-                            //Mandar al label si se identifica
-                            txtNumeroEncontradas.setText(String.valueOf(no));
-
-                            Imgcodecs.imencode(".jpg", frame, mem);
-                            Image img;
-                            
-                            img = ImageIO.read(new ByteArrayInputStream(mem.toArray()));
-                            buff = (BufferedImage) img;
-                            //cambio de color de la imagen
-                            for (int i = 0; i < buff.getWidth(); i++) {
-                                for (int j = 0; j < buff.getHeight(); j++) {
-                                    if (buff.getRGB(i, j) < -Umbral*2) {
-                                        //dar un cero
-                                        buff.setRGB(i, j, color[0]);
-                                        //activar el piston
-                                    } else {
-                                        buff.setRGB(i, j, color[1]);
-                                    }
-                                }
-                            }
-                           
-                            if(_cambioPestana){
-                                jPanelVideo.removeAll();
-                            }else{
-                                //renderizado
-                                g.drawImage(buff, 0, 0, jPanelVideo.getWidth(), jPanelVideo.getHeight(), 0, 0, buff.getWidth(), buff.getHeight(), null);
-                            }
-                        } catch (IOException ex) {
-                            Logger.getLogger(ControlProduccion.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    }
-                }
-                if (!_activarVideo) {
-                    capture=null;
-                    jPanelVideo.removeAll();
-                    txtNumeroEncontradas.setText("");
-                    Thread.interrupted();
-                }
-            }
-        }).start();
-    }
-         
     //principal
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -706,13 +555,13 @@ public class ControlProduccion extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelChartPiston;
     private javax.swing.JPanel jPanelChartVelocidad;
     private javax.swing.JPanel jPanelGraficas;
-    private javax.swing.JPanel jPanelVideo;
+    public static final javax.swing.JPanel jPanelVideo = new javax.swing.JPanel();
     private javax.swing.JTabbedPane jTabbedPane1;
     private keeptoo.KGradientPanel kGradientPanel1;
     private keeptoo.KGradientPanel kGradientPanel2;
     private javax.swing.JTextField txtDefectuosos;
     private javax.swing.JTextField txtIngresados;
-    private javax.swing.JLabel txtNumeroEncontradas;
+    public static final javax.swing.JLabel txtNumeroEncontradas = new javax.swing.JLabel();
     private javax.swing.JTextField txtSalida;
     public static final javax.swing.JLabel txtUsuarioEmpl = new javax.swing.JLabel();
     // End of variables declaration//GEN-END:variables
