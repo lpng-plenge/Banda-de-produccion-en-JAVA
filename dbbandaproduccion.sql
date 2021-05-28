@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 4.7.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 05-05-2021 a las 00:55:00
--- Versión del servidor: 10.4.18-MariaDB
--- Versión de PHP: 8.0.3
+-- Servidor: sql3.freemysqlhosting.net
+-- Tiempo de generación: 28-05-2021 a las 22:05:08
+-- Versión del servidor: 5.5.54-0ubuntu0.12.04.1
+-- Versión de PHP: 7.0.33-0ubuntu0.16.04.16
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -18,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `dbbandaproduccion`
+-- Base de datos: `sql3415613`
 --
 
 -- --------------------------------------------------------
@@ -36,19 +37,20 @@ CREATE TABLE `usuarios` (
   `direccion` varchar(200) NOT NULL,
   `usuario` varchar(30) NOT NULL,
   `password` varchar(16) NOT NULL,
-  `tipo` int(11) NOT NULL
+  `tipo` int(11) NOT NULL,
+  `Estatus` tinyint(4) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `nombre`, `aPaterno`, `aMaterno`, `telefono`, `direccion`, `usuario`, `password`, `tipo`) VALUES
-(1, 'Luis Pablo', 'Nieto', 'Gil', '3313507243', 'Paseo del Dromedario 99, Colonia CD Bugambilias, CP 45238, Zapopan, Jalisco, Mexico', 'lpngAdmin', '123', 1),
-(2, 'Jorge', 'Urbina', 'Tapia', '3313507243', 'Guadalajara', 'jorge', '123', 0),
-(3, 'Sebastian', 'Alegria', 'Uribe', '3931173449', 'La Barca', 'sebA', '123', 1),
-(4, 'Carlos Daniel', 'Camcho', 'Chavez', '3330672020', 'Zapopan', 'danCa', '123', 1),
-(6, 'root', 'na', 'na', 'na', 'na', 'root', 'root', 1);
+INSERT INTO `usuarios` (`id`, `nombre`, `aPaterno`, `aMaterno`, `telefono`, `direccion`, `usuario`, `password`, `tipo`, `Estatus`) VALUES
+(1, 'Luis Pablo', 'Nieto', 'Gil', '3313507243', 'Paseo del Dromedario 99, Colonia CD Bugambilias, CP 45238, Zapopan, Jalisco, Mexico', 'lpngAdmin', '123', 1, 0),
+(2, 'Jorge', 'Urbina', 'Tapia', '3313507243', 'Guadalajara', 'jorge', '123', 0, 0),
+(3, 'Sebastian', 'Alegria', 'Uribe', '3931173449', 'La Barca', 'sebA', '123', 1, 0),
+(4, 'Carlos Daniel', 'Camcho', 'Chavez', '3330672020', 'Zapopan', 'danCa', '123', 1, 0),
+(6, 'root', 'na', 'na', 'na', 'na', 'root', 'root', 1, 0);
 
 --
 -- Índices para tablas volcadas
