@@ -4,10 +4,11 @@ import Clases.CerrarSesion;
 import Clases.Usuario;
 import ConexionDB.Conexion;
 import ConexionDB.DataBase;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Timer;
-import java.util.TimerTask;
+import javax.swing.Timer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -15,6 +16,7 @@ public class Administrador extends javax.swing.JFrame {
 
     //variable global
     String usuario = txtUsuarioAdmin.getText();
+    boolean _alertas=false;
     //clases
     Conexion con;
     DataBase db;
@@ -32,6 +34,9 @@ public class Administrador extends javax.swing.JFrame {
             con = new Conexion();
             conn = con.getConexion();
             db=new DataBase();
+            usuarioConectado = new Timer(10,payActionListener);
+            timer = new Timer(1000,acciones);
+            usuarioConectado.start();
         }
     }
 
@@ -504,41 +509,50 @@ public class Administrador extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    Timer timer = new Timer();
+    Timer timer,usuarioConectado;
+    
     public void TimerTime() {
-        TimerTask tare = new TimerTask() {
-            @Override
-            public void run() {
-                jLabelError.setText("");
-                jLabelError.setOpaque(false);
-            }
-        };
-        timer.scheduleAtFixedRate(tare, 1000, 4000);
+        jLabelError.setText("");
+        jLabelError.setOpaque(false);
+        timer.stop();
     }
-            
-    public void Estatus(){
-        try {
-            String activo="";
-            cS = new CerrarSesion();
-            cS.setUsuario(usuario);
-            activo= db.getRefresh(conn, cS);    
-            //Si se modifica el mismo
-            switch (activo) {
-                case "null":
-                    Salir();
-                    break;
-                case "1":
-                    break;
-                case "0":
-                    Salir();
-                    break;
-                default:
-                    break;
+    public ActionListener payActionListener = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            try {
+                String activo = "";
+                cS = new CerrarSesion();
+                cS.setUsuario(usuario);
+                activo = db.getRefresh(conn, cS);
+                //Si se llega a modifcar
+                switch (activo) {
+                    case "null":
+                        Salir();
+                        break;
+                    case "1":
+                        break;
+                    case "0":
+                        Salir();
+                        break;
+                    default:
+                        break;
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(Administrador.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(Administrador.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
+    };
+    //tiempo para los errores
+    private int seg;
+    private ActionListener acciones = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            seg++;
+            if(seg % 2 == 0){
+                TimerTime();
+            }
+        }
+    };
     
     public void HabilitarTextFields() {
         txtId.setEnabled(false);
@@ -643,6 +657,7 @@ public class Administrador extends javax.swing.JFrame {
 
     public void Salir() {
         try {
+            usuarioConectado.stop();
             cS = new CerrarSesion();
             cS.setUsuario(txtUsuarioAdmin.getText());
             cS.setEstatus();
@@ -674,7 +689,7 @@ public class Administrador extends javax.swing.JFrame {
         if (!ValidateFields()) {
             jLabelError.setText("Datos incompletos");
             jLabelError.setOpaque(true);
-            TimerTime();
+            timer.start();
         } else {
             try {
                 us = new Usuario();
@@ -702,7 +717,7 @@ public class Administrador extends javax.swing.JFrame {
                     jLabelError.setText("Usuario repetido");
                     jLabelError.setOpaque(true);
                     txtUsuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(209, 49, 53)));
-                    TimerTime();
+                    timer.start();
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(Administrador.class.getName()).log(Level.SEVERE, null, ex);
@@ -733,14 +748,14 @@ public class Administrador extends javax.swing.JFrame {
         if (txtId.getText().equals("") || !estatus) {
             jLabelError.setText("Usuario no encontrado");
             jLabelError.setOpaque(true);
-            TimerTime();
+            timer.start();
         } else {
             int id = Integer.valueOf(txtId.getText());
             try {
                 if (id > db.getID(conn) || id == db.getID(conn)) {
                     jLabelError.setText("Usuario no encontrado");
                     jLabelError.setOpaque(true);
-                    TimerTime();
+                    timer.start();
                 } else {
                     try {
                         String[] registro;
@@ -750,7 +765,7 @@ public class Administrador extends javax.swing.JFrame {
                         if ("null".equals(registro[0])) {
                             jLabelError.setText("Usuario no encontrado");
                             jLabelError.setOpaque(true);
-                            TimerTime();
+                            timer.start();
                         } else {
                             txtNombre.setText(registro[0]);
                             txtAPaterno.setText(registro[1]);
@@ -783,7 +798,6 @@ public class Administrador extends javax.swing.JFrame {
             us = new Usuario();
             us.setId(Integer.parseInt(txtId.getText()));
             db.Eliminar(conn, us);
-            Estatus();
             DeshabilitarFields();
             btnNuevo.setEnabled(true);
             btnGuardar.setEnabled(false);
@@ -805,7 +819,7 @@ public class Administrador extends javax.swing.JFrame {
         if (!ValidateFields()) {
             jLabelError.setText("Datos incompletos");
             jLabelError.setOpaque(true);
-            TimerTime();
+            timer.start();
         } else {
             try {
                 us = new Usuario();
@@ -818,16 +832,22 @@ public class Administrador extends javax.swing.JFrame {
                 us.setUsuario(txtUsuario.getText());
                 us.setPassword(txtPassword.getText());
                 us.setTipo(comBoxPerfil.getSelectedIndex());
-                db.Editar(conn, us);
-                Estatus();
-                CleanFields();
-                DeshabilitarFields();
-                btnNuevo.setEnabled(true);
-                btnGuardar.setEnabled(false);
-                btnCancelar.setEnabled(false);
-                btnEditar.setEnabled(false);
-                btnBuscarId.setEnabled(true);
-                btnEliminar.setEnabled(false);
+                boolean valor = db.Editar(conn, us);
+                if (valor) {
+                    CleanFields();
+                    DeshabilitarFields();
+                    btnNuevo.setEnabled(true);
+                    btnGuardar.setEnabled(false);
+                    btnCancelar.setEnabled(false);
+                    btnEditar.setEnabled(false);
+                    btnBuscarId.setEnabled(true);
+                    btnEliminar.setEnabled(false);
+                } else {
+                    jLabelError.setText("Usuario repetido");
+                    jLabelError.setOpaque(true);
+                    txtUsuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(209, 49, 53)));
+                    timer.start();
+                }
             } catch (SQLException ex) {
                 Logger.getLogger(Administrador.class.getName()).log(Level.SEVERE, null, ex);
             }

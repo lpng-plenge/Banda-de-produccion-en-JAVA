@@ -52,6 +52,7 @@ public class DataBase {
             stmt.setString(7, us.getUsuario());
             stmt.setString(8, us.getPassword());
             stmt.setInt(9, us.getTipo());
+            stmt.setBoolean(10, us.isEstatus());
             stmt.executeUpdate();
             return true;
         } else {
@@ -81,19 +82,24 @@ public class DataBase {
         }
     }
 
-    public void Editar(Connection conn, Usuario us) throws SQLException {       
-        PreparedStatement stmt = conn.prepareStatement("update usuarios set nombre=?, aPaterno=?, aMaterno=?, telefono=?, direccion=?, usuario=?, password=?, tipo=?, estatus=? where id=?");
-        stmt.setString(1, us.getNombres());
-        stmt.setString(2, us.getApellidoPaterno());
-        stmt.setString(3, us.getApellidoMaterno());
-        stmt.setString(4, us.getTelefono());
-        stmt.setString(5, us.getDireccion());
-        stmt.setString(6, us.getUsuario());
-        stmt.setString(7, us.getPassword());
-        stmt.setInt(8, us.getTipo());
-        stmt.setBoolean(9, us.isEstatus());
-        stmt.setInt(10, us.getId());        
-        stmt.executeUpdate();
+    public boolean Editar(Connection conn, Usuario us) throws SQLException {  
+        if (!EncontrarUsuario(conn, us)) {
+            PreparedStatement stmt = conn.prepareStatement("update usuarios set nombre=?, aPaterno=?, aMaterno=?, telefono=?, direccion=?, usuario=?, password=?, tipo=?, estatus=? where id=?");
+            stmt.setString(1, us.getNombres());
+            stmt.setString(2, us.getApellidoPaterno());
+            stmt.setString(3, us.getApellidoMaterno());
+            stmt.setString(4, us.getTelefono());
+            stmt.setString(5, us.getDireccion());
+            stmt.setString(6, us.getUsuario());
+            stmt.setString(7, us.getPassword());
+            stmt.setInt(8, us.getTipo());
+            stmt.setBoolean(9, us.isEstatus());
+            stmt.setInt(10, us.getId());        
+            stmt.executeUpdate();
+            return true;
+        } else {
+            return false;
+        }
     }
     public void Eliminar(Connection conn, Usuario us) throws SQLException {
         PreparedStatement stmt = conn.prepareStatement("delete from usuarios where id=?");
