@@ -18,7 +18,8 @@ import org.opencv.core.Core;
 public class ControlProduccion extends javax.swing.JFrame {
 
     //variables globales
-    public static boolean _cambioPestana= false, _activarVideo=true;
+    public static boolean _cambioPestana= false, _activarVideo, _activarDatos;
+    double [] _cajasValores= new double[2];
     //clases
     InterfaceSerial res;
     GraphicsX ObGraphicsX;
@@ -359,9 +360,8 @@ public class ControlProduccion extends javax.swing.JFrame {
         txtNumeroEncontradas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtNumeroEncontradas.setText("No. de Encontrados");
 
-        txtPasante.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtPasante.setText("% De paso");
-        txtPasante.setToolTipText("");
+        txtPorcentaje.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtPorcentaje.setText("No. Pasantes");
 
         javax.swing.GroupLayout kGradientPanel2Layout = new javax.swing.GroupLayout(kGradientPanel2);
         kGradientPanel2.setLayout(kGradientPanel2Layout);
@@ -370,9 +370,9 @@ public class ControlProduccion extends javax.swing.JFrame {
             .addGroup(kGradientPanel2Layout.createSequentialGroup()
                 .addGap(60, 60, 60)
                 .addComponent(txtNumeroEncontradas, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14)
-                .addComponent(txtPasante, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(730, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtPorcentaje, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(732, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel2Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(jPanelVideo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -384,7 +384,7 @@ public class ControlProduccion extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNumeroEncontradas, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPasante, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPorcentaje, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanelVideo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap(25, Short.MAX_VALUE))
@@ -436,23 +436,35 @@ public class ControlProduccion extends javax.swing.JFrame {
         }
     };
     //tiempo para calcular la banda
-    private int seg, cs, velocidad, piston, mult = 5, defectuosos, entrada, salida;
+    private int seg, cs,defectuosos, entrada, salida,velocidad, piston;
     private ActionListener acciones = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
+            if(_activarVideo&&_activarDatos){
+//                System.out.println("Bajo Control");
+            }else{
+                cajas = new DeteccionCajas(); // se crea el hilo
+                Thread t = new Thread(cajas);
+                t.setDaemon(true);
+                t.start();
+                _activarDatos =true;
+            }
             cs++;
             if (cs == 100) {
                 cs = 0;
                 ++seg;
-                if (seg % mult == 0) {
-                    defectuosos++;
-                    velocidad = 0;
-                    piston = 1;
-                } else {
+                _cajasValores = cajas.getValores();
+                piston = 0;
+                velocidad = 400;
+                if (_cajasValores[0] > 1) {
                     entrada++;
-                    salida = entrada - defectuosos;
-                    piston = 0;
-                    velocidad = 400;
+                    if (_cajasValores[1] > 80) {
+                        salida++;
+                    } else {
+                        piston = 1;
+                        velocidad = 0;
+                        defectuosos++;
+                    }
                 }
             }
             graficarDatos();
@@ -484,9 +496,6 @@ public class ControlProduccion extends javax.swing.JFrame {
         btnPausar.setEnabled(false);
         btnSalir.setEnabled(true);
         limpiarCampos();
-        IniciarSesion ini = new IniciarSesion();
-        ini.setVisible(true);
-        this.setVisible(false);
     }
     private void Salir() {
         try {
@@ -515,6 +524,7 @@ public class ControlProduccion extends javax.swing.JFrame {
     private void btnPausarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPausarActionPerformed
         timer.stop();
         _activarVideo=false;
+        _activarDatos =false;
         btnIniciar.setEnabled(true);
         btnPausar.setEnabled(false);
         btnSalir.setEnabled(true);
@@ -522,15 +532,12 @@ public class ControlProduccion extends javax.swing.JFrame {
 
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
         timer.start();
-        _activarVideo=true;
-        cajas = new DeteccionCajas(); // se crea el hilo
-        Thread t = new Thread(cajas);
-        t.setDaemon(true);
-        t.start(); 
+        _activarVideo = true;
         btnIniciar.setText("Reanudar");
         btnIniciar.setEnabled(false);
         btnPausar.setEnabled(true);
         btnSalir.setEnabled(false);
+      
     }//GEN-LAST:event_btnIniciarActionPerformed
    
     private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
@@ -578,10 +585,11 @@ public class ControlProduccion extends javax.swing.JFrame {
             velocidadBanda(seg, velocidad);
             pistonActivo(seg, piston);
             tiempo = 0;
+            txtIngresados.setText(String.valueOf(entrada));
+            txtDefectuosos.setText(String.valueOf(defectuosos));
+            txtSalida.setText(String.valueOf(salida));
         }
     }
-    //OpenCV
-
     //principal
     public static void main(String args[]) {
         try {
@@ -631,7 +639,7 @@ public class ControlProduccion extends javax.swing.JFrame {
     private javax.swing.JTextField txtDefectuosos;
     private javax.swing.JTextField txtIngresados;
     public static final javax.swing.JLabel txtNumeroEncontradas = new javax.swing.JLabel();
-    public static final javax.swing.JLabel txtPasante = new javax.swing.JLabel();
+    public static final javax.swing.JLabel txtPorcentaje = new javax.swing.JLabel();
     private javax.swing.JTextField txtSalida;
     public static final javax.swing.JLabel txtUsuarioEmpl = new javax.swing.JLabel();
     // End of variables declaration//GEN-END:variables

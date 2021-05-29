@@ -23,7 +23,8 @@ import org.opencv.videoio.VideoCapture;
 public class DeteccionCajas implements Runnable {
 
     //variables globales
-    double negro = 0, blanco = 0, total = 0;
+    double negro = 0, blanco = 0, total = 0,rango=80;//defectuoso 
+    private double [] value = new double[2];
     // Harscascade
     public static String sources = "D:\\Usuarios\\Luis Pablo Personal y Creativo\\Documentos\\GitHub\\JAVA-Banda-Produccion\\haarcascades\\cascade.xml"; //fotografias xml
     CascadeClassifier faceDetector = new CascadeClassifier(sources);
@@ -48,6 +49,8 @@ public class DeteccionCajas implements Runnable {
                 break;
             } else {
                 try {
+                    //almacenar valores
+                    double valores[] = new double[3];
                     //Saturacion
                     long Umbral = 5000000;
                     int[] color = new int[2];
@@ -59,8 +62,9 @@ public class DeteccionCajas implements Runnable {
                     Imgproc.cvtColor(frame, frame_gray, Imgproc.COLOR_BGR2GRAY);
                     Imgproc.equalizeHist(frame_gray, frame_gray);
 
-                    System.out.println();
                     faceDetector.detectMultiScale(frame_gray, rostros,
+//                            1.1,
+//                            2,
                             5,
                             91,
                             0 ,
@@ -68,7 +72,7 @@ public class DeteccionCajas implements Runnable {
                     );
                     facesArray = rostros.toArray();
                     //System.out.println("Numero de rostros" + facesArray.length);
-                    
+                    valores[0]=facesArray.length;
                     //detector
                     for (int i = 0; i < facesArray.length; i++) {
                         Point centerPoint = new Point(
@@ -104,7 +108,6 @@ public class DeteccionCajas implements Runnable {
 
                     img = ImageIO.read(new ByteArrayInputStream(mem.toArray()));
                     buff = (BufferedImage) img;
-                    
                     //cambio de color de la imagen
                     for (int i = 0; i < buff.getWidth(); i++) {
                         for (int j = 0; j < buff.getHeight(); j++) {
@@ -118,16 +121,17 @@ public class DeteccionCajas implements Runnable {
                                 negro++;
                             }
                             total = negro + blanco;
-                            porcentaje(total, negro);
+                            valores[1]= porcentaje(total, negro);
                         }
                     }
-
+                    setValores(valores);
                     if (ControlProduccion._cambioPestana) {
                         ControlProduccion.jPanelVideo.removeAll();
                     } else {
                         //renderizado
                         g.drawImage(buff, 0, 0, ControlProduccion.jPanelVideo.getWidth(), ControlProduccion.jPanelVideo.getHeight(), 0, 0, buff.getWidth(), buff.getHeight(), null);
                     }
+                    
                 } catch (IOException ex) {
                     //Logger.getLogger(DaemonThread.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -138,14 +142,22 @@ public class DeteccionCajas implements Runnable {
             capture.release();
             ControlProduccion.jPanelVideo.removeAll();
             ControlProduccion.txtNumeroEncontradas.setText("");
+            ControlProduccion.txtPorcentaje.setText("");
         }
     }
 
-    public void porcentaje(double total, double negro) {
+    public double porcentaje(double total, double negro) {
         double porcentaje = (negro / total) * 100;
         double pfinal = Math.round(porcentaje * 1000) / 1000;
-        ControlProduccion.txtPasante.setText(String.valueOf(pfinal));
+        ControlProduccion.txtPorcentaje.setText(String.valueOf(pfinal));
         
+        return pfinal;
     }
-
+    public void setValores(double[] value){
+        this.value = value;
+    }
+    public double[] getValores(){
+        return value;
+    }
+    
 }
