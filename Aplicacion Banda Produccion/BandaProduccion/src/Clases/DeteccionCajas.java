@@ -26,7 +26,7 @@ public class DeteccionCajas implements Runnable {
     double negro = 0, blanco = 0, total = 0,rango=80;//defectuoso 
     private double [] value = new double[2];
     // Harscascade
-    public static String sources = "D:\\Usuarios\\Luis Pablo Personal y Creativo\\Documentos\\GitHub\\JAVA-Banda-Produccion\\haarcascades\\cascade.xml"; //fotografias xml
+    public static String sources = "D:\\Usuarios\\Luis Pablo Personal y Creativo\\Documentos\\GitHub\\JAVA-Banda-Produccion\\haarcascades\\cocacola.xml"; //fotografias xml
     CascadeClassifier faceDetector = new CascadeClassifier(sources);
 
     @Override
