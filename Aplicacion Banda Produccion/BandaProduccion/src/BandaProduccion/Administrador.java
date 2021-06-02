@@ -691,36 +691,32 @@ public class Administrador extends javax.swing.JFrame {
             jLabelError.setOpaque(true);
             timer.start();
         } else {
-            try {
-                us = new Usuario();
-                us.setId(Integer.parseInt(txtId.getText()));
-                us.setNombres(txtNombre.getText());
-                us.setApellidoPaterno(txtAPaterno.getText());
-                us.setApellidoMaterno(txtAMaterno.getText());
-                us.setTelefono(txtTelefono.getText());
-                us.setDireccion(txtDireccion.getText());
-                us.setUsuario(txtUsuario.getText());
-                us.setPassword(txtPassword.getText());
-                us.setTipo(comBoxPerfil.getSelectedIndex());
-                boolean valor;
-                valor = db.Salvar(conn, us);
-                if (valor) {
-                    CleanFields();
-                    DeshabilitarFields();
-                    btnNuevo.setEnabled(true);
-                    btnGuardar.setEnabled(false);
-                    btnCancelar.setEnabled(false);
-                    btnBuscarId.setEnabled(true);
-                    btnEditar.setEnabled(false);
-                    btnEliminar.setEnabled(false);
-                } else {
-                    jLabelError.setText("Usuario repetido");
-                    jLabelError.setOpaque(true);
-                    txtUsuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(209, 49, 53)));
-                    timer.start();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(Administrador.class.getName()).log(Level.SEVERE, null, ex);
+            us = new Usuario();
+            us.setId(Integer.parseInt(txtId.getText()));
+            us.setNombres(txtNombre.getText());
+            us.setApellidoPaterno(txtAPaterno.getText());
+            us.setApellidoMaterno(txtAMaterno.getText());
+            us.setTelefono(txtTelefono.getText());
+            us.setDireccion(txtDireccion.getText());
+            us.setUsuario(txtUsuario.getText());
+            us.setPassword(txtPassword.getText());
+            us.setTipo(comBoxPerfil.getSelectedIndex());
+            boolean valor;
+            valor = db.Salvar(conn, us);
+            if (valor) {
+                CleanFields();
+                DeshabilitarFields();
+                btnNuevo.setEnabled(true);
+                btnGuardar.setEnabled(false);
+                btnCancelar.setEnabled(false);
+                btnBuscarId.setEnabled(true);
+                btnEditar.setEnabled(false);
+                btnEliminar.setEnabled(false);
+            } else {
+                jLabelError.setText("Usuario repetido");
+                jLabelError.setOpaque(true);
+                txtUsuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(209, 49, 53)));
+                timer.start();
             }
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
@@ -821,35 +817,31 @@ public class Administrador extends javax.swing.JFrame {
             jLabelError.setOpaque(true);
             timer.start();
         } else {
-            try {
-                us = new Usuario();
-                us.setId(Integer.parseInt(txtId.getText()));
-                us.setNombres(txtNombre.getText());
-                us.setApellidoPaterno(txtAPaterno.getText());
-                us.setApellidoMaterno(txtAMaterno.getText());
-                us.setTelefono(txtTelefono.getText());
-                us.setDireccion(txtDireccion.getText());
-                us.setUsuario(txtUsuario.getText());
-                us.setPassword(txtPassword.getText());
-                us.setTipo(comBoxPerfil.getSelectedIndex());
-                boolean valor = db.Editar(conn, us);
-                if (valor) {
-                    CleanFields();
-                    DeshabilitarFields();
-                    btnNuevo.setEnabled(true);
-                    btnGuardar.setEnabled(false);
-                    btnCancelar.setEnabled(false);
-                    btnEditar.setEnabled(false);
-                    btnBuscarId.setEnabled(true);
-                    btnEliminar.setEnabled(false);
-                } else {
-                    jLabelError.setText("Usuario repetido");
-                    jLabelError.setOpaque(true);
-                    txtUsuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(209, 49, 53)));
-                    timer.start();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(Administrador.class.getName()).log(Level.SEVERE, null, ex);
+            us = new Usuario();
+            us.setId(Integer.parseInt(txtId.getText()));
+            us.setNombres(txtNombre.getText());
+            us.setApellidoPaterno(txtAPaterno.getText());
+            us.setApellidoMaterno(txtAMaterno.getText());
+            us.setTelefono(txtTelefono.getText());
+            us.setDireccion(txtDireccion.getText());
+            us.setUsuario(txtUsuario.getText());
+            us.setPassword(txtPassword.getText());
+            us.setTipo(comBoxPerfil.getSelectedIndex());
+            boolean valor = db.Editar(conn, us);
+            if (valor) {
+                CleanFields();
+                DeshabilitarFields();
+                btnNuevo.setEnabled(true);
+                btnGuardar.setEnabled(false);
+                btnCancelar.setEnabled(false);
+                btnEditar.setEnabled(false);
+                btnBuscarId.setEnabled(true);
+                btnEliminar.setEnabled(false);
+            } else {
+                jLabelError.setText("Usuario repetido");
+                jLabelError.setOpaque(true);
+                txtUsuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(209, 49, 53)));
+                timer.start();
             }
         }
     }//GEN-LAST:event_btnEditarActionPerformed

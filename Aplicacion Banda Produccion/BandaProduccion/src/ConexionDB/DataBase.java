@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class DataBase {
@@ -40,8 +42,9 @@ public class DataBase {
         return id;
     }
 
-    public boolean Salvar(Connection conn, Usuario us) throws SQLException {
-        if (!EncontrarUsuario(conn, us)) {
+    public boolean Salvar(Connection conn, Usuario us) {
+        boolean accedido=false;
+        try {
             PreparedStatement stmt = conn.prepareStatement("insert into usuarios values(?,?,?,?,?,?,?,?,?,?)");
             stmt.setInt(1, us.getId());
             stmt.setString(2, us.getNombres());
@@ -54,10 +57,11 @@ public class DataBase {
             stmt.setInt(9, us.getTipo());
             stmt.setBoolean(10, us.isEstatus());
             stmt.executeUpdate();
-            return true;
-        } else {
-            return false;
+            accedido = true;
+        } catch (SQLException ex) {
+            accedido = false;
         }
+        return accedido;
     }
 
     public String[] Buscar(Connection conn, Usuario us) throws SQLException {
@@ -82,8 +86,9 @@ public class DataBase {
         }
     }
 
-    public boolean Editar(Connection conn, Usuario us) throws SQLException {  
-        if (!EncontrarUsuario(conn, us)) {
+    public boolean Editar(Connection conn, Usuario us) {
+        boolean accedido=false; 
+        try {
             PreparedStatement stmt = conn.prepareStatement("update usuarios set nombre=?, aPaterno=?, aMaterno=?, telefono=?, direccion=?, usuario=?, password=?, tipo=?, estatus=? where id=?");
             stmt.setString(1, us.getNombres());
             stmt.setString(2, us.getApellidoPaterno());
@@ -96,22 +101,16 @@ public class DataBase {
             stmt.setBoolean(9, us.isEstatus());
             stmt.setInt(10, us.getId());        
             stmt.executeUpdate();
-            return true;
-        } else {
-            return false;
+            accedido = true;
+        } catch (SQLException ex) {
+            accedido=false;
         }
+        return accedido;
     }
     public void Eliminar(Connection conn, Usuario us) throws SQLException {
         PreparedStatement stmt = conn.prepareStatement("delete from usuarios where id=?");
         stmt.setInt(1, us.getId());
         stmt.executeUpdate();
-    }
-
-    public boolean EncontrarUsuario(Connection conn, Usuario us) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement("select usuario from usuarios where usuario=?");
-        stmt.setString(1, us.getUsuario());
-        rs = stmt.executeQuery();
-        return rs.next();
     }
 
     public void CerrarSesion(Connection conn, CerrarSesion cs) throws SQLException {

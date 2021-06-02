@@ -101,7 +101,7 @@ public class DeteccionCajas implements Runnable {
                     }
                     int no = facesArray.length;
                     //Mandar al label si se identifica
-                    ControlProduccion.txtNumeroEncontradas.setText(String.valueOf(no));
+                    //ControlProduccion.txtNumeroEncontradas.setText(String.valueOf(no));
 
                     Imgcodecs.imencode(".jpg", frame, mem);
                     Image img;
@@ -141,15 +141,15 @@ public class DeteccionCajas implements Runnable {
         if (!ControlProduccion._activarVideo) {
             capture.release();
             ControlProduccion.jPanelVideo.removeAll();
-            ControlProduccion.txtNumeroEncontradas.setText("");
-            ControlProduccion.txtPorcentaje.setText("");
+            //ControlProduccion.txtNumeroEncontradas.setText("");
+            //ControlProduccion.txtPorcentaje.setText("");
         }
     }
 
     public double porcentaje(double total, double negro) {
         double porcentaje = (negro / total) * 100;
         double pfinal = Math.round(porcentaje * 1000) / 1000;
-        ControlProduccion.txtPorcentaje.setText(String.valueOf(pfinal));
+        //ControlProduccion.txtPorcentaje.setText(String.valueOf(pfinal));
         
         return pfinal;
     }
