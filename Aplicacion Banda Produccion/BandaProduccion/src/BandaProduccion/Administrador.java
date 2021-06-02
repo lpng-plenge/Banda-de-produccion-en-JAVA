@@ -25,7 +25,7 @@ public class Administrador extends javax.swing.JFrame {
     CerrarSesion cS;
 
     public Administrador() {
-        if (txtUsuarioAdmin.getText().equals("")) {
+        if (usuario.equals("")) {
             Salir();
         } else {
             initComponents();

@@ -45,6 +45,7 @@ public class DataBase {
     public boolean Salvar(Connection conn, Usuario us) {
         boolean accedido=false;
         try {
+            int tipo=us.getTipo();
             PreparedStatement stmt = conn.prepareStatement("insert into usuarios values(?,?,?,?,?,?,?,?,?,?)");
             stmt.setInt(1, us.getId());
             stmt.setString(2, us.getNombres());
@@ -63,7 +64,6 @@ public class DataBase {
         }
         return accedido;
     }
-
     public String[] Buscar(Connection conn, Usuario us) throws SQLException {
         String[] registro = new String[8];
         PreparedStatement stmt = conn.prepareStatement("select * from usuarios where id=?");
@@ -109,8 +109,9 @@ public class DataBase {
     }
     public void Eliminar(Connection conn, Usuario us) throws SQLException {
         PreparedStatement stmt = conn.prepareStatement("delete from usuarios where id=?");
-        stmt.setInt(1, us.getId());
+        stmt.setInt(1, us.getId());   
         stmt.executeUpdate();
+
     }
 
     public void CerrarSesion(Connection conn, CerrarSesion cs) throws SQLException {
@@ -148,5 +149,29 @@ public class DataBase {
         }
                 
         return tipo;
+    }
+    
+    public int[] consultarTabla(Connection conn, Usuario us) throws SQLException{
+        int [] datos = new int[3];
+        PreparedStatement stmt = conn.prepareStatement("select * from producciones where usuario_id=?");
+        stmt.setString(1, us.getUsuario());
+        rs = stmt.executeQuery();
+        if (rs.next()) {
+            datos[0] = rs.getInt("entrada");
+            datos[1] = rs.getInt("salida");
+            datos[2] = rs.getInt("defectuoso");
+        }else{
+            PreparedStatement insertar = conn.prepareStatement("insert into producciones values(?,?,?,?)");
+            insertar.setString(1, us.getUsuario());
+            insertar.setInt(2, 0);
+            insertar.setInt(3, 0);
+            insertar.setInt(4, 0);
+            
+            insertar.executeUpdate();
+            datos[0]=0;
+            datos[1]=0;
+            datos[2]=0;
+        }
+        return datos;
     }
 }

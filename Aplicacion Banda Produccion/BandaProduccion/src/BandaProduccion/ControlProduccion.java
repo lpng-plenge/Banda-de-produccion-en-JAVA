@@ -3,6 +3,7 @@ package BandaProduccion;
 import Clases.CerrarSesion;
 import Clases.GraphicsX;
 import Clases.DeteccionCajas;
+import Clases.Usuario;
 import ConexionDB.Conexion;
 import ConexionDB.DataBase;
 import ConexionUNO.InterfaceSerial;
@@ -28,6 +29,7 @@ public class ControlProduccion extends javax.swing.JFrame {
     Conexion con;//clase
     DataBase db;
     Connection conn;//libreria 
+    Usuario us;
     
     public ControlProduccion() {
         if (txtUsuarioEmpl.getText().equals("")) {
@@ -440,6 +442,7 @@ public class ControlProduccion extends javax.swing.JFrame {
     private ActionListener acciones = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
+            
             if(_activarVideo&&_activarDatos){
 //                System.out.println("Bajo Control");
             }else{
@@ -529,14 +532,28 @@ public class ControlProduccion extends javax.swing.JFrame {
         btnPausar.setEnabled(false);
         btnSalir.setEnabled(true);
     }//GEN-LAST:event_btnPausarActionPerformed
-
+    
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
-        timer.start();
-        _activarVideo = true;
-        btnIniciar.setText("Reanudar");
-        btnIniciar.setEnabled(false);
-        btnPausar.setEnabled(true);
-        btnSalir.setEnabled(false);
+        try {
+            us = new Usuario();
+            int []datos=new int[3];
+            us.setUsuario(txtUsuarioEmpl.getText());
+            datos = db.consultarTabla(conn, us);
+            entrada=0;salida=0;defectuosos=0;
+            //agregando datos
+            entrada+=(datos[0]);
+            salida+=(datos[1]);
+            defectuosos+=(datos[2]);
+            timer.start();
+            _activarVideo = true;
+            
+            btnIniciar.setText("Reanudar");
+            btnIniciar.setEnabled(false);
+            btnPausar.setEnabled(true);
+            btnSalir.setEnabled(false);
+        } catch (SQLException ex) {
+            Logger.getLogger(ControlProduccion.class.getName()).log(Level.SEVERE, null, ex);
+        }
       
     }//GEN-LAST:event_btnIniciarActionPerformed
    
