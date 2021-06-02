@@ -4,6 +4,7 @@ import Clases.CerrarSesion;
 import Clases.GraphicsX;
 import Clases.DeteccionCajas;
 import Clases.Usuario;
+import Clases.Producciones;
 import ConexionDB.Conexion;
 import ConexionDB.DataBase;
 import ConexionUNO.InterfaceSerial;
@@ -19,6 +20,7 @@ import org.opencv.core.Core;
 public class ControlProduccion extends javax.swing.JFrame {
 
     //variables globales
+    String empleado = txtUsuarioEmpl.getText();
     public static boolean _cambioPestana= false, _activarVideo, _activarDatos;
     double [] _cajasValores= new double[2];
     //clases
@@ -30,9 +32,10 @@ public class ControlProduccion extends javax.swing.JFrame {
     DataBase db;
     Connection conn;//libreria 
     Usuario us;
+    Producciones ps;
     
     public ControlProduccion() {
-        if (txtUsuarioEmpl.getText().equals("")) {
+        if (empleado.equals("")) {
             Salir();
         } else {
             initComponents();
@@ -418,7 +421,7 @@ public class ControlProduccion extends javax.swing.JFrame {
             String estatus="";
             try {
                 cS = new CerrarSesion();
-                cS.setUsuario(txtUsuarioEmpl.getText());
+                cS.setUsuario(empleado);
                 estatus=db.getRefresh(conn, cS);
                 switch (estatus) {
                     case "null":
@@ -469,6 +472,16 @@ public class ControlProduccion extends javax.swing.JFrame {
                         defectuosos++;
                     }
                 }
+                try {
+                    ps = new Producciones();
+                    ps.setUsuuario_id(empleado);
+                    ps.setEntrada(entrada);
+                    ps.setSalida(salida);
+                    ps.setDefectuoso(defectuosos);
+                    db.EditarTabla(conn, ps);
+                } catch (SQLException ex) {
+                    Logger.getLogger(ControlProduccion.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
             graficarDatos();
         }
@@ -503,7 +516,7 @@ public class ControlProduccion extends javax.swing.JFrame {
     private void Salir() {
         try {
             cS = new CerrarSesion();
-            cS.setUsuario(txtUsuarioEmpl.getText());
+            cS.setUsuario(empleado);
             cS.setEstatus();
             db.CerrarSesion(conn, cS);
             IniciarSesion ini = new IniciarSesion();
@@ -537,16 +550,16 @@ public class ControlProduccion extends javax.swing.JFrame {
         try {
             us = new Usuario();
             int []datos=new int[3];
-            us.setUsuario(txtUsuarioEmpl.getText());
+            us.setUsuario(empleado);
             datos = db.consultarTabla(conn, us);
             entrada=0;salida=0;defectuosos=0;
             //agregando datos
             entrada+=(datos[0]);
             salida+=(datos[1]);
             defectuosos+=(datos[2]);
+            
             timer.start();
             _activarVideo = true;
-            
             btnIniciar.setText("Reanudar");
             btnIniciar.setEnabled(false);
             btnPausar.setEnabled(true);

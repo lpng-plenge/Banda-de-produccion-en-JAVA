@@ -3,12 +3,11 @@ package ConexionDB;
 import Clases.CerrarSesion;
 import Clases.Usuario;
 import Clases.LogIn;
+import Clases.Producciones;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class DataBase {
@@ -106,6 +105,14 @@ public class DataBase {
             accedido=false;
         }
         return accedido;
+    }
+    public void EditarTabla(Connection conn, Producciones ps) throws SQLException{
+            PreparedStatement stmt = conn.prepareStatement("update producciones set entrada=?, salida=?, defectuoso=? where usuario_id=?");
+            stmt.setInt(1, ps.getEntrada());
+            stmt.setInt(2, ps.getSalida());
+            stmt.setInt(3, ps.getDefectuoso());     
+            stmt.setString(4, ps.getUsuuario_id());
+            stmt.executeUpdate();
     }
     public void Eliminar(Connection conn, Usuario us) throws SQLException {
         PreparedStatement stmt = conn.prepareStatement("delete from usuarios where id=?");
