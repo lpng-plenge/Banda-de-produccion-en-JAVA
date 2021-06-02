@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import javax.swing.Timer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 
 public class Administrador extends javax.swing.JFrame {
 
@@ -30,6 +31,7 @@ public class Administrador extends javax.swing.JFrame {
         } else {
             initComponents();
             setLocationRelativeTo(null);
+            setIconImage(new ImageIcon(getClass().getResource("../Icono/produccion.png")).getImage());
             //instanciar
             con = new Conexion();
             conn = con.getConexion();
@@ -74,7 +76,8 @@ public class Administrador extends javax.swing.JFrame {
         btnSalir = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("Administradores");
         setMinimumSize(new java.awt.Dimension(1024, 640));
         setName("Administrador"); // NOI18N
         setPreferredSize(new java.awt.Dimension(1024, 640));

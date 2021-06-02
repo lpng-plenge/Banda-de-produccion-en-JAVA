@@ -14,6 +14,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.Timer;
 import org.opencv.core.Core;
 
@@ -40,6 +41,7 @@ public class ControlProduccion extends javax.swing.JFrame {
         } else {
             initComponents();
             setLocationRelativeTo(null);
+            setIconImage(new ImageIcon(getClass().getResource("../Icono/produccion.png")).getImage());
             //res = new InterfaceSerial();
             //res.initialize();
             
@@ -74,7 +76,8 @@ public class ControlProduccion extends javax.swing.JFrame {
         jPanelChartPiston = new javax.swing.JPanel();
         kGradientPanel2 = new keeptoo.KGradientPanel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("Produccion");
         setMinimumSize(new java.awt.Dimension(1024, 640));
         setName("Empleado"); // NOI18N
         setSize(new java.awt.Dimension(1024, 640));

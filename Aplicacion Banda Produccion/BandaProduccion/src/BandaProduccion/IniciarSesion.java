@@ -9,6 +9,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import org.opencv.core.Core;
 
 public class IniciarSesion extends javax.swing.JFrame {
@@ -22,6 +23,7 @@ public class IniciarSesion extends javax.swing.JFrame {
     public IniciarSesion() {
         initComponents();
         setLocationRelativeTo(null);
+        setIconImage(new ImageIcon(getClass().getResource("../Icono/produccion.png")).getImage());
         //instanciar
         con = new Conexion();
         conn = con.getConexion();
@@ -44,10 +46,10 @@ public class IniciarSesion extends javax.swing.JFrame {
         btnIniciarSesion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Inicio");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMinimumSize(new java.awt.Dimension(1024, 640));
         setName("IniciarSesion"); // NOI18N
-        setPreferredSize(new java.awt.Dimension(1024, 640));
         setSize(new java.awt.Dimension(1024, 640));
 
         kGradientPanel1.setkEndColor(new java.awt.Color(250, 250, 250));
@@ -346,4 +348,8 @@ public class IniciarSesion extends javax.swing.JFrame {
     private javax.swing.JTextField txtPassword;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
+
+    private void setIconImage(ImageIcon imageIcon) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
