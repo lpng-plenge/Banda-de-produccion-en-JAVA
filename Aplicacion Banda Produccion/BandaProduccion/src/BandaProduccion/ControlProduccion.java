@@ -7,7 +7,7 @@ import Clases.Usuario;
 import Clases.Producciones;
 import ConexionDB.Conexion;
 import ConexionDB.DataBase;
-import ConexionUNO.InterfaceSerial;
+import ConexionUNO.ConexionSerial;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -25,7 +25,7 @@ public class ControlProduccion extends javax.swing.JFrame {
     public static boolean _cambioPestana= false, _activarVideo, _activarDatos;
     double [] _cajasValores= new double[2];
     //clases
-    InterfaceSerial res;
+    ConexionSerial res;
     GraphicsX ObGraphicsX;
     DeteccionCajas cajas;
     CerrarSesion cS;
@@ -41,10 +41,9 @@ public class ControlProduccion extends javax.swing.JFrame {
         } else {
             initComponents();
             setLocationRelativeTo(null);
-            setIconImage(new ImageIcon(getClass().getResource("../Icono/produccion.png")).getImage());
-            //res = new InterfaceSerial();
-            //res.initialize();
-            
+            setIconImage(new ImageIcon(getClass().getResource("../Icono/produccion.png")).getImage());           
+            //serializacion
+            res = new ConexionSerial();
             //instanciar base de datos
             con = new Conexion();
             conn = con.getConexion();
@@ -465,14 +464,16 @@ public class ControlProduccion extends javax.swing.JFrame {
                 _cajasValores = cajas.getValores();
                 piston = 0;
                 velocidad = 400;
-                if (_cajasValores[0] > 1) {
+                res.serialStart();
+                if (_cajasValores[0] >1) {
                     entrada++;
-                    if (_cajasValores[1] > 80) {
-                        salida++;
+                    if (_cajasValores[1] >20) {
+                        salida++; 
                     } else {
                         piston = 1;
                         velocidad = 0;
                         defectuosos++;
+                        res.serialStop();
                     }
                 }
                 try {
@@ -542,6 +543,7 @@ public class ControlProduccion extends javax.swing.JFrame {
 
     private void btnPausarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPausarActionPerformed
         timer.stop();
+        res.Close();
         _activarVideo=false;
         _activarDatos =false;
         btnIniciar.setEnabled(true);
@@ -560,7 +562,7 @@ public class ControlProduccion extends javax.swing.JFrame {
             entrada+=(datos[0]);
             salida+=(datos[1]);
             defectuosos+=(datos[2]);
-            
+            res.initialize();
             timer.start();
             _activarVideo = true;
             btnIniciar.setText("Reanudar");
@@ -623,6 +625,8 @@ public class ControlProduccion extends javax.swing.JFrame {
             txtSalida.setText(String.valueOf(salida));
         }
     }
+    //conexion de arduino 
+    
     //principal
     public static void main(String args[]) {
         try {

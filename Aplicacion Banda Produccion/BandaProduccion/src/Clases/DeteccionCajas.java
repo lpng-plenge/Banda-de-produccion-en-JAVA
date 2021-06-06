@@ -26,7 +26,7 @@ public class DeteccionCajas implements Runnable {
     double negro = 0, blanco = 0, total = 0,rango=80;//defectuoso 
     private double [] value = new double[2];
     // Harscascade
-    public static String sources = "D:\\Usuarios\\Luis Pablo Personal y Creativo\\Documentos\\GitHub\\JAVA-Banda-Produccion\\haarcascades\\cocacola.xml"; //fotografias xml
+    public static String sources = "D:\\Usuarios\\Luis Pablo Personal y Creativo\\Documentos\\GitHub\\JAVA-Banda-Produccion\\haarcascades\\cascade.xml"; //fotografias xml
     CascadeClassifier faceDetector = new CascadeClassifier(sources);
 
     @Override
@@ -101,7 +101,7 @@ public class DeteccionCajas implements Runnable {
                     }
                     int no = facesArray.length;
                     //Mandar al label si se identifica
-                    //ControlProduccion.txtNumeroEncontradas.setText(String.valueOf(no));
+                    ControlProduccion.txtNumeroEncontradas.setText(String.valueOf(no));
 
                     Imgcodecs.imencode(".jpg", frame, mem);
                     Image img;
@@ -111,7 +111,7 @@ public class DeteccionCajas implements Runnable {
                     //cambio de color de la imagen
                     for (int i = 0; i < buff.getWidth(); i++) {
                         for (int j = 0; j < buff.getHeight(); j++) {
-                            if (buff.getRGB(i, j) < -Umbral * 2) {
+                            if (buff.getRGB(i, j) < -Umbral ) {
                                 //dar un cero
                                 buff.setRGB(i, j, color[0]);
                                 //activar el piston
@@ -141,15 +141,15 @@ public class DeteccionCajas implements Runnable {
         if (!ControlProduccion._activarVideo) {
             capture.release();
             ControlProduccion.jPanelVideo.removeAll();
-            //ControlProduccion.txtNumeroEncontradas.setText("");
-            //ControlProduccion.txtPorcentaje.setText("");
+            ControlProduccion.txtNumeroEncontradas.setText("");
+            ControlProduccion.txtPorcentaje.setText("");
         }
     }
 
     public double porcentaje(double total, double negro) {
         double porcentaje = (negro / total) * 100;
         double pfinal = Math.round(porcentaje * 1000) / 1000;
-        //ControlProduccion.txtPorcentaje.setText(String.valueOf(pfinal));
+        ControlProduccion.txtPorcentaje.setText(String.valueOf(pfinal));
         
         return pfinal;
     }

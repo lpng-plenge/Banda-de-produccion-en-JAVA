@@ -25,15 +25,15 @@
       <weakClassifiers>
         <_>
           <internalNodes>
-            0 -1 0 2.6001783553510904e-03</internalNodes>
+            0 -1 0 -2.1332323551177979e-02</internalNodes>
           <leafValues>
-            1. -1.</leafValues></_></weakClassifiers></_></stages>
+            -1. 1.</leafValues></_></weakClassifiers></_></stages>
   <features>
     <_>
       <rects>
         <_>
-          0 0 1 45 -1.</_>
+          21 3 16 43 -1.</_>
         <_>
-          0 15 1 15 3.</_></rects>
+          29 3 8 43 2.</_></rects>
       <tilted>0</tilted></_></features></cascade>
 </opencv_storage>
