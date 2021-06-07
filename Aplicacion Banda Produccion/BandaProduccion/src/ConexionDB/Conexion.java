@@ -11,7 +11,7 @@ public class Conexion {
          try{
                DriverManager.registerDriver(new org.gjt.mm.mysql.Driver());
                Connection con = DriverManager.getConnection (
-                "jdbc:mysql://sql3.freemysqlhosting.net:3306/sql3415613","sql3415613", "HatrHgHM6t");
+                "jdbc:mysql://sql3.freemysqlhosting.net:3306/sql3417700","sql3417700", "XEennUKn8L");
                this.conn=con;
            } catch (Exception e){
                JOptionPane.showMessageDialog(null, "Error en la Conexion, vuelva mas tarde");

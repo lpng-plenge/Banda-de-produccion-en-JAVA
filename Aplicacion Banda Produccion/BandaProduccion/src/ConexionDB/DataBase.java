@@ -1,5 +1,7 @@
 package ConexionDB;
 
+import static BandaProduccion.Administrador.t_evento;
+import static BandaProduccion.Administrador.t_usuario;
 import Clases.CerrarSesion;
 import Clases.Usuario;
 import Clases.LogIn;
@@ -9,11 +11,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class DataBase {
 
     ResultSet rs;
-
+    DefaultTableModel model,model2;
     public DataBase() {
 
     }
@@ -181,4 +184,38 @@ public class DataBase {
         }
         return datos;
     }
+    
+    public void getTablaProduccion(Connection conn)throws SQLException{
+        String [] titulos = {"Usuario","Entrada","Salida","Defectuoso"};
+        model= new DefaultTableModel(null,titulos);
+        String [] i = new String[4];
+        PreparedStatement stmt = conn.prepareStatement("select * from producciones");
+        rs=stmt.executeQuery();
+        
+        while(rs.next()){
+            i[0]=rs.getString("usuario_id");
+            i[1]=rs.getString(String.valueOf("entrada"));
+            i[2]=rs.getString(String.valueOf("salida"));
+            i[3]=rs.getString(String.valueOf("defectuoso"));
+            model.addRow(i);
+        }
+        t_evento.setModel(model);
+    }
+
+    public void getTablaUsuario(Connection conn) throws SQLException {
+        String [] titulos = {"Id","Usuario","Password","Nombre"};
+        model2= new DefaultTableModel(null,titulos);
+        String[]i = new String[4];
+        PreparedStatement stmt = conn.prepareStatement("select * from usuarios");
+        rs = stmt.executeQuery();
+        while (rs.next()) {
+            i[0]= rs.getString(String.valueOf("id"));
+            i[1] = rs.getString("usuario");
+            i[2]= rs.getString("password");
+            i[3] = rs.getString("nombre");
+            model2.addRow(i);
+        }
+        t_usuario.setModel(model2);
+    }
+
 }

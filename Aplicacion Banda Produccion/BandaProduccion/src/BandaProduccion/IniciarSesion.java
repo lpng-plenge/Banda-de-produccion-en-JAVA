@@ -249,6 +249,8 @@ public class IniciarSesion extends javax.swing.JFrame {
                 this.setVisible(false);
             } else if (registro[0].equals("1")) {
                 Administrador.txtUsuarioAdmin.setText(log.getUsuario());
+                Administrador.txtUsuarioAdmin1.setText(log.getUsuario());
+                Administrador.txtUsuarioAdmin2.setText(log.getUsuario());
                 estatus = true;
                 txtBorderColors(estatus);
                 limpiarCampos();

@@ -508,14 +508,21 @@ public class ControlProduccion extends javax.swing.JFrame {
         this.jPanelChartPiston.setLayout(null);
         graficarDatos();
     }
-    private void desactivar_Todo(){
+    private void detener(){
         timer.stop();
-        usuarioConectado.stop();
+        res.Close();
         _activarVideo=false;
+        _activarDatos =false;
         btnIniciar.setEnabled(true);
         btnPausar.setEnabled(false);
         btnSalir.setEnabled(true);
+    }
+    private void desactivar_Todo(){
+        detener();
+        btnIniciar.setText("Iniciar");
+        usuarioConectado.stop();   
         limpiarCampos();
+        Salir();
     }
     private void Salir() {
         try {
@@ -542,13 +549,7 @@ public class ControlProduccion extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnPausarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPausarActionPerformed
-        timer.stop();
-        res.Close();
-        _activarVideo=false;
-        _activarDatos =false;
-        btnIniciar.setEnabled(true);
-        btnPausar.setEnabled(false);
-        btnSalir.setEnabled(true);
+        detener();
     }//GEN-LAST:event_btnPausarActionPerformed
     
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed

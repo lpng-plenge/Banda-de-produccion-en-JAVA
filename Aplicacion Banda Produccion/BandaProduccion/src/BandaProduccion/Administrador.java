@@ -12,6 +12,7 @@ import javax.swing.Timer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
 
 public class Administrador extends javax.swing.JFrame {
 
@@ -39,6 +40,7 @@ public class Administrador extends javax.swing.JFrame {
             usuarioConectado = new Timer(10,payActionListener);
             timer = new Timer(1000,acciones);
             usuarioConectado.start();
+            cargarTabla();
         }
     }
 
@@ -46,6 +48,7 @@ public class Administrador extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jTabbedPane1 = new javax.swing.JTabbedPane();
         kGradientPanel1 = new keeptoo.KGradientPanel();
         AdminPanel = new javax.swing.JPanel();
         jLabelControlUsuario = new javax.swing.JLabel();
@@ -75,6 +78,14 @@ public class Administrador extends javax.swing.JFrame {
         btnEliminar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
+        kGradientPanel4 = new keeptoo.KGradientPanel();
+        jLbaleListas = new javax.swing.JLabel();
+        btnSalir2 = new javax.swing.JButton();
+        AdminPanel2 = new javax.swing.JPanel();
+        kGradientPanel3 = new keeptoo.KGradientPanel();
+        jLbaelProducciones = new javax.swing.JLabel();
+        btnSalir1 = new javax.swing.JButton();
+        AdminPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Administradores");
@@ -82,6 +93,14 @@ public class Administrador extends javax.swing.JFrame {
         setName("Administrador"); // NOI18N
         setPreferredSize(new java.awt.Dimension(1024, 640));
         setSize(new java.awt.Dimension(1024, 640));
+
+        jTabbedPane1.setBackground(new java.awt.Color(34, 34, 34));
+        jTabbedPane1.setPreferredSize(new java.awt.Dimension(1024, 640));
+        jTabbedPane1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jTabbedPane1StateChanged(evt);
+            }
+        });
 
         kGradientPanel1.setkEndColor(new java.awt.Color(250, 250, 250));
         kGradientPanel1.setkGradientFocus(180);
@@ -390,9 +409,9 @@ public class Administrador extends javax.swing.JFrame {
         kGradientPanel1.setLayout(kGradientPanel1Layout);
         kGradientPanel1Layout.setHorizontalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(AdminPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1235, Short.MAX_VALUE)
+            .addComponent(AdminPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addContainerGap(223, Short.MAX_VALUE)
+                .addContainerGap(116, Short.MAX_VALUE)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jLabelError, javax.swing.GroupLayout.PREFERRED_SIZE, 799, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -449,13 +468,13 @@ public class Administrador extends javax.swing.JFrame {
                         .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(202, Short.MAX_VALUE))
+                .addContainerGap(98, Short.MAX_VALUE))
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
                 .addComponent(AdminPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
                 .addComponent(jLabelControlUsuario)
                 .addGap(18, 18, 18)
                 .addComponent(jLabelError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -496,24 +515,247 @@ public class Administrador extends javax.swing.JFrame {
                     .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addContainerGap(93, Short.MAX_VALUE))
         );
+
+        jTabbedPane1.addTab("Inicio", kGradientPanel1);
+
+        kGradientPanel4.setkEndColor(new java.awt.Color(250, 250, 250));
+        kGradientPanel4.setkGradientFocus(180);
+        kGradientPanel4.setkStartColor(new java.awt.Color(191, 191, 191));
+
+        jLbaleListas.setBackground(new java.awt.Color(13, 13, 13));
+        jLbaleListas.setFont(new java.awt.Font("Segoe UI Black", 0, 16)); // NOI18N
+        jLbaleListas.setForeground(new java.awt.Color(13, 13, 13));
+        jLbaleListas.setText("Producciones Actuales");
+
+        t_usuarios.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        t_usuarios.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+
+        t_usuario.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        t_usuario.setForeground(new java.awt.Color(13, 13, 13));
+        t_usuario.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        t_usuario.setGridColor(new java.awt.Color(21, 127, 251));
+        t_usuario.setSelectionBackground(new java.awt.Color(21, 149, 136));
+        t_usuarios.setViewportView(t_usuario);
+
+        btnSalir2.setBackground(new java.awt.Color(13, 13, 13));
+        btnSalir2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnSalir2.setForeground(new java.awt.Color(255, 255, 255));
+        btnSalir2.setText("Cerrar Sesion");
+        btnSalir2.setMaximumSize(new java.awt.Dimension(120, 40));
+        btnSalir2.setMinimumSize(new java.awt.Dimension(120, 40));
+        btnSalir2.setPreferredSize(new java.awt.Dimension(120, 40));
+        btnSalir2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalir2ActionPerformed(evt);
+            }
+        });
+
+        AdminPanel2.setBackground(new java.awt.Color(34, 34, 34));
+        AdminPanel2.setPreferredSize(new java.awt.Dimension(1024, 64));
+
+        txtUsuarioAdmin2.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        txtUsuarioAdmin2.setForeground(new java.awt.Color(242, 242, 242));
+        txtUsuarioAdmin2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtUsuarioAdmin2.setToolTipText("");
+        txtUsuarioAdmin2.setFocusable(false);
+        txtUsuarioAdmin2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        txtUsuarioAdmin2.setInheritsPopupMenu(false);
+        txtUsuarioAdmin2.setMaximumSize(new java.awt.Dimension(115, 22));
+        txtUsuarioAdmin2.setMinimumSize(new java.awt.Dimension(115, 22));
+        txtUsuarioAdmin2.setPreferredSize(new java.awt.Dimension(210, 64));
+
+        javax.swing.GroupLayout AdminPanel2Layout = new javax.swing.GroupLayout(AdminPanel2);
+        AdminPanel2.setLayout(AdminPanel2Layout);
+        AdminPanel2Layout.setHorizontalGroup(
+            AdminPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(AdminPanel2Layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(txtUsuarioAdmin2, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        AdminPanel2Layout.setVerticalGroup(
+            AdminPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(AdminPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtUsuarioAdmin2, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout kGradientPanel4Layout = new javax.swing.GroupLayout(kGradientPanel4);
+        kGradientPanel4.setLayout(kGradientPanel4Layout);
+        kGradientPanel4Layout.setHorizontalGroup(
+            kGradientPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(AdminPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(kGradientPanel4Layout.createSequentialGroup()
+                .addGroup(kGradientPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(kGradientPanel4Layout.createSequentialGroup()
+                        .addGap(452, 452, 452)
+                        .addComponent(btnSalir2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(kGradientPanel4Layout.createSequentialGroup()
+                        .addGap(118, 118, 118)
+                        .addGroup(kGradientPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(t_usuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 811, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLbaleListas, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(0, 95, Short.MAX_VALUE))
+        );
+        kGradientPanel4Layout.setVerticalGroup(
+            kGradientPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(kGradientPanel4Layout.createSequentialGroup()
+                .addComponent(AdminPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addComponent(jLbaleListas)
+                .addGap(18, 18, 18)
+                .addComponent(t_usuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(60, 60, 60)
+                .addComponent(btnSalir2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jLbaleListas.getAccessibleContext().setAccessibleName("Lista de usuarios");
+
+        jTabbedPane1.addTab("Usuarios", kGradientPanel4);
+
+        kGradientPanel3.setkEndColor(new java.awt.Color(250, 250, 250));
+        kGradientPanel3.setkGradientFocus(180);
+        kGradientPanel3.setkStartColor(new java.awt.Color(191, 191, 191));
+
+        jLbaelProducciones.setBackground(new java.awt.Color(13, 13, 13));
+        jLbaelProducciones.setFont(new java.awt.Font("Segoe UI Black", 0, 16)); // NOI18N
+        jLbaelProducciones.setForeground(new java.awt.Color(13, 13, 13));
+        jLbaelProducciones.setText("Lista de usuarios");
+
+        t_eventos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        t_eventos.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+
+        t_evento.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        t_evento.setForeground(new java.awt.Color(13, 13, 13));
+        t_evento.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        t_evento.setGridColor(new java.awt.Color(21, 127, 251));
+        t_evento.setSelectionBackground(new java.awt.Color(21, 149, 136));
+        t_eventos.setViewportView(t_evento);
+
+        btnSalir1.setBackground(new java.awt.Color(13, 13, 13));
+        btnSalir1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnSalir1.setForeground(new java.awt.Color(255, 255, 255));
+        btnSalir1.setText("Cerrar Sesion");
+        btnSalir1.setMaximumSize(new java.awt.Dimension(120, 40));
+        btnSalir1.setMinimumSize(new java.awt.Dimension(120, 40));
+        btnSalir1.setPreferredSize(new java.awt.Dimension(120, 40));
+        btnSalir1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalir1ActionPerformed(evt);
+            }
+        });
+
+        AdminPanel1.setBackground(new java.awt.Color(34, 34, 34));
+        AdminPanel1.setPreferredSize(new java.awt.Dimension(1024, 64));
+
+        txtUsuarioAdmin1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        txtUsuarioAdmin1.setForeground(new java.awt.Color(242, 242, 242));
+        txtUsuarioAdmin1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtUsuarioAdmin1.setToolTipText("");
+        txtUsuarioAdmin1.setFocusable(false);
+        txtUsuarioAdmin1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        txtUsuarioAdmin1.setInheritsPopupMenu(false);
+        txtUsuarioAdmin1.setMaximumSize(new java.awt.Dimension(115, 22));
+        txtUsuarioAdmin1.setMinimumSize(new java.awt.Dimension(115, 22));
+        txtUsuarioAdmin1.setPreferredSize(new java.awt.Dimension(210, 64));
+
+        javax.swing.GroupLayout AdminPanel1Layout = new javax.swing.GroupLayout(AdminPanel1);
+        AdminPanel1.setLayout(AdminPanel1Layout);
+        AdminPanel1Layout.setHorizontalGroup(
+            AdminPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(AdminPanel1Layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(txtUsuarioAdmin1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        AdminPanel1Layout.setVerticalGroup(
+            AdminPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(AdminPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtUsuarioAdmin1, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout kGradientPanel3Layout = new javax.swing.GroupLayout(kGradientPanel3);
+        kGradientPanel3.setLayout(kGradientPanel3Layout);
+        kGradientPanel3Layout.setHorizontalGroup(
+            kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(AdminPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(kGradientPanel3Layout.createSequentialGroup()
+                .addGroup(kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(kGradientPanel3Layout.createSequentialGroup()
+                        .addGap(452, 452, 452)
+                        .addComponent(btnSalir1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(kGradientPanel3Layout.createSequentialGroup()
+                        .addGap(118, 118, 118)
+                        .addGroup(kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(t_eventos, javax.swing.GroupLayout.PREFERRED_SIZE, 811, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLbaelProducciones, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(0, 95, Short.MAX_VALUE))
+        );
+        kGradientPanel3Layout.setVerticalGroup(
+            kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(kGradientPanel3Layout.createSequentialGroup()
+                .addComponent(AdminPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addComponent(jLbaelProducciones)
+                .addGap(18, 18, 18)
+                .addComponent(t_eventos, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(60, 60, 60)
+                .addComponent(btnSalir1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        t_eventos.getAccessibleContext().setAccessibleParent(t_eventos);
+
+        jTabbedPane1.addTab("Produccion", kGradientPanel3);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(kGradientPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
+
+        jTabbedPane1.getAccessibleContext().setAccessibleName("Inicio");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    Timer timer,usuarioConectado;
-    
+    //tiempos 
+    private int seg,min;
+    Timer timer,usuarioConectado,refreshTablas; 
     public void TimerTime() {
         jLabelError.setText("");
         jLabelError.setOpaque(false);
@@ -523,6 +765,11 @@ public class Administrador extends javax.swing.JFrame {
         @Override
         public void actionPerformed(ActionEvent ae) {
             try {
+                min++;
+                if(min==600){
+                    cargarTabla();
+                    min=0;
+                }
                 String activo = "";
                 cS = new CerrarSesion();
                 cS.setUsuario(usuario);
@@ -545,8 +792,6 @@ public class Administrador extends javax.swing.JFrame {
             }
         }
     };
-    //tiempo para los errores
-    private int seg;
     private ActionListener acciones = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -556,7 +801,7 @@ public class Administrador extends javax.swing.JFrame {
             }
         }
     };
-    
+    //botones
     public void HabilitarTextFields() {
         txtId.setEnabled(false);
         txtNombre.setEnabled(true);
@@ -672,7 +917,14 @@ public class Administrador extends javax.swing.JFrame {
             Logger.getLogger(Administrador.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    private void cargarTabla(){
+        try {
+            db.getTablaProduccion(conn);
+            db.getTablaUsuario(conn);
+        } catch (SQLException ex) {
+            Logger.getLogger(Administrador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         try {
             txtId.setText(String.valueOf(db.getID(conn)));
@@ -849,6 +1101,18 @@ public class Administrador extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
+    private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
+
+    }//GEN-LAST:event_jTabbedPane1StateChanged
+
+    private void btnSalir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalir1ActionPerformed
+        Salir();
+    }//GEN-LAST:event_btnSalir1ActionPerformed
+
+    private void btnSalir2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalir2ActionPerformed
+        Salir();
+    }//GEN-LAST:event_btnSalir2ActionPerformed
+
     public static void main(String args[]) {
 
         try {
@@ -876,6 +1140,8 @@ public class Administrador extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel AdminPanel;
+    private javax.swing.JPanel AdminPanel1;
+    private javax.swing.JPanel AdminPanel2;
     private javax.swing.JButton btnBuscarId;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEditar;
@@ -883,6 +1149,8 @@ public class Administrador extends javax.swing.JFrame {
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnSalir;
+    private javax.swing.JButton btnSalir1;
+    private javax.swing.JButton btnSalir2;
     private javax.swing.JComboBox<String> comBoxPerfil;
     private javax.swing.JLabel jLabaelDireccion;
     private javax.swing.JLabel jLabelAMaterno;
@@ -895,7 +1163,16 @@ public class Administrador extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelPerfil;
     private javax.swing.JLabel jLabelTel;
     private javax.swing.JLabel jLabelusuario;
+    private javax.swing.JLabel jLbaelProducciones;
+    private javax.swing.JLabel jLbaleListas;
+    private javax.swing.JTabbedPane jTabbedPane1;
     private keeptoo.KGradientPanel kGradientPanel1;
+    private keeptoo.KGradientPanel kGradientPanel3;
+    private keeptoo.KGradientPanel kGradientPanel4;
+    public static final javax.swing.JTable t_evento = new javax.swing.JTable();
+    public static final javax.swing.JScrollPane t_eventos = new javax.swing.JScrollPane();
+    public static final javax.swing.JTable t_usuario = new javax.swing.JTable();
+    public static final javax.swing.JScrollPane t_usuarios = new javax.swing.JScrollPane();
     private javax.swing.JTextField txtAMaterno;
     private javax.swing.JTextField txtAPaterno;
     private javax.swing.JTextField txtDireccion;
@@ -905,5 +1182,7 @@ public class Administrador extends javax.swing.JFrame {
     private javax.swing.JTextField txtTelefono;
     private javax.swing.JTextField txtUsuario;
     public static final javax.swing.JLabel txtUsuarioAdmin = new javax.swing.JLabel();
+    public static final javax.swing.JLabel txtUsuarioAdmin1 = new javax.swing.JLabel();
+    public static final javax.swing.JLabel txtUsuarioAdmin2 = new javax.swing.JLabel();
     // End of variables declaration//GEN-END:variables
 }
