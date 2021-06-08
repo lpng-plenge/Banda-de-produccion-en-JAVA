@@ -255,7 +255,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="txtUsuarioAdmin" pref="38" max="32767" attributes="0"/>
+                          <Component id="txtUsuarioAdmin" pref="42" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -1112,7 +1112,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="txtUsuarioAdmin2" pref="38" max="32767" attributes="0"/>
+                          <Component id="txtUsuarioAdmin2" pref="42" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -1319,7 +1319,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="txtUsuarioAdmin1" pref="38" max="32767" attributes="0"/>
+                          <Component id="txtUsuarioAdmin1" pref="42" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>

@@ -23,7 +23,7 @@ public class IniciarSesion extends javax.swing.JFrame {
     public IniciarSesion() {
         initComponents();
         setLocationRelativeTo(null);
-        setIconImage(new ImageIcon(getClass().getResource("../Icono/produccion.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("../resources/produccion.png")).getImage());
         //instanciar
         con = new Conexion();
         conn = con.getConexion();

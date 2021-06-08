@@ -32,7 +32,7 @@ public class Administrador extends javax.swing.JFrame {
         } else {
             initComponents();
             setLocationRelativeTo(null);
-            setIconImage(new ImageIcon(getClass().getResource("../Icono/produccion.png")).getImage());
+            setIconImage(new ImageIcon(getClass().getResource("../resources/produccion.png")).getImage());
             //instanciar
             con = new Conexion();
             conn = con.getConexion();
@@ -134,7 +134,7 @@ public class Administrador extends javax.swing.JFrame {
             AdminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AdminPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtUsuarioAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                .addComponent(txtUsuarioAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -589,7 +589,7 @@ public class Administrador extends javax.swing.JFrame {
             AdminPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AdminPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtUsuarioAdmin2, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                .addComponent(txtUsuarioAdmin2, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -695,7 +695,7 @@ public class Administrador extends javax.swing.JFrame {
             AdminPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AdminPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtUsuarioAdmin1, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                .addComponent(txtUsuarioAdmin1, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
                 .addContainerGap())
         );
 

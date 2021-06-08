@@ -41,7 +41,7 @@ public class ControlProduccion extends javax.swing.JFrame {
         } else {
             initComponents();
             setLocationRelativeTo(null);
-            setIconImage(new ImageIcon(getClass().getResource("../Icono/produccion.png")).getImage());           
+            setIconImage(new ImageIcon(getClass().getResource("../resources/produccion.png")).getImage());           
             //serializacion
             res = new ConexionSerial();
             res.initialize();
