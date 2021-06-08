@@ -44,6 +44,7 @@ public class ControlProduccion extends javax.swing.JFrame {
             setIconImage(new ImageIcon(getClass().getResource("../Icono/produccion.png")).getImage());           
             //serializacion
             res = new ConexionSerial();
+            res.initialize();
             //instanciar base de datos
             con = new Conexion();
             conn = con.getConexion();
@@ -508,11 +509,9 @@ public class ControlProduccion extends javax.swing.JFrame {
         btnIniciar.setText("Iniciar");
         this.jPanelChartVelocidad.setLayout(null);
         this.jPanelChartPiston.setLayout(null);
-        graficarDatos();
     }
     private void detener(){
         timer.stop();
-        res.Close();
         _activarVideo=false;
         _activarDatos =false;
         btnIniciar.setEnabled(true);
@@ -527,6 +526,7 @@ public class ControlProduccion extends javax.swing.JFrame {
     }
     private void Salir() {
         try {
+            res.arduinoConection();
             cS = new CerrarSesion();
             cS.setUsuario(empleado);
             cS.setEstatus();
@@ -541,15 +541,13 @@ public class ControlProduccion extends javax.swing.JFrame {
 
     //botones
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        if (timer.isRunning()) {
-            timer.stop();
-        }
+        usuarioConectado.stop();
         limpiarCampos();
         Salir();
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnPausarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPausarActionPerformed
-        detener();
+        detener();        
     }//GEN-LAST:event_btnPausarActionPerformed
     
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
@@ -563,7 +561,6 @@ public class ControlProduccion extends javax.swing.JFrame {
             entrada+=(datos[0]);
             salida+=(datos[1]);
             defectuosos+=(datos[2]);
-            res.initialize();
             timer.start();
             _activarVideo = true;
             btnIniciar.setText("Reanudar");

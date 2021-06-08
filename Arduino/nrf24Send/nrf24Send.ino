@@ -1,45 +1,40 @@
+#include <SPI.h>  // incluye libreria SPI para comunicacion con el modulo
+#include <RH_NRF24.h> // incluye la seccion NRF24 de la libreria RadioHead
 
-#include <SPI.h>
-#include <RH_NRF24.h>
-
-// Singleton instance of the radio driver
-RH_NRF24 nrf24;
-
-void setup()
+RH_NRF24 nrf24;   // crea objeto con valores por defecto para bus SPI
+      // y pin digital numero 8 para CE
+void setup() 
 {
-  Serial.begin(9600);
-  if (!nrf24.init())
+  Serial.begin(9600);   // inicializa monitor serie a 9600 bps
+  if (!nrf24.init())    // si falla inicializacion de modulo muestra texto
     Serial.println("fallo de inicializacion");
-  // Defaults after init are 2.402 GHz (channel 2), 2Mbps, 0dBm
-  if (!nrf24.setChannel(2))
-    Serial.println("fallo establecer el canal");
-  if (!nrf24.setRF(RH_NRF24::DataRate250kbps, RH_NRF24::TransmitPower0dBm))
-    Serial.println("fallo opcioner RF");
-
-  Serial.println("Base Iniciada");
+  if (!nrf24.setChannel(2)) // si falla establecer canal muestra texto
+    Serial.println("fallo en establecer canal");
+  if (!nrf24.setRF(RH_NRF24::DataRate250kbps, RH_NRF24::TransmitPower0dBm)) // si falla opciones 
+    Serial.println("fallo en opciones RF");             // RF muestra texto
+     
+    Serial.println("Base iniciada");  // texto para no comenzar con ventana vacia
 }
-
 
 void loop()
 {
-
-  if (nrf24.available())
-  {
-    if (Serial.available() > 0) {
-      int input = Serial.read();
-      if (input == '1') {
-        uint8_t data[] = "1";
-        nrf24.send(data, sizeof(data));
-        nrf24.waitPacketSent();
-      } else if (input == '2') {
-        uint8_t value[] = "2";
-        nrf24.send(value, sizeof(value));
-        nrf24.waitPacketSent();
-      } else {
-        uint8_t data1[] = "0";
-        nrf24.send(data1, sizeof(data1));
-        nrf24.waitPacketSent();
-      }
+  if (nrf24.available())      // si hay informacion disponible
+  {  
+    uint8_t buf[RH_NRF24_MAX_MESSAGE_LEN];  // buffer con longitud maxima de 32 bytes
+    uint8_t len = sizeof(buf);      // obtiene longitud de la cadena
+    if (nrf24.recv(buf, &len))      // si hay informacion valida en el buffer
+    {
+      Serial.print("Recibido: ");   // muestra texto
+      Serial.println((char*)buf);   // muestra contenido del buffer
+      
+      uint8_t data[] = "Hola amigo remoto"; // se almacena texto a enviar
+      nrf24.send(data, sizeof(data));   // envia texto
+      nrf24.waitPacketSent();     // espera hasta realizado el envio
+      Serial.println("Respondiendo");   // muestra texto
+    }
+    else          // si falla la recepcion
+    {
+      Serial.println("fallo en recepcion"); // muestra texto
     }
   }
 }

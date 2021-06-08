@@ -38,5 +38,5 @@ void loop()
       Serial.println("fallo en recepcion");
     }
   }
-  delay(1000);
+  delay(100);
 }
