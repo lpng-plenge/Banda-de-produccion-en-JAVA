@@ -23,8 +23,8 @@ import org.opencv.videoio.VideoCapture;
 public class DeteccionCajas implements Runnable {
 
     //variables globales
-    double negro = 0, blanco = 0, total = 0,rango=80;//defectuoso 
-    private double [] value = new double[2];
+    double negro = 0, blanco = 0, total = 0, rango = 80;//defectuoso 
+    private double[] value = new double[2];
     // Harscascade
     public static String sources = "D:\\Usuarios\\Luis Pablo Personal y Creativo\\Documentos\\GitHub\\JAVA-Banda-Produccion\\haarcascades\\cascade.xml"; //fotografias xml
     CascadeClassifier faceDetector = new CascadeClassifier(sources);
@@ -52,27 +52,32 @@ public class DeteccionCajas implements Runnable {
                     //almacenar valores
                     double valores[] = new double[3];
                     //Saturacion
-                    long Umbral = 5000000;
+                    String uP = ControlProduccion.txtUmbralPorcentaje.getText();
+                    if (uP.equals("")) {
+                        uP = "0";
+                    }
+                    double porcentajeUmbral = Double.parseDouble(uP);
+                    long Umbral = 50000;
                     int[] color = new int[2];
                     color[0] = new Color(255, 255, 255).getRGB();
                     color[1] = new Color(0, 0, 0).getRGB();
-                    
+
                     //Procesos de reconocimiento
                     g = ControlProduccion.jPanelVideo.getGraphics();
                     Imgproc.cvtColor(frame, frame_gray, Imgproc.COLOR_BGR2GRAY);
                     Imgproc.equalizeHist(frame_gray, frame_gray);
 
                     faceDetector.detectMultiScale(frame_gray, rostros,
-//                            1.1,
-//                            2,
-                            5,
+                            //                            1.1,
+                            //                            2,
+                            6,
                             91,
-                            0 ,
+                            0,
                             new Size(100, 100)
                     );
                     facesArray = rostros.toArray();
                     //System.out.println("Numero de rostros" + facesArray.length);
-                    valores[0]=facesArray.length;
+                    valores[0] = facesArray.length;
                     //detector
                     for (int i = 0; i < facesArray.length; i++) {
                         Point centerPoint = new Point(
@@ -111,7 +116,7 @@ public class DeteccionCajas implements Runnable {
                     //cambio de color de la imagen
                     for (int i = 0; i < buff.getWidth(); i++) {
                         for (int j = 0; j < buff.getHeight(); j++) {
-                            if (buff.getRGB(i, j) < -Umbral ) {
+                            if (buff.getRGB(i, j) < (-Umbral * porcentajeUmbral * 2)) {
                                 //dar un cero
                                 buff.setRGB(i, j, color[0]);
                                 //activar el piston
@@ -121,7 +126,7 @@ public class DeteccionCajas implements Runnable {
                                 negro++;
                             }
                             total = negro + blanco;
-                            valores[1]= porcentaje(total, negro);
+                            valores[1] = porcentaje(total, negro);
                         }
                     }
                     setValores(valores);
@@ -131,7 +136,7 @@ public class DeteccionCajas implements Runnable {
                         //renderizado
                         g.drawImage(buff, 0, 0, ControlProduccion.jPanelVideo.getWidth(), ControlProduccion.jPanelVideo.getHeight(), 0, 0, buff.getWidth(), buff.getHeight(), null);
                     }
-                    
+
                 } catch (IOException ex) {
                     //Logger.getLogger(DaemonThread.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -150,14 +155,16 @@ public class DeteccionCajas implements Runnable {
         double porcentaje = (negro / total) * 100;
         double pfinal = Math.round(porcentaje * 1000) / 1000;
         ControlProduccion.txtPorcentaje.setText(String.valueOf(pfinal));
-        
+
         return pfinal;
     }
-    public void setValores(double[] value){
+
+    public void setValores(double[] value) {
         this.value = value;
     }
-    public double[] getValores(){
+
+    public double[] getValores() {
         return value;
     }
-    
+
 }

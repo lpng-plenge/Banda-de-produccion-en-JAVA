@@ -255,7 +255,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="txtUsuarioAdmin" pref="38" max="32767" attributes="0"/>
+                          <Component id="txtUsuarioAdmin" pref="32" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -1011,7 +1011,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="d" green="d" red="d" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Producciones Actuales"/>
+                <Property name="text" type="java.lang.String" value="Lista de usuarios"/>
               </Properties>
               <AccessibilityProperties>
                 <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Lista de usuarios"/>
@@ -1112,7 +1112,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="txtUsuarioAdmin2" pref="38" max="32767" attributes="0"/>
+                          <Component id="txtUsuarioAdmin2" pref="32" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -1216,7 +1216,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="d" green="d" red="d" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Lista de usuarios"/>
+                <Property name="text" type="java.lang.String" value="Producciones actuales"/>
               </Properties>
             </Component>
             <Container class="javax.swing.JScrollPane" name="t_eventos">
@@ -1319,7 +1319,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="txtUsuarioAdmin1" pref="38" max="32767" attributes="0"/>
+                          <Component id="txtUsuarioAdmin1" pref="32" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>

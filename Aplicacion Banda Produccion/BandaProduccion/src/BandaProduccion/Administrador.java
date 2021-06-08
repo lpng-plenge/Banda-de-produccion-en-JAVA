@@ -134,7 +134,7 @@ public class Administrador extends javax.swing.JFrame {
             AdminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AdminPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtUsuarioAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                .addComponent(txtUsuarioAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -527,7 +527,7 @@ public class Administrador extends javax.swing.JFrame {
         jLbaleListas.setBackground(new java.awt.Color(13, 13, 13));
         jLbaleListas.setFont(new java.awt.Font("Segoe UI Black", 0, 16)); // NOI18N
         jLbaleListas.setForeground(new java.awt.Color(13, 13, 13));
-        jLbaleListas.setText("Producciones Actuales");
+        jLbaleListas.setText("Lista de usuarios");
 
         t_usuarios.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         t_usuarios.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
@@ -589,7 +589,7 @@ public class Administrador extends javax.swing.JFrame {
             AdminPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AdminPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtUsuarioAdmin2, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                .addComponent(txtUsuarioAdmin2, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -633,7 +633,7 @@ public class Administrador extends javax.swing.JFrame {
         jLbaelProducciones.setBackground(new java.awt.Color(13, 13, 13));
         jLbaelProducciones.setFont(new java.awt.Font("Segoe UI Black", 0, 16)); // NOI18N
         jLbaelProducciones.setForeground(new java.awt.Color(13, 13, 13));
-        jLbaelProducciones.setText("Lista de usuarios");
+        jLbaelProducciones.setText("Producciones actuales");
 
         t_eventos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         t_eventos.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
@@ -695,7 +695,7 @@ public class Administrador extends javax.swing.JFrame {
             AdminPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AdminPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtUsuarioAdmin1, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                .addComponent(txtUsuarioAdmin1, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
                 .addContainerGap())
         );
 

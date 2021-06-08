@@ -22,8 +22,9 @@ public class ControlProduccion extends javax.swing.JFrame {
 
     //variables globales
     String empleado = txtUsuarioEmpl.getText();
-    public static boolean _cambioPestana= false, _activarVideo, _activarDatos;
-    double [] _cajasValores= new double[2];
+    public static boolean _cambioPestana = false, _activarVideo, _activarDatos;
+    double[] _cajasValores = new double[2];
+    double gradoAceptacion = 97;//a partir de las 3 de la tarde
     //clases
     ConexionSerial res;
     GraphicsX ObGraphicsX;
@@ -34,14 +35,14 @@ public class ControlProduccion extends javax.swing.JFrame {
     Connection conn;//libreria 
     Usuario us;
     Producciones ps;
-    
+
     public ControlProduccion() {
         if (empleado.equals("")) {
             Salir();
         } else {
             initComponents();
             setLocationRelativeTo(null);
-            setIconImage(new ImageIcon(getClass().getResource("../Icono/produccion.png")).getImage());           
+            setIconImage(new ImageIcon(getClass().getResource("../Icono/produccion.png")).getImage());
             //serializacion
             res = new ConexionSerial();
             res.initialize();
@@ -75,6 +76,8 @@ public class ControlProduccion extends javax.swing.JFrame {
         jPanelChartVelocidad = new javax.swing.JPanel();
         jPanelChartPiston = new javax.swing.JPanel();
         kGradientPanel2 = new keeptoo.KGradientPanel();
+        lbUmbral = new javax.swing.JLabel();
+        lbAceptacion = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Produccion");
@@ -120,7 +123,7 @@ public class ControlProduccion extends javax.swing.JFrame {
             ControlProduccionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ControlProduccionPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtUsuarioEmpl, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                .addComponent(txtUsuarioEmpl, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -273,9 +276,9 @@ public class ControlProduccion extends javax.swing.JFrame {
         jPanelGraficasLayout.setVerticalGroup(
             jPanelGraficasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelGraficasLayout.createSequentialGroup()
-                .addComponent(jPanelChartVelocidad, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
+                .addComponent(jPanelChartVelocidad, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanelChartPiston, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                .addComponent(jPanelChartPiston, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
 
@@ -352,6 +355,16 @@ public class ControlProduccion extends javax.swing.JFrame {
         kGradientPanel2.setkGradientFocus(180);
         kGradientPanel2.setkStartColor(new java.awt.Color(191, 191, 191));
 
+        txtUmbralPorcentaje.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtUmbralPorcentaje.setForeground(new java.awt.Color(112, 112, 112));
+        txtUmbralPorcentaje.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txtUmbralPorcentaje.setText("90");
+        txtUmbralPorcentaje.setToolTipText("");
+        txtUmbralPorcentaje.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(21, 127, 251)));
+        txtUmbralPorcentaje.setMinimumSize(new java.awt.Dimension(200, 30));
+        txtUmbralPorcentaje.setName(""); // NOI18N
+        txtUmbralPorcentaje.setPreferredSize(new java.awt.Dimension(120, 30));
+
         jPanelVideo.setBackground(new java.awt.Color(51, 51, 51));
 
         javax.swing.GroupLayout jPanelVideoLayout = new javax.swing.GroupLayout(jPanelVideo);
@@ -362,7 +375,7 @@ public class ControlProduccion extends javax.swing.JFrame {
         );
         jPanelVideoLayout.setVerticalGroup(
             jPanelVideoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 552, Short.MAX_VALUE)
+            .addGap(0, 548, Short.MAX_VALUE)
         );
 
         txtNumeroEncontradas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -370,6 +383,22 @@ public class ControlProduccion extends javax.swing.JFrame {
 
         txtPorcentaje.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtPorcentaje.setText("No. Pasantes");
+
+        lbUmbral.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbUmbral.setText("Umbral:");
+
+        lbAceptacion.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbAceptacion.setText("Grado de aceptacion:");
+
+        txtGradoAceptacion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtGradoAceptacion.setForeground(new java.awt.Color(112, 112, 112));
+        txtGradoAceptacion.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txtGradoAceptacion.setText("90");
+        txtGradoAceptacion.setToolTipText("");
+        txtGradoAceptacion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(21, 127, 251)));
+        txtGradoAceptacion.setMinimumSize(new java.awt.Dimension(200, 30));
+        txtGradoAceptacion.setName(""); // NOI18N
+        txtGradoAceptacion.setPreferredSize(new java.awt.Dimension(120, 30));
 
         javax.swing.GroupLayout kGradientPanel2Layout = new javax.swing.GroupLayout(kGradientPanel2);
         kGradientPanel2.setLayout(kGradientPanel2Layout);
@@ -380,7 +409,15 @@ public class ControlProduccion extends javax.swing.JFrame {
                 .addComponent(txtNumeroEncontradas, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtPorcentaje, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(732, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
+                .addComponent(lbUmbral, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtUmbralPorcentaje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lbAceptacion, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtGradoAceptacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(203, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel2Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(jPanelVideo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -390,12 +427,18 @@ public class ControlProduccion extends javax.swing.JFrame {
             kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel2Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNumeroEncontradas, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPorcentaje, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lbAceptacion, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtGradoAceptacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtNumeroEncontradas, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtPorcentaje, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtUmbralPorcentaje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lbUmbral, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanelVideo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addGap(26, 26, 26))
         );
 
         jTabbedPane1.addTab("Camara", kGradientPanel2);
@@ -417,15 +460,15 @@ public class ControlProduccion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     //tiempo de que inicia sesion
     private Timer usuarioConectado, timer;
-    
+
     public ActionListener payControll = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
-            String estatus="";
+            String estatus = "";
             try {
                 cS = new CerrarSesion();
                 cS.setUsuario(empleado);
-                estatus=db.getRefresh(conn, cS);
+                estatus = db.getRefresh(conn, cS);
                 switch (estatus) {
                     case "null":
                         desactivar_Todo();
@@ -444,19 +487,23 @@ public class ControlProduccion extends javax.swing.JFrame {
         }
     };
     //tiempo para calcular la banda
-    private int seg, cs,defectuosos, entrada, salida,velocidad, piston;
+    private int seg, cs, defectuosos, entrada, salida, velocidad, piston;
     private ActionListener acciones = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
-            
-            if(_activarVideo&&_activarDatos){
+            String gA = txtGradoAceptacion.getText();
+            if (gA.equals("")) {
+                gA = "0";
+            }
+            gradoAceptacion = Double.parseDouble(gA);
+            if (_activarVideo && _activarDatos) {
 //                System.out.println("Bajo Control");
-            }else{
+            } else {
                 cajas = new DeteccionCajas(); // se crea el hilo
                 Thread t = new Thread(cajas);
                 t.setDaemon(true);
                 t.start();
-                _activarDatos =true;
+                _activarDatos = true;
             }
             cs++;
             if (cs == 100) {
@@ -466,11 +513,11 @@ public class ControlProduccion extends javax.swing.JFrame {
                 piston = 0;
                 velocidad = 400;
                 res.serialStart();
-                if (_cajasValores[0] >1) {
+                if (_cajasValores[0] > 1) {
                     entrada++;
-                    if (_cajasValores[1] >20) {
+                    if (_cajasValores[1] > gradoAceptacion) {
                         res.serialSucces();
-                        salida++; 
+                        salida++;
                     } else {
                         piston = 1;
                         velocidad = 0;
@@ -506,24 +553,28 @@ public class ControlProduccion extends javax.swing.JFrame {
         txtIngresados.setText("");
         txtDefectuosos.setText("");
         txtSalida.setText("");
+        txtUmbralPorcentaje.setText("");
         btnIniciar.setText("Iniciar");
         this.jPanelChartVelocidad.setLayout(null);
         this.jPanelChartPiston.setLayout(null);
     }
-    private void detener(){
+
+    private void detener() {
         timer.stop();
-        _activarVideo=false;
-        _activarDatos =false;
+        _activarVideo = false;
+        _activarDatos = false;
         btnIniciar.setEnabled(true);
         btnPausar.setEnabled(false);
         btnSalir.setEnabled(true);
     }
-    private void desactivar_Todo(){
+
+    private void desactivar_Todo() {
         detener();
-        usuarioConectado.stop();   
+        usuarioConectado.stop();
         limpiarCampos();
         Salir();
     }
+
     private void Salir() {
         try {
             res.arduinoConection();
@@ -547,20 +598,22 @@ public class ControlProduccion extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnPausarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPausarActionPerformed
-        detener();        
+        detener();
     }//GEN-LAST:event_btnPausarActionPerformed
-    
+
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
         try {
             us = new Usuario();
-            int []datos=new int[3];
+            int[] datos = new int[3];
             us.setUsuario(empleado);
             datos = db.consultarTabla(conn, us);
-            entrada=0;salida=0;defectuosos=0;
+            entrada = 0;
+            salida = 0;
+            defectuosos = 0;
             //agregando datos
-            entrada+=(datos[0]);
-            salida+=(datos[1]);
-            defectuosos+=(datos[2]);
+            entrada += (datos[0]);
+            salida += (datos[1]);
+            defectuosos += (datos[2]);
             timer.start();
             _activarVideo = true;
             btnIniciar.setText("Reanudar");
@@ -570,13 +623,13 @@ public class ControlProduccion extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(ControlProduccion.class.getName()).log(Level.SEVERE, null, ex);
         }
-      
+
     }//GEN-LAST:event_btnIniciarActionPerformed
-   
+
     private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
-        if(!_cambioPestana){
-            _cambioPestana =true;
-        }else{
+        if (!_cambioPestana) {
+            _cambioPestana = true;
+        } else {
             _cambioPestana = false;
         }
     }//GEN-LAST:event_jTabbedPane1StateChanged
@@ -624,7 +677,7 @@ public class ControlProduccion extends javax.swing.JFrame {
         }
     }
     //conexion de arduino 
-    
+
     //principal
     public static void main(String args[]) {
         try {
@@ -652,7 +705,7 @@ public class ControlProduccion extends javax.swing.JFrame {
             }
         });
     }
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ControlProduccionPanel;
@@ -671,11 +724,15 @@ public class ControlProduccion extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private keeptoo.KGradientPanel kGradientPanel1;
     private keeptoo.KGradientPanel kGradientPanel2;
+    private javax.swing.JLabel lbAceptacion;
+    private javax.swing.JLabel lbUmbral;
     private javax.swing.JTextField txtDefectuosos;
+    public static final javax.swing.JTextField txtGradoAceptacion = new javax.swing.JTextField();
     private javax.swing.JTextField txtIngresados;
     public static final javax.swing.JLabel txtNumeroEncontradas = new javax.swing.JLabel();
     public static final javax.swing.JLabel txtPorcentaje = new javax.swing.JLabel();
     private javax.swing.JTextField txtSalida;
+    public static final javax.swing.JTextField txtUmbralPorcentaje = new javax.swing.JTextField();
     public static final javax.swing.JLabel txtUsuarioEmpl = new javax.swing.JLabel();
     // End of variables declaration//GEN-END:variables
 }
