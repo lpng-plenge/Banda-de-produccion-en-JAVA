@@ -27,7 +27,7 @@ public class GraphicsX {
         serie.add(entrada1[0], entrada1[1]);
         coleccion.addSeries(serie);
         
-        JFreeChart chart= ChartFactory.createXYLineChart("Piston Activo", data1, data2, coleccion, PlotOrientation.VERTICAL, true, true, false);
+        JFreeChart chart= ChartFactory.createXYLineChart("Luz Activa", data1, data2, coleccion, PlotOrientation.VERTICAL, true, true, false);
         
         XYPlot plot = chart.getXYPlot();
         XYLineAndShapeRenderer renderer = new XYStepRenderer();

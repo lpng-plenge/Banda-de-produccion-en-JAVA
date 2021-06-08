@@ -50,7 +50,7 @@ public class ConexionSerial implements SerialPortEventListener{
 //
 //            input = new BufferedReader(new InputStreamReader(serialPort.getInputStream()));
 //            output = serialPort.getOutputStream();
-            ino.arduinoTX("COM6", DATA_RATE);
+            ino.arduinoTX("COM5", DATA_RATE);
 //
 //            serialPort.addEventListener(this);
 //            serialPort.notifyOnDataAvailable(true);
@@ -83,12 +83,16 @@ public class ConexionSerial implements SerialPortEventListener{
     
     public void serialStart(){
         try {
-            ino.sendData("1");  
-            
+            ino.sendData("1");
         } catch (ArduinoException|SerialPortException ex) {
         }
     }
-    
+    public void serialSucces(){
+        try {
+            ino.sendData("2");
+        } catch (ArduinoException | SerialPortException ex) {
+        }
+    }
     public String[] getDataInput() {
         return tempData;
     }

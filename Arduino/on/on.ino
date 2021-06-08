@@ -5,7 +5,6 @@ void setup() {
 }
 
 void loop() {
-
   if(Serial.available()>0){
    int input = Serial.read();
     if(input=='1'){

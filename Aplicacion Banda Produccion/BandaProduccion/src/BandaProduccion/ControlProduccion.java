@@ -468,6 +468,7 @@ public class ControlProduccion extends javax.swing.JFrame {
                 if (_cajasValores[0] >1) {
                     entrada++;
                     if (_cajasValores[1] >20) {
+                        res.serialSucces();
                         salida++; 
                     } else {
                         piston = 1;
@@ -504,6 +505,7 @@ public class ControlProduccion extends javax.swing.JFrame {
         txtIngresados.setText("");
         txtDefectuosos.setText("");
         txtSalida.setText("");
+        btnIniciar.setText("Iniciar");
         this.jPanelChartVelocidad.setLayout(null);
         this.jPanelChartPiston.setLayout(null);
         graficarDatos();
@@ -519,7 +521,6 @@ public class ControlProduccion extends javax.swing.JFrame {
     }
     private void desactivar_Todo(){
         detener();
-        btnIniciar.setText("Iniciar");
         usuarioConectado.stop();   
         limpiarCampos();
         Salir();
@@ -543,7 +544,6 @@ public class ControlProduccion extends javax.swing.JFrame {
         if (timer.isRunning()) {
             timer.stop();
         }
-        btnIniciar.setText("Iniciar");
         limpiarCampos();
         Salir();
     }//GEN-LAST:event_btnSalirActionPerformed

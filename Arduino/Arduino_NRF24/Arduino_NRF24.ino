@@ -3,7 +3,7 @@
 #include <nRF24L01.h>
 #include <RF24.h>
 
-#define CE_PIN 9
+#define CE_PIN 8
 #define CSN_PIN 10
 
 //ledd
@@ -40,7 +40,7 @@ void loop() {
   
   bool input= radio.write(&datos, sizeof(unsigned long));
   
-  if(!input){
+  if(input){
     Serial.println(datos[0]);
     Serial.println(datos[1]);
     Serial.println(datos[2]);
@@ -49,5 +49,5 @@ void loop() {
   }
     
   
-  delay(100);
+  delay(1000);
 }
