@@ -1,1 +1,0 @@
-en propiedades del proyecto te vas a run y cambia la direccion de datos de este dll
