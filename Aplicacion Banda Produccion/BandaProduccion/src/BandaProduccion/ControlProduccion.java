@@ -513,9 +513,9 @@ public class ControlProduccion extends javax.swing.JFrame {
                 piston = 0;
                 velocidad = 400;
                 res.serialStart();
-                if (_cajasValores[0] > 1) {
+                if (_cajasValores[0]== 1) {//si aparece un solo bote de color naranja
                     entrada++;
-                    if (_cajasValores[1] > gradoAceptacion) {
+                    if (_cajasValores[1] >= gradoAceptacion) {//umbral 
                         res.serialSucces();
                         salida++;
                     } else {
@@ -524,6 +524,8 @@ public class ControlProduccion extends javax.swing.JFrame {
                         defectuosos++;
                         res.serialStop();
                     }
+                }else{
+                    res.serialChecking();
                 }
                 try {
                     ps = new Producciones();

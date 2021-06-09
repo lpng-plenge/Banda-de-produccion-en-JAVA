@@ -26,7 +26,7 @@ public class DeteccionCajas implements Runnable {
     double negro = 0, blanco = 0, total = 0, rango = 80;//defectuoso 
     private double[] value = new double[2];
     // Harscascade
-    public static String sources = "D:\\Usuarios\\Luis Pablo Personal y Creativo\\Documentos\\GitHub\\JAVA-Banda-Produccion\\haarcascades\\cascade.xml"; //fotografias xml
+    public static String sources = "D:\\Usuarios\\Luis Pablo Personal y Creativo\\Documentos\\GitHub\\JAVA-Banda-Produccion\\haarcascades\\starbucksCoffe.xml"; //fotografias xml
     CascadeClassifier faceDetector = new CascadeClassifier(sources);
 
     @Override
@@ -65,15 +65,15 @@ public class DeteccionCajas implements Runnable {
                     //Procesos de reconocimiento
                     g = ControlProduccion.jPanelVideo.getGraphics();
                     Imgproc.cvtColor(frame, frame_gray, Imgproc.COLOR_BGR2GRAY);
-                    Imgproc.equalizeHist(frame_gray, frame_gray);
+                    //Imgproc.equalizeHist(frame_gray, frame_gray);
 
                     faceDetector.detectMultiScale(frame_gray, rostros,
-                            //                            1.1,
-                            //                            2,
-                            6,
-                            91,
-                            0,
-                            new Size(100, 100)
+                            9, //PORCENTAJE DE REDUCCION 1=10% < porcentaje > analisis > mas muestras
+                            270,//numero de cuadro limitadores observados para ser el objeto (mas valor<menos identificaciones)
+                            //5,
+                            //25,
+                            1,
+                            new Size(70,78) //tamaño min del onjeto para ser identificado
                     );
                     facesArray = rostros.toArray();
                     //System.out.println("Numero de rostros" + facesArray.length);

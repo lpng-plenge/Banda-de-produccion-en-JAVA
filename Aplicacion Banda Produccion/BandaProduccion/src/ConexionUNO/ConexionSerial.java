@@ -44,6 +44,12 @@ public class ConexionSerial {
         } catch (ArduinoException | SerialPortException ex) {
         }
     }
+    public void serialChecking(){
+        try {
+            ino.sendData("3");
+        } catch (ArduinoException | SerialPortException ex) {
+        }
+    }
     public void arduinoConection(){
         try {
             ino.killArduinoConnection();
