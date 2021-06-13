@@ -506,14 +506,15 @@ public class ControlProduccion extends javax.swing.JFrame {
                 _activarDatos = true;
             }
             cs++;
+            res.serialStart();
             if (cs == 100) {
                 cs = 0;
                 ++seg;
                 _cajasValores = cajas.getValores();
                 piston = 0;
                 velocidad = 400;
-                res.serialStart();
                 if (_cajasValores[0]== 1) {//si aparece un solo bote de color naranja
+                    res.serialIn();
                     entrada++;
                     if (_cajasValores[1] >= gradoAceptacion) {//umbral 
                         res.serialSucces();
@@ -522,10 +523,8 @@ public class ControlProduccion extends javax.swing.JFrame {
                         piston = 1;
                         velocidad = 0;
                         defectuosos++;
-                        res.serialStop();
+                        res.serialDefectuoso();
                     }
-                }else{
-                    res.serialChecking();
                 }
                 try {
                     ps = new Producciones();
@@ -563,6 +562,7 @@ public class ControlProduccion extends javax.swing.JFrame {
 
     private void detener() {
         timer.stop();
+        res.serialStop();
         _activarVideo = false;
         _activarDatos = false;
         btnIniciar.setEnabled(true);

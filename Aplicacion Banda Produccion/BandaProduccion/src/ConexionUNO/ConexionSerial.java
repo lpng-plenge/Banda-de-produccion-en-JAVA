@@ -24,15 +24,13 @@ public class ConexionSerial {
             Logger.getLogger(ConexionSerial.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void serialStop(){
+    public void serialStop() {
         try {
             ino.sendData("0");
-        } catch (ArduinoException|SerialPortException ex) {
+        } catch (ArduinoException | SerialPortException ex) {
         }
     }
-    
-    public void serialStart(){
+    public void serialIn(){
         try {
             ino.sendData("1");
         } catch (ArduinoException|SerialPortException ex) {
@@ -44,12 +42,20 @@ public class ConexionSerial {
         } catch (ArduinoException | SerialPortException ex) {
         }
     }
-    public void serialChecking(){
+
+    public void serialDefectuoso() {
         try {
             ino.sendData("3");
         } catch (ArduinoException | SerialPortException ex) {
         }
     }
+    public void serialStart() {
+        try {
+            ino.sendData("4");
+        } catch (ArduinoException | SerialPortException ex) {
+        }
+    }
+   
     public void arduinoConection(){
         try {
             ino.killArduinoConnection();
