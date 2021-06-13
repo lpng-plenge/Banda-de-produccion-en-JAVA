@@ -57,7 +57,6 @@ public class DeteccionCajas implements Runnable {
                         uP = "0";
                     }
                     double porcentajeUmbral = Double.parseDouble(uP);
-                    long Umbral = 50000;
                     int[] color = new int[2];
                     color[0] = new Color(255, 255, 255).getRGB();
                     color[1] = new Color(0, 0, 0).getRGB();
@@ -73,7 +72,7 @@ public class DeteccionCajas implements Runnable {
                             //5,
                             //25,
                             1,
-                            new Size(70,78) //tamaño min del onjeto para ser identificado
+                            new Size(70, 78) //tamaño min del onjeto para ser identificado
                     );
                     facesArray = rostros.toArray();
                     //System.out.println("Numero de rostros" + facesArray.length);
@@ -116,17 +115,16 @@ public class DeteccionCajas implements Runnable {
                     //cambio de color de la imagen
                     for (int i = 0; i < buff.getWidth(); i++) {
                         for (int j = 0; j < buff.getHeight(); j++) {
-                            if (buff.getRGB(i, j) < (-Umbral * porcentajeUmbral * 2)) {
-                                //dar un cero
+                            //System.out.println(buff.getRGB(i, j)+",");
+                            if (buff.getRGB(i, j) < (-porcentajeUmbral * 2)) {
+                                //dar a color blanco
                                 buff.setRGB(i, j, color[0]);
-                                //activar el piston
                                 blanco++;
                             } else {
-                                buff.setRGB(i, j, color[1]);
                                 negro++;
                             }
                             total = negro + blanco;
-                            valores[1] = porcentaje(total, negro);
+                            valores[1] = porcentaje(total, blanco);
                         }
                     }
                     setValores(valores);
@@ -146,16 +144,15 @@ public class DeteccionCajas implements Runnable {
         if (!ControlProduccion._activarVideo) {
             capture.release();
             ControlProduccion.jPanelVideo.removeAll();
-            ControlProduccion.txtNumeroEncontradas.setText("");
-            ControlProduccion.txtPorcentaje.setText("");
+            ControlProduccion.txtNumeroEncontradas.setText("No. de Encontrados");
+            ControlProduccion.txtPorcentaje.setText("No. Pasantes");
         }
     }
 
-    public double porcentaje(double total, double negro) {
-        double porcentaje = (negro / total) * 100;
+    public double porcentaje(double total, double blanco) {
+        double porcentaje = (blanco / total) * 100;
         double pfinal = Math.round(porcentaje * 1000) / 1000;
         ControlProduccion.txtPorcentaje.setText(String.valueOf(pfinal));
-
         return pfinal;
     }
 

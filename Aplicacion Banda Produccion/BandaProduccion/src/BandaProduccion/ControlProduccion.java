@@ -78,6 +78,7 @@ public class ControlProduccion extends javax.swing.JFrame {
         kGradientPanel2 = new keeptoo.KGradientPanel();
         lbUmbral = new javax.swing.JLabel();
         lbAceptacion = new javax.swing.JLabel();
+        lbUmbral1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Produccion");
@@ -123,7 +124,7 @@ public class ControlProduccion extends javax.swing.JFrame {
             ControlProduccionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ControlProduccionPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtUsuarioEmpl, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+                .addComponent(txtUsuarioEmpl, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -276,9 +277,9 @@ public class ControlProduccion extends javax.swing.JFrame {
         jPanelGraficasLayout.setVerticalGroup(
             jPanelGraficasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelGraficasLayout.createSequentialGroup()
-                .addComponent(jPanelChartVelocidad, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                .addComponent(jPanelChartVelocidad, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanelChartPiston, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
+                .addComponent(jPanelChartPiston, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
 
@@ -358,7 +359,7 @@ public class ControlProduccion extends javax.swing.JFrame {
         txtUmbralPorcentaje.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtUmbralPorcentaje.setForeground(new java.awt.Color(112, 112, 112));
         txtUmbralPorcentaje.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txtUmbralPorcentaje.setText("90");
+        txtUmbralPorcentaje.setText("1400000");
         txtUmbralPorcentaje.setToolTipText("");
         txtUmbralPorcentaje.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(21, 127, 251)));
         txtUmbralPorcentaje.setMinimumSize(new java.awt.Dimension(200, 30));
@@ -375,14 +376,11 @@ public class ControlProduccion extends javax.swing.JFrame {
         );
         jPanelVideoLayout.setVerticalGroup(
             jPanelVideoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 548, Short.MAX_VALUE)
+            .addGap(0, 551, Short.MAX_VALUE)
         );
 
         txtNumeroEncontradas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtNumeroEncontradas.setText("No. de Encontrados");
-
-        txtPorcentaje.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtPorcentaje.setText("No. Pasantes");
 
         lbUmbral.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbUmbral.setText("Umbral:");
@@ -393,12 +391,18 @@ public class ControlProduccion extends javax.swing.JFrame {
         txtGradoAceptacion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtGradoAceptacion.setForeground(new java.awt.Color(112, 112, 112));
         txtGradoAceptacion.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txtGradoAceptacion.setText("90");
+        txtGradoAceptacion.setText("97");
         txtGradoAceptacion.setToolTipText("");
         txtGradoAceptacion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(21, 127, 251)));
         txtGradoAceptacion.setMinimumSize(new java.awt.Dimension(200, 30));
         txtGradoAceptacion.setName(""); // NOI18N
         txtGradoAceptacion.setPreferredSize(new java.awt.Dimension(120, 30));
+
+        lbUmbral1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbUmbral1.setText("Porcentaje actual:");
+
+        txtPorcentaje.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtPorcentaje.setText("No. Pasantes");
 
         javax.swing.GroupLayout kGradientPanel2Layout = new javax.swing.GroupLayout(kGradientPanel2);
         kGradientPanel2.setLayout(kGradientPanel2Layout);
@@ -407,9 +411,7 @@ public class ControlProduccion extends javax.swing.JFrame {
             .addGroup(kGradientPanel2Layout.createSequentialGroup()
                 .addGap(60, 60, 60)
                 .addComponent(txtNumeroEncontradas, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtPorcentaje, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addGap(18, 18, 18)
                 .addComponent(lbUmbral, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtUmbralPorcentaje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -417,7 +419,11 @@ public class ControlProduccion extends javax.swing.JFrame {
                 .addComponent(lbAceptacion, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtGradoAceptacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(203, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(lbUmbral1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtPorcentaje, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(87, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel2Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(jPanelVideo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -430,10 +436,11 @@ public class ControlProduccion extends javax.swing.JFrame {
                 .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lbAceptacion, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtGradoAceptacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtGradoAceptacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lbUmbral1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtPorcentaje, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtNumeroEncontradas, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtPorcentaje, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtUmbralPorcentaje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(lbUmbral, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -516,7 +523,7 @@ public class ControlProduccion extends javax.swing.JFrame {
                 if (_cajasValores[0]== 1) {//si aparece un solo bote de color naranja
                     res.serialIn();
                     entrada++;
-                    if (_cajasValores[1] >= gradoAceptacion) {//umbral 
+                    if (_cajasValores[1] == gradoAceptacion) {//umbral 
                         res.serialSucces();
                         salida++;
                     } else {
@@ -728,6 +735,7 @@ public class ControlProduccion extends javax.swing.JFrame {
     private keeptoo.KGradientPanel kGradientPanel2;
     private javax.swing.JLabel lbAceptacion;
     private javax.swing.JLabel lbUmbral;
+    private javax.swing.JLabel lbUmbral1;
     private javax.swing.JTextField txtDefectuosos;
     public static final javax.swing.JTextField txtGradoAceptacion = new javax.swing.JTextField();
     private javax.swing.JTextField txtIngresados;
