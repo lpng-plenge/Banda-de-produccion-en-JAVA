@@ -391,7 +391,7 @@ public class ControlProduccion extends javax.swing.JFrame {
         txtGradoAceptacion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtGradoAceptacion.setForeground(new java.awt.Color(112, 112, 112));
         txtGradoAceptacion.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txtGradoAceptacion.setText("97");
+        txtGradoAceptacion.setText("84");
         txtGradoAceptacion.setToolTipText("");
         txtGradoAceptacion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(21, 127, 251)));
         txtGradoAceptacion.setMinimumSize(new java.awt.Dimension(200, 30));
