@@ -465,17 +465,29 @@ public class ControlProduccion extends javax.swing.JFrame {
                 _cajasValores = cajas.getValores();
                 piston = 0;
                 velocidad = 400;
+<<<<<<< Updated upstream
                 res.serialStart();
                 if (_cajasValores[0] >1) {
                     entrada++;
                     if (_cajasValores[1] >20) {
+=======
+                if (_cajasValores[0] == 1) {//si aparece un solo bote de color naranja
+                    res.serialIn();
+                    entrada++;
+                    if (_cajasValores[1] <= gradoAceptacion) {//umbral 
+>>>>>>> Stashed changes
                         res.serialSucces();
                         salida++; 
                     } else {
+                        res.serialDefectuoso();
                         piston = 1;
                         velocidad = 0;
                         defectuosos++;
+<<<<<<< Updated upstream
                         res.serialStop();
+=======
+
+>>>>>>> Stashed changes
                     }
                 }
                 try {

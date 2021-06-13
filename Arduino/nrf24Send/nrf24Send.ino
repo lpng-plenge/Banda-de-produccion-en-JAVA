@@ -65,6 +65,7 @@ void loop() {
             Serial.println("fallo en recepcion");
           }
         }
+<<<<<<< Updated upstream
         break;
       case '0':
         digitalWrite(LED1, HIGH);
@@ -105,5 +106,63 @@ void loop() {
         }
         break;
     }
+=======
+      }
+
+      break;
+    case '2'://Salida
+      digitalWrite(LED1, LOW);
+      digitalWrite(LED2, HIGH);
+      digitalWrite(LED3, LOW);
+      if (nrf24.available()) {
+        uint8_t buf[RH_NRF24_MAX_MESSAGE_LEN];
+        uint8_t len = sizeof(buf);
+        if (nrf24.recv(buf, &len))
+        {
+          Serial.print("Computadora: ");
+          Serial.println((char*)buf);
+          uint8_t data2[] = "Salida";
+          nrf24.send(data2, sizeof(data2));
+          nrf24.waitPacketSent();
+        } else {
+          Serial.println("fallo en recepcion");
+        }
+      }
+
+      break;
+    case '3'://Defectuoso
+      digitalWrite(LED1, LOW);
+      digitalWrite(LED2, LOW);
+      digitalWrite(LED3, HIGH);
+      digitalWrite(LED5, LOW);
+      if (nrf24.available()) {
+        uint8_t buf[RH_NRF24_MAX_MESSAGE_LEN];
+        uint8_t len = sizeof(buf);
+        if (nrf24.recv(buf, &len))
+        {
+          Serial.print("Computadora: ");
+          Serial.println((char*)buf);
+          uint8_t data3[] = "Defectuoso";
+          nrf24.send(data3, sizeof(data3));
+          nrf24.waitPacketSent();
+        } else {
+          Serial.println("fallo en recepcion");
+        }
+      }
+      delay(500);
+      break;
+    case '0'://Banda Apagada
+      digitalWrite(LED1, LOW);
+      digitalWrite(LED2, LOW);
+      digitalWrite(LED3, LOW);
+      digitalWrite(LED5, LOW); 
+    break;
+    default://Banda Prendida
+      digitalWrite(LED1, LOW);
+      digitalWrite(LED2, LOW);
+      digitalWrite(LED3, LOW);
+      digitalWrite(LED5, HIGH);
+    return;
+>>>>>>> Stashed changes
   }
 }
