@@ -24,7 +24,6 @@ public class ControlProduccion extends javax.swing.JFrame {
     String empleado = txtUsuarioEmpl.getText();
     public static boolean _cambioPestana = false, _activarVideo, _activarDatos;
     double[] _cajasValores = new double[2];
-    double gradoAceptacion = 97;//a partir de las 3 de la tarde
     //clases
     ConexionSerial res;
     GraphicsX ObGraphicsX;
@@ -77,8 +76,6 @@ public class ControlProduccion extends javax.swing.JFrame {
         jPanelChartPiston = new javax.swing.JPanel();
         kGradientPanel2 = new keeptoo.KGradientPanel();
         lbUmbral = new javax.swing.JLabel();
-        lbAceptacion = new javax.swing.JLabel();
-        lbUmbral1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Produccion");
@@ -359,7 +356,7 @@ public class ControlProduccion extends javax.swing.JFrame {
         txtUmbralPorcentaje.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtUmbralPorcentaje.setForeground(new java.awt.Color(112, 112, 112));
         txtUmbralPorcentaje.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txtUmbralPorcentaje.setText("1400000");
+        txtUmbralPorcentaje.setText("34477");
         txtUmbralPorcentaje.setToolTipText("");
         txtUmbralPorcentaje.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(21, 127, 251)));
         txtUmbralPorcentaje.setMinimumSize(new java.awt.Dimension(200, 30));
@@ -385,25 +382,6 @@ public class ControlProduccion extends javax.swing.JFrame {
         lbUmbral.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbUmbral.setText("Umbral:");
 
-        lbAceptacion.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lbAceptacion.setText("Grado de aceptacion:");
-
-        txtGradoAceptacion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtGradoAceptacion.setForeground(new java.awt.Color(112, 112, 112));
-        txtGradoAceptacion.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txtGradoAceptacion.setText("84");
-        txtGradoAceptacion.setToolTipText("");
-        txtGradoAceptacion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(21, 127, 251)));
-        txtGradoAceptacion.setMinimumSize(new java.awt.Dimension(200, 30));
-        txtGradoAceptacion.setName(""); // NOI18N
-        txtGradoAceptacion.setPreferredSize(new java.awt.Dimension(120, 30));
-
-        lbUmbral1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lbUmbral1.setText("Porcentaje actual:");
-
-        txtPorcentaje.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtPorcentaje.setText("No. Pasantes");
-
         javax.swing.GroupLayout kGradientPanel2Layout = new javax.swing.GroupLayout(kGradientPanel2);
         kGradientPanel2.setLayout(kGradientPanel2Layout);
         kGradientPanel2Layout.setHorizontalGroup(
@@ -415,15 +393,7 @@ public class ControlProduccion extends javax.swing.JFrame {
                 .addComponent(lbUmbral, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtUmbralPorcentaje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(lbAceptacion, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtGradoAceptacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(lbUmbral1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtPorcentaje, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(87, Short.MAX_VALUE))
+                .addContainerGap(642, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel2Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(jPanelVideo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -433,16 +403,10 @@ public class ControlProduccion extends javax.swing.JFrame {
             kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel2Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lbAceptacion, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtGradoAceptacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lbUmbral1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtPorcentaje, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtNumeroEncontradas, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtUmbralPorcentaje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lbUmbral, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNumeroEncontradas, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtUmbralPorcentaje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbUmbral, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanelVideo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(26, 26, 26))
@@ -498,11 +462,6 @@ public class ControlProduccion extends javax.swing.JFrame {
     private ActionListener acciones = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
-            String gA = txtGradoAceptacion.getText();
-            if (gA.equals("")) {
-                gA = "0";
-            }
-            gradoAceptacion = Double.parseDouble(gA);
             if (_activarVideo && _activarDatos) {
 //                System.out.println("Bajo Control");
             } else {
@@ -523,7 +482,7 @@ public class ControlProduccion extends javax.swing.JFrame {
                 if (_cajasValores[0]== 1) {//si aparece un solo bote de color naranja
                     res.serialIn();
                     entrada++;
-                    if (_cajasValores[1] == gradoAceptacion) {//umbral 
+                    if (_cajasValores[1] >= 80) {//umbral 
                         res.serialSucces();
                         salida++;
                     } else {
@@ -733,14 +692,10 @@ public class ControlProduccion extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private keeptoo.KGradientPanel kGradientPanel1;
     private keeptoo.KGradientPanel kGradientPanel2;
-    private javax.swing.JLabel lbAceptacion;
     private javax.swing.JLabel lbUmbral;
-    private javax.swing.JLabel lbUmbral1;
     private javax.swing.JTextField txtDefectuosos;
-    public static final javax.swing.JTextField txtGradoAceptacion = new javax.swing.JTextField();
     private javax.swing.JTextField txtIngresados;
     public static final javax.swing.JLabel txtNumeroEncontradas = new javax.swing.JLabel();
-    public static final javax.swing.JLabel txtPorcentaje = new javax.swing.JLabel();
     private javax.swing.JTextField txtSalida;
     public static final javax.swing.JTextField txtUmbralPorcentaje = new javax.swing.JTextField();
     public static final javax.swing.JLabel txtUsuarioEmpl = new javax.swing.JLabel();

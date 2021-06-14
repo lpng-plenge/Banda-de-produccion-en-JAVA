@@ -116,7 +116,7 @@ public class DeteccionCajas implements Runnable {
                     for (int i = 0; i < buff.getWidth(); i++) {
                         for (int j = 0; j < buff.getHeight(); j++) {
                             //System.out.println(buff.getRGB(i, j)+",");
-                            if (buff.getRGB(i, j) < (-porcentajeUmbral * 2)) {
+                            if (buff.getRGB(i, j) < (-porcentajeUmbral)) {
                                 //dar a color blanco
                                 buff.setRGB(i, j, color[0]);
                                 blanco++;
@@ -145,14 +145,13 @@ public class DeteccionCajas implements Runnable {
             capture.release();
             ControlProduccion.jPanelVideo.removeAll();
             ControlProduccion.txtNumeroEncontradas.setText("No. de Encontrados");
-            ControlProduccion.txtPorcentaje.setText("No. Pasantes");
         }
     }
 
     public double porcentaje(double total, double blanco) {
         double porcentaje = (blanco / total) * 100;
         double pfinal = Math.round(porcentaje * 1000) / 1000;
-        ControlProduccion.txtPorcentaje.setText(String.valueOf(pfinal));
+        
         return pfinal;
     }
 
