@@ -17,8 +17,18 @@ public class ConexionSerial {
 
     public void initialize() {
         int i=0;
-        List<String> dato=ino.getSerialPorts();
-        String puertos=dato.get(i);
+        List<String> dato;
+        String puertos="";
+        try {
+            if(ino.isMessageAvailable()){
+                
+                dato=ino.getSerialPorts();
+                puertos=dato.get(i);
+            }
+        } catch (SerialPortException ex) {
+            
+        } catch (ArduinoException ex) {
+        }
         
         try {
             ino.arduinoTX(puertos, DATA_RATE);
