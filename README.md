@@ -1,9 +1,7 @@
-# JAVA-Banda-Produccion
- Banda de Produccion con IA
-
-Este es un "prototipo" de una banda de produccion que esta conectada a una base de datos.
-
-Cuenta con tres interfaces cada una de ellas tienen una tarea independiente.
-
-Para ejecutar el programa debemos estar en el archivo IniciarSesion.java.
-
+# JAVA-Production Convayor
+ Using OpenCV and JAVA.
+ 
+ The training was made in Python3 and the libraries of OpenCV.
+ You can only run this program if you have loaded the database that I have published in the files of this project (You can use Xammp). Feel free to change your local database.Cancel changes
+ 
+*You have to load all the packages I have posted.
